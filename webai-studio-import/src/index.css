@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-jakarta), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
-
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  
   --color-brand-surface: #131313;
   --color-brand-surface-dim: #131313;
   --color-brand-surface-bright: #3a3939;
@@ -14,22 +15,19 @@
   --color-brand-secondary-container: #a90111;
   --color-brand-tertiary: #fabd00;
   --color-brand-tertiary-container: #5a4200;
-
+  
   --shadow-neon-blue: 0 0 20px rgba(61, 77, 216, 0.25);
   --shadow-neon-red: 0 0 20px rgba(169, 1, 17, 0.25);
   --shadow-neon-glow-primary: 0 4px 20px rgba(189, 194, 255, 0.2);
 }
 
+/* Base style resets and customizations */
 body {
   background-color: #000000;
   color: #e5e2e1;
-  font-family: var(--font-jakarta), "Plus Jakarta Sans", sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   overflow-x: hidden;
   -webkit-tap-highlight-color: transparent;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 .glass-panel {
@@ -63,15 +61,16 @@ body {
   box-shadow: 0 0 0 1px #bdc2ff;
 }
 
+/* Custom Scrollbar hiding */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
-
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
+/* Active navigation item tab glow */
 .active-tab-glow {
   filter: drop-shadow(0 0 8px rgba(189, 194, 255, 0.6));
 }
@@ -98,13 +97,4 @@ body {
 
 .step-last::after {
   display: none;
-}
-
-@keyframes progress-bar {
-  0% { width: 0%; }
-  100% { width: 100%; }
-}
-
-.animate-progress {
-  animation: progress-bar 2.8s ease-in-out forwards;
 }

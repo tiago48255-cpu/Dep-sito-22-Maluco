@@ -1,0 +1,6 @@
+{
+  "name": "22 Maluco",
+  "description": "Depósito de Bebidas 24h - Entrega de bebidas geladas de forma rápida, fácil e segura.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
