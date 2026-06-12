@@ -48,7 +48,7 @@ export function LoginForm({ redirectTo = "/" }: LoginFormProps) {
           placeholder="seu@email.com"
           required
           autoComplete="email"
-          className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl py-3 px-4 text-white text-sm input-focus-ring placeholder:text-neutral-700 font-medium focus:outline-none"
+          className="input-ds w-full placeholder:text-neutral-700 font-medium"
         />
       </div>
 
@@ -64,7 +64,7 @@ export function LoginForm({ redirectTo = "/" }: LoginFormProps) {
           placeholder="••••••••"
           required
           autoComplete="current-password"
-          className="w-full bg-[#0A0A0A] border border-white/10 rounded-xl py-3 px-4 text-white text-sm input-focus-ring placeholder:text-neutral-700 font-medium focus:outline-none"
+          className="input-ds w-full placeholder:text-neutral-700 font-medium"
         />
       </div>
 
@@ -78,7 +78,7 @@ export function LoginForm({ redirectTo = "/" }: LoginFormProps) {
       <button
         type="submit"
         disabled={loading}
-        className="btn-gradient w-full py-3.5 rounded-xl text-white font-bold text-sm shadow-royal-glow flex items-center justify-center gap-2 cursor-pointer active:scale-[0.96] duration-150 disabled:opacity-60 disabled:cursor-not-allowed mt-1"
+        className="btn-royal w-full py-3.5 rounded-xl font-bold text-sm shadow-royal-glow flex items-center justify-center gap-2 cursor-pointer active:scale-[0.96] duration-150 disabled:opacity-60 disabled:cursor-not-allowed mt-1"
       >
         {loading ? "Entrando..." : "Entrar"}
       </button>

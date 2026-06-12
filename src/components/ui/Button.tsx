@@ -2,7 +2,7 @@
 
 import { type ButtonHTMLAttributes, forwardRef } from "react";
 
-type Variant = "primary" | "secondary" | "ghost" | "danger";
+type Variant = "primary" | "lavender" | "secondary" | "inverted" | "outlined" | "danger";
 type Size = "sm" | "md" | "lg";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -11,10 +11,16 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
 }
 
+// Mapped to the design-system button classes defined in globals.css.
+// `primary` is the royal (#1E2FBF) main CTA used across the references
+// (Adicionar / Confirmar pedido); the other variants expose the rest of
+// the documented design system (lavender / secondary / inverted / outlined).
 const variantClasses: Record<Variant, string> = {
-  primary: "btn-gradient shadow-royal-glow text-white",
-  secondary: "bg-brand-secondary-container hover:opacity-90 text-white",
-  ghost: "bg-transparent hover:bg-white/5 text-white border border-white/10",
+  primary: "btn-royal shadow-royal-glow",
+  lavender: "btn-primary",
+  secondary: "btn-secondary-ds",
+  inverted: "btn-inverted",
+  outlined: "btn-outlined-ds hover:bg-white/5",
   danger: "bg-red-700 hover:bg-red-800 text-white",
 };
 
