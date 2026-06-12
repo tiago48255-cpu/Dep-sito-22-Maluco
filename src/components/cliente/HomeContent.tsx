@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   MapPin, ShoppingCart, Search, Beer, Wine, Zap, Snowflake,
-  Coffee, Droplets, Package, ChevronRight, Plus, MessageCircle, Sparkles
+  Coffee, Droplets, Package, ChevronRight, Plus, MessageCircle, Sparkles, PartyPopper
 } from "lucide-react";
 import type { Product } from "@/lib/types/queries";
 import { useCartStore } from "@/hooks/useCart";
@@ -69,7 +69,7 @@ export function HomeContent({
           <MapPin className="w-5 h-5 text-brand-primary shrink-0" />
           <div className="flex flex-col min-w-0">
             <span className="text-[10px] text-neutral-400 font-bold uppercase tracking-wider leading-none">Entregar em:</span>
-            <span className="text-xs text-white truncate font-semibold mt-0.5">Caioaba, Nova Iguaçu</span>
+            <span className="text-xs text-white truncate font-semibold mt-0.5">Rua Exemplo, 123</span>
           </div>
         </div>
 
@@ -105,24 +105,26 @@ export function HomeContent({
         {!searchQuery && (
           <Link
             href="/categorias"
-            className="relative h-44 md:h-56 w-full rounded-2xl overflow-hidden flex items-center block"
-            style={{ background: "linear-gradient(135deg, #0a0a1a 0%, #1e2fbf20 50%, #0a0a0a 100%)" }}
+            className="relative h-44 md:h-56 w-full rounded-2xl overflow-hidden flex items-center block border border-white/5"
+            style={{ background: "radial-gradient(125% 125% at 88% 50%, rgba(229,57,53,0.30) 0%, rgba(120,18,14,0.18) 32%, #120a09 60%, #0a0a0a 100%)" }}
           >
-            <div className="absolute inset-0 shadow-neon-blue" />
+            {/* warm atmospheric glow + left-to-right vignette for text legibility */}
+            <div className="absolute -right-10 top-1/2 -translate-y-1/2 w-56 h-56 rounded-full bg-brand-secondary/25 blur-3xl pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent pointer-events-none" />
             <div className="flex flex-col justify-center px-6 md:px-10 z-10 flex-1">
-              <h2 className="text-xl md:text-3xl font-extrabold text-white leading-tight uppercase tracking-tight">
+              <h2 className="text-xl md:text-3xl font-extrabold text-white leading-tight uppercase tracking-tight drop-shadow-lg">
                 GELADA, RÁPIDA<br />E NA SUA CASA!
               </h2>
               <div className="flex items-center gap-2 mt-2.5">
                 <span className="bg-brand-secondary-container text-white px-2 py-0.5 rounded text-[10px] font-black tracking-wider uppercase">
                   24 HORAS
                 </span>
-                <span className="text-neutral-300 text-[11px] font-semibold">
+                <span className="text-neutral-200 text-[11px] font-semibold">
                   Entrega em minutos
                 </span>
               </div>
             </div>
-            <div className="relative w-32 h-36 md:w-44 md:h-44 shrink-0 mr-4 md:mr-8">
+            <div className="relative w-32 h-36 md:w-44 md:h-44 shrink-0 mr-4 md:mr-8 z-10 drop-shadow-2xl">
               <Image
                 src="/logo.png"
                 alt="22 Maluco"
@@ -250,7 +252,7 @@ export function HomeContent({
                     className="w-10 h-10 rounded-full border border-brand-primary text-brand-primary bg-transparent flex items-center justify-center hover:bg-brand-primary-container hover:text-white hover:border-brand-primary-container transition-all cursor-pointer shadow shrink-0"
                     disabled={product.stock_qty !== undefined && product.stock_qty <= 0}
                   >
-                    <Plus className="w-4 h-4" />
+                    <ShoppingCart className="w-4 h-4" />
                   </button>
                 </div>
               ))}
@@ -268,9 +270,9 @@ export function HomeContent({
         )}
 
         {!searchQuery && (
-          <div className="flex flex-col items-center justify-center py-6 opacity-35 select-none">
-            <Sparkles className="w-10 h-10 text-brand-primary animate-pulse" />
-            <p className="text-[11px] font-bold text-neutral-400 mt-2 text-center uppercase tracking-widest leading-relaxed">
+          <div className="flex flex-col items-center justify-center py-6 opacity-30 select-none">
+            <PartyPopper className="w-10 h-10 text-neutral-500 -rotate-12" />
+            <p className="text-[11px] font-bold text-neutral-500 mt-2 text-center uppercase tracking-widest leading-relaxed">
               Bebendo com moderação?<br />Não esqueça o gelo!
             </p>
           </div>
