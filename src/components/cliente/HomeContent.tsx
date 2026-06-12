@@ -28,7 +28,7 @@ function formatPrice(price: number) {
 function ProductImage({ src, alt }: { src: string | null; alt: string }) {
   if (src) {
     return (
-      <Image src={src} alt={alt} fill className="object-contain p-2" sizes="(max-width: 430px) 50vw, 215px" />
+      <Image src={src} alt={alt} fill className="object-contain p-2" sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw" />
     );
   }
   return (
@@ -58,14 +58,14 @@ export function HomeContent({
       )
     : products;
 
-  const featured = filtered.slice(0, 4);
-  const bestSellers = filtered.slice(4);
+  const featured = filtered.slice(0, 8);
+  const bestSellers = filtered.slice(8);
 
   return (
-    <div className="text-white min-h-screen pb-24">
+    <div className="text-white min-h-screen pb-24 md:pb-8">
       {/* Top App Bar */}
-      <header className="sticky top-0 z-40 bg-neutral-950/90 backdrop-blur-xl border-b border-white/5 px-5 py-3.5 flex justify-between items-center h-16 select-none">
-        <div className="flex items-center gap-2 max-w-[70%]">
+      <header className="page-header">
+        <div className="flex items-center gap-2 max-w-[70%] md:max-w-none">
           <MapPin className="w-5 h-5 text-brand-primary shrink-0" />
           <div className="flex flex-col min-w-0">
             <span className="text-[10px] text-neutral-400 font-bold uppercase tracking-wider leading-none">Entregar em:</span>
@@ -75,7 +75,7 @@ export function HomeContent({
 
         <Link
           href="/carrinho"
-          className="relative w-10 h-10 flex items-center justify-center rounded-full bg-neutral-900 border border-white/10 hover:border-brand-primary/45 transition-colors"
+          className="relative w-10 h-10 flex items-center justify-center rounded-full bg-neutral-900 border border-white/10 hover:border-brand-primary/45 transition-colors md:hidden"
         >
           <ShoppingCart className="w-4.5 h-4.5 text-white" />
           {cartCount > 0 && (
@@ -86,10 +86,10 @@ export function HomeContent({
         </Link>
       </header>
 
-      <main className="px-5 pt-5 space-y-6">
+      <main className="content-container pt-5 space-y-6">
         {/* Search */}
         <section>
-          <div className="relative">
+          <div className="relative max-w-2xl">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
             <input
               type="text"
@@ -105,12 +105,12 @@ export function HomeContent({
         {!searchQuery && (
           <Link
             href="/categorias"
-            className="relative h-44 w-full rounded-2xl overflow-hidden flex items-center block"
+            className="relative h-44 md:h-56 w-full rounded-2xl overflow-hidden flex items-center block"
             style={{ background: "linear-gradient(135deg, #0a0a1a 0%, #1e2fbf20 50%, #0a0a0a 100%)" }}
           >
             <div className="absolute inset-0 shadow-neon-blue" />
-            <div className="flex flex-col justify-center px-6 z-10 flex-1">
-              <h2 className="text-xl font-extrabold text-white leading-tight uppercase tracking-tight">
+            <div className="flex flex-col justify-center px-6 md:px-10 z-10 flex-1">
+              <h2 className="text-xl md:text-3xl font-extrabold text-white leading-tight uppercase tracking-tight">
                 GELADA, RÁPIDA<br />E NA SUA CASA!
               </h2>
               <div className="flex items-center gap-2 mt-2.5">
@@ -122,13 +122,13 @@ export function HomeContent({
                 </span>
               </div>
             </div>
-            <div className="relative w-32 h-36 shrink-0 mr-4">
+            <div className="relative w-32 h-36 md:w-44 md:h-44 shrink-0 mr-4 md:mr-8">
               <Image
                 src="/logo.png"
                 alt="22 Maluco"
                 fill
                 className="object-contain"
-                sizes="128px"
+                sizes="(max-width: 768px) 128px, 176px"
               />
             </div>
           </Link>
@@ -147,7 +147,7 @@ export function HomeContent({
                 <ChevronRight className="w-3.5 h-3.5" />
               </Link>
             </div>
-            <div className="flex gap-4 overflow-x-auto hide-scrollbar pb-1 -mx-5 px-5">
+            <div className="flex gap-4 overflow-x-auto md:flex-wrap md:overflow-visible hide-scrollbar pb-1 -mx-5 px-5 md:mx-0 md:px-0">
               {categories.map((cat) => (
                 <Link
                   key={cat}
@@ -179,7 +179,7 @@ export function HomeContent({
                 </Link>
               )}
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
               {featured.map((product) => (
                 <div
                   key={product.id}
@@ -225,7 +225,7 @@ export function HomeContent({
             <h3 className="text-sm font-bold tracking-wider uppercase text-neutral-400 mb-3">
               {searchQuery ? "Mais resultados" : "Mais vendidos"}
             </h3>
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {bestSellers.map((product) => (
                 <div
                   key={product.id}
@@ -262,7 +262,7 @@ export function HomeContent({
           <div className="flex flex-col items-center justify-center py-16 gap-4">
             <Beer className="w-12 h-12 text-neutral-700" />
             <p className="text-neutral-500 text-sm text-center">
-              Nenhum produto encontrado para "{searchQuery}"
+              Nenhum produto encontrado para &quot;{searchQuery}&quot;
             </p>
           </div>
         )}
@@ -282,7 +282,7 @@ export function HomeContent({
         href="https://wa.me/5521968979426"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-24 right-4 w-14 h-14 text-white rounded-full shadow-2xl flex items-center justify-center z-40 active:scale-90 transition-transform duration-200"
+        className="fixed bottom-24 md:bottom-8 right-4 md:right-8 w-14 h-14 text-white rounded-full shadow-2xl flex items-center justify-center z-40 active:scale-90 transition-transform duration-200"
         style={{ backgroundColor: "#25D366" }}
       >
         <MessageCircle className="w-7 h-7 fill-current" />

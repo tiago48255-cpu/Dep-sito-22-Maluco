@@ -27,8 +27,8 @@ export function ProductAddBar({ product }: { product: Product }) {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 p-4 bg-neutral-950/95 backdrop-blur-xl border-t border-white/5 z-50 flex justify-center">
-      <div className="w-full max-w-[430px] flex gap-3 items-center">
+    <div className="fixed bottom-0 left-0 right-0 p-4 bg-neutral-950/95 backdrop-blur-xl border-t border-white/5 z-50 flex justify-center md:hidden">
+      <div className="w-full flex gap-3 items-center">
         <div className="flex items-center bg-neutral-900 rounded-xl p-1 border border-white/5 h-14 select-none shadow shrink-0">
           <button
             onClick={() => setQty((q) => Math.max(1, q - 1))}

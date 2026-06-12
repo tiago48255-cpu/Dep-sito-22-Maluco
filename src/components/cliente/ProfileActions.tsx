@@ -16,6 +16,8 @@ import {
   Info,
   LogOut,
   ChevronRight,
+  ArrowLeft,
+  ShoppingCart,
 } from "lucide-react";
 
 interface ProfileActionsProps {
@@ -63,8 +65,33 @@ export function ProfileActions({ initialName, phone, userId }: ProfileActionsPro
     router.refresh();
   }
 
+  const items = useCartStore((s) => s.items);
+  const cartCount = items.reduce((sum, item) => sum + item.qty, 0);
+
   return (
-    <main className="px-5 pt-5 space-y-6 pb-8">
+    <>
+      <header className="page-header">
+        <Link
+          href="/"
+          className="text-neutral-400 hover:text-white hover:bg-neutral-900 rounded-full w-9 h-9 flex items-center justify-center transition-colors shrink-0"
+        >
+          <ArrowLeft className="w-5 h-5" />
+        </Link>
+        <h1 className="text-sm font-bold text-white flex-1 text-center -ml-9 pr-9">Meu perfil</h1>
+        <Link
+          href="/carrinho"
+          className="relative w-9 h-9 flex items-center justify-center rounded-full hover:bg-neutral-900 transition-colors shrink-0 text-neutral-400 hover:text-white"
+        >
+          <ShoppingCart className="w-5 h-5" />
+          {cartCount > 0 && (
+            <span className="absolute -top-1 -right-1 bg-brand-secondary text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold border border-black">
+              {cartCount}
+            </span>
+          )}
+        </Link>
+      </header>
+
+      <main className="content-container pt-5 space-y-6 pb-8 max-w-3xl">
       {/* Profile Card */}
       <section className="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden flex items-center gap-4 select-none">
         <div className="absolute -right-8 -top-8 w-28 h-28 bg-brand-primary-container/10 rounded-full blur-3xl pointer-events-none" />
@@ -223,5 +250,6 @@ export function ProfileActions({ initialName, phone, userId }: ProfileActionsPro
         </button>
       </section>
     </main>
+  </>
   );
 }

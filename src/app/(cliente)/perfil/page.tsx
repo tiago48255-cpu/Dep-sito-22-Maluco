@@ -17,9 +17,6 @@ export default async function PerfilPage() {
 
   return (
     <div className="text-white min-h-screen bg-black pb-24">
-      <header className="sticky top-0 z-40 bg-neutral-950/95 backdrop-blur-xl border-b border-white/5 px-5 py-3 flex items-center h-16 select-none">
-        <h1 className="text-base font-bold text-white">Meu perfil</h1>
-      </header>
       <ProfileActions
         initialName={profile?.name ?? "Usuário"}
         phone={profile?.phone ?? null}

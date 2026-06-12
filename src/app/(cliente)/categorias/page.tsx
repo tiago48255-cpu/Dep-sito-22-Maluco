@@ -115,7 +115,7 @@ export default async function CategoriasPage({
 
   return (
     <div className="text-white min-h-screen bg-black pb-24">
-      <header className="sticky top-0 z-40 bg-neutral-950/90 backdrop-blur-xl border-b border-white/5 px-5 py-3 flex items-center h-16 select-none">
+      <header className="page-header">
         <div className="flex flex-col text-left">
           <span className="text-[10px] text-neutral-400 font-bold uppercase tracking-widest leading-none">
             Explorar
@@ -124,17 +124,17 @@ export default async function CategoriasPage({
         </div>
       </header>
 
-      <main className="px-5 pt-5 pb-8 space-y-6">
-        <h2 className="text-2xl font-extrabold tracking-tight text-white leading-snug">
+      <main className="content-container pt-5 pb-8 space-y-6">
+        <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white leading-snug">
           O que vamos<br />beber hoje?
         </h2>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {/* Featured — full width */}
           {featured && featuredCfg && (
             <Link
               href={`/categorias?categoria=${featured}`}
-              className="col-span-2 glass-panel rounded-2xl overflow-hidden relative group cursor-pointer active:scale-[0.98] transition-transform duration-200 h-44"
+              className="col-span-2 md:col-span-3 lg:col-span-4 glass-panel rounded-2xl overflow-hidden relative group cursor-pointer active:scale-[0.98] transition-transform duration-200 h-44 md:h-56"
             >
               <div className={`absolute inset-0 bg-gradient-to-br ${featuredCfg.gradient}`} />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />

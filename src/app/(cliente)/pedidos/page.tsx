@@ -37,7 +37,7 @@ export default async function PedidosPage({
     .order("created_at", { ascending: false });
 
   if (status) {
-    query = query.eq("status", status);
+    query = query.eq("status", status as any);
   }
 
   const { data: orders } = await query as { data: OrderRow[] | null };
@@ -45,12 +45,12 @@ export default async function PedidosPage({
   return (
     <div className="text-white min-h-screen bg-black pb-24">
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-neutral-950/95 backdrop-blur-xl border-b border-white/5 px-5 py-3 flex items-center h-16 select-none">
+      <header className="page-header">
         <h1 className="text-base font-bold text-white">Meus pedidos</h1>
       </header>
 
       {/* Filter Tabs */}
-      <div className="flex gap-2 px-5 pt-4 overflow-x-auto hide-scrollbar">
+      <div className="flex gap-2 content-container pt-4 overflow-x-auto hide-scrollbar">
         {tabs.map((tab) => (
           <Link
             key={tab.value}
@@ -67,9 +67,9 @@ export default async function PedidosPage({
       </div>
 
       {/* Orders List */}
-      <main className="px-5 pt-4 space-y-3">
+      <main className="content-container pt-4">
         {orders && orders.length > 0 ? (
-          <>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {orders.map((order) => (
               <OrderCard
                 key={order.id}
@@ -87,7 +87,7 @@ export default async function PedidosPage({
                 total={order.total}
               />
             ))}
-          </>
+          </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-20 gap-4">
             <Receipt className="w-16 h-16 text-neutral-700" />

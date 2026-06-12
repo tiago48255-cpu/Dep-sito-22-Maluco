@@ -36,6 +36,7 @@ export interface Database {
           role?: UserRole;
           updated_at?: string;
         };
+        Relationships: [];
       };
       products: {
         Row: {
@@ -75,6 +76,7 @@ export interface Database {
           active?: boolean;
           updated_at?: string;
         };
+        Relationships: [];
       };
       orders: {
         Row: {
@@ -109,6 +111,22 @@ export interface Database {
           notes?: string | null;
           updated_at?: string;
         };
+        Relationships: [
+          {
+            foreignKeyName: "orders_motoboy_id_fkey";
+            columns: ["motoboy_id"];
+            isOneToOne: false;
+            referencedRelation: "motoboys";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "orders_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       order_items: {
         Row: {
@@ -126,6 +144,22 @@ export interface Database {
           price_at_time: number;
         };
         Update: never;
+        Relationships: [
+          {
+            foreignKeyName: "order_items_order_id_fkey";
+            columns: ["order_id"];
+            isOneToOne: false;
+            referencedRelation: "orders";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "order_items_product_id_fkey";
+            columns: ["product_id"];
+            isOneToOne: false;
+            referencedRelation: "products";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       motoboys: {
         Row: {
@@ -147,6 +181,7 @@ export interface Database {
           phone?: string;
           active?: boolean;
         };
+        Relationships: [];
       };
       stock_alerts: {
         Row: {
@@ -167,6 +202,15 @@ export interface Database {
           resolved?: boolean;
           resolved_at?: string | null;
         };
+        Relationships: [
+          {
+            foreignKeyName: "stock_alerts_product_id_fkey";
+            columns: ["product_id"];
+            isOneToOne: false;
+            referencedRelation: "products";
+            referencedColumns: ["id"];
+          }
+        ];
       };
     };
     Views: Record<string, never>;

@@ -10,7 +10,7 @@ export default async function AdminEstoquePage() {
     .from("products")
     .select("id, name, category, stock_qty, stock_min, active")
     .order("category")
-    .order("name");
+    .order("name") as { data: { id: string, name: string, category: string, stock_qty: number, stock_min: number, active: boolean }[] | null };
 
   const lowStock = (products ?? []).filter((p) => p.stock_qty <= p.stock_min);
 

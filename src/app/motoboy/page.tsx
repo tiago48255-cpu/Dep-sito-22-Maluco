@@ -33,7 +33,7 @@ export default async function MotoboyPage() {
       <div className="max-w-xl mx-auto">
         <h1 className="text-white font-bold text-2xl mb-2">Olá, {profile?.name}</h1>
         <p className="text-[#9999BB] text-sm mb-6">Seus pedidos para entrega</p>
-        <MotoboyOrders orders={orders ?? []} />
+        <MotoboyOrders orders={(orders as any) ?? []} />
       </div>
     </div>
   );

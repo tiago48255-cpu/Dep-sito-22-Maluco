@@ -2,6 +2,8 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { CheckoutForm } from "@/components/cliente/CheckoutForm";
 import type { Profile } from "@/lib/types/queries";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export default async function CheckoutPage() {
   const supabase = await createClient();
@@ -17,8 +19,14 @@ export default async function CheckoutPage() {
 
   return (
     <div className="text-white min-h-screen bg-black">
-      <header className="sticky top-0 z-40 bg-neutral-950/95 backdrop-blur-xl border-b border-white/5 px-5 py-3 flex items-center h-16 select-none">
-        <h1 className="text-base font-bold text-white">Checkout</h1>
+      <header className="page-header">
+        <Link
+          href="/carrinho"
+          className="text-neutral-400 hover:text-white hover:bg-neutral-900 rounded-full w-9 h-9 flex items-center justify-center transition-colors shrink-0"
+        >
+          <ArrowLeft className="w-5 h-5" />
+        </Link>
+        <h1 className="text-sm font-bold text-white flex-1 text-center -ml-9 pr-9">Checkout</h1>
       </header>
       <CheckoutForm profile={profile} />
     </div>

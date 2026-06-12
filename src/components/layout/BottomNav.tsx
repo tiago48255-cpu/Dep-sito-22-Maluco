@@ -19,8 +19,8 @@ export function BottomNav() {
   const cartCount = items.reduce((sum, item) => sum + item.qty, 0);
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 glass-nav border-t border-white/8 select-none">
-      <div className="max-w-[430px] mx-auto flex justify-around items-center pt-3 pb-5 px-3">
+    <nav className="fixed bottom-0 left-0 right-0 z-40 glass-nav border-t border-white/8 select-none md:hidden">
+      <div className="flex justify-around items-center pt-3 pb-5 px-3">
       {tabs.map(({ href, label, icon: Icon, match }) => {
         const isActive = match(pathname);
         const isCart = href === "/carrinho";

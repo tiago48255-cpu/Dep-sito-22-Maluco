@@ -3,7 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { StatusBadge } from "@/components/ui/Badge";
 import { OrderTracker } from "@/components/cliente/OrderTracker";
 import Link from "next/link";
-import { ArrowLeft, MapPin } from "lucide-react";
+import { ArrowLeft, MapPin, HelpCircle } from "lucide-react";
 import type { OrderStatus, PaymentMethod } from "@/lib/types/database";
 
 interface OrderWithItems {
@@ -52,24 +52,24 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
   return (
     <div className="text-white min-h-screen bg-black pb-24">
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-neutral-950/85 backdrop-blur-xl border-b border-white/5 px-5 py-3 flex items-center justify-between h-16 select-none">
-        <Link href="/pedidos" className="p-2 hover:bg-neutral-900 rounded-full transition-colors text-brand-primary">
+      <header className="page-header">
+        <Link href="/pedidos" className="p-2 hover:bg-neutral-900 rounded-full transition-colors text-neutral-400 hover:text-white shrink-0">
           <ArrowLeft className="w-5 h-5" />
         </Link>
-        <div className="flex flex-col items-center">
-          <span className="text-[10px] text-neutral-400 font-bold uppercase tracking-widest leading-none">Pedido</span>
-          <span className="text-xs font-bold text-white mt-1">#{shortId}</span>
+        <div className="flex flex-col items-center flex-1 text-center">
+          <span className="text-sm font-bold text-white leading-none">Pedido #{shortId}</span>
+          <span className="text-[10px] text-neutral-400 font-semibold mt-1">Realizado em {createdAt}</span>
         </div>
-        <StatusBadge status={order.status} />
+        <a href="https://wa.me/5521968979426" target="_blank" rel="noopener noreferrer" className="p-2 text-neutral-400 hover:text-white transition-colors shrink-0">
+          <HelpCircle className="w-5 h-5" />
+        </a>
       </header>
-
-      <p className="text-center text-neutral-500 text-xs py-3">{createdAt}</p>
 
       {/* Realtime Tracker */}
       <OrderTracker status={order.status} orderId={id} />
 
       {/* Order Items */}
-      <div className="glass-panel mx-5 mt-3 rounded-2xl p-4">
+      <div className="glass-panel content-container mt-3 rounded-2xl p-4">
         <h3 className="text-xs font-black uppercase tracking-wider text-neutral-400 mb-3">Itens do pedido</h3>
         <div className="space-y-2">
           {order.order_items.map((item) => (
@@ -88,7 +88,7 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
       </div>
 
       {/* Delivery Info */}
-      <div className="glass-panel mx-5 mt-3 rounded-2xl p-4 flex items-start gap-3">
+      <div className="glass-panel content-container mt-3 rounded-2xl p-4 flex items-start gap-3">
         <MapPin className="w-4 h-4 text-brand-primary shrink-0 mt-0.5" />
         <div className="min-w-0">
           <p className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1">Endereço de entrega</p>

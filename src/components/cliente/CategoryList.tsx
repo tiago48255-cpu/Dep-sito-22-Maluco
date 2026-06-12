@@ -48,7 +48,7 @@ export function CategoryList({
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-neutral-950/90 backdrop-blur-xl border-b border-white/5 px-5 py-3 flex justify-between items-center h-16 select-none">
+      <header className="page-header">
         <div className="flex items-center gap-3">
           <Link
             href="/categorias"
@@ -77,7 +77,7 @@ export function CategoryList({
         </Link>
       </header>
 
-      <div className="px-5 pt-4">
+      <div className="content-container pt-4">
         <div className="relative">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
           <input
@@ -90,7 +90,7 @@ export function CategoryList({
         </div>
       </div>
 
-      <main className="px-5 pt-4 space-y-3 pb-8">
+      <main className="content-container pt-4 pb-8">
         {filtered.length === 0 ? (
           <div className="py-16 text-center">
             <Beer className="w-14 h-14 text-neutral-700 mx-auto mb-3" />
@@ -105,9 +105,10 @@ export function CategoryList({
             )}
           </div>
         ) : (
-          filtered.map((product) => (
-            <div
-              key={product.id}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            {filtered.map((product) => (
+              <div
+                key={product.id}
               className="bg-neutral-900/60 p-3 rounded-2xl border border-white/5 hover:border-white/10 transition-all flex gap-4"
             >
               <Link
@@ -142,7 +143,8 @@ export function CategoryList({
                 </div>
               </div>
             </div>
-          ))
+            ))}
+          </div>
         )}
       </main>
     </>
