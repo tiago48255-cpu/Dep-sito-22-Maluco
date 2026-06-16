@@ -48,7 +48,7 @@ export function OrderTracker({ status: initialStatus, orderId }: { status: Order
       <div className="glass-panel rounded-2xl p-6 text-center content-container mt-4">
         <p className="text-secondary font-bold text-body-md">Pedido cancelado</p>
         <p className="text-on-surface-variant text-body-sm mt-1">Entre em contato pelo WhatsApp</p>
-        <a href="{WHATSAPP_URL}" className="inline-flex items-center gap-2 mt-4 text-body-sm font-bold text-primary">
+        <a href={WHATSAPP_URL} className="inline-flex items-center gap-2 mt-4 text-body-sm font-bold text-primary">
           <Icon name="chat" className="text-lg" />
           Falar com a loja
         </a>
@@ -153,11 +153,14 @@ export function OrderTracker({ status: initialStatus, orderId }: { status: Order
                 <a href="tel:21968979426" className="w-9 h-9 bg-surface-container-high rounded-full flex items-center justify-center hover:bg-surface-container-highest transition-colors">
                   <Icon name="call" className="text-lg text-on-surface" />
                 </a>
-                <a href="{WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full flex items-center justify-center transition-colors" style={{ backgroundColor: "#25D366" }}>
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full flex items-center justify-center transition-colors" style={{ backgroundColor: "#25D366" }}>
                   <Icon name="chat" filled className="text-lg text-white" />
                 </a>
               </div>
             </div>
           )}
         </div>
-      
+      </div>
+    </>
+  );
+}

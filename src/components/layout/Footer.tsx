@@ -13,7 +13,7 @@ export function Footer() {
             A sua conveniência preferida na palma da mão. Entregamos a gelada onde você estiver, 24h por dia.
           </p>
           <div className="flex gap-4">
-            <a href="{WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
               <Icon name="chat" />
             </a>
             <a href="#" className="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
@@ -35,7 +35,7 @@ export function Footer() {
         <div>
           <h4 className="text-label-lg text-on-surface mb-6">Suporte</h4>
           <ul className="space-y-4">
-            <li><a href="{WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" className="text-body-sm text-on-surface-variant hover:text-primary transition-colors">Falar no WhatsApp</a></li>
+            <li><a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="text-body-sm text-on-surface-variant hover:text-primary transition-colors">Falar no WhatsApp</a></li>
             <li><span className="text-body-sm text-on-surface-variant">Entrega 24 horas</span></li>
             <li><span className="text-body-sm text-on-surface-variant">Caioaba, Nova Iguaçu</span></li>
           </ul>
@@ -62,3 +62,6 @@ export function Footer() {
           </span>
         </div>
       </div>
+    </footer>
+  );
+}

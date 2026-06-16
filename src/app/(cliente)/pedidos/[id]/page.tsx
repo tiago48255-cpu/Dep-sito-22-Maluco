@@ -61,7 +61,7 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
           <span className="text-body-sm font-bold text-on-surface leading-none">Pedido #{shortId}</span>
           <span className="text-label-sm text-on-surface-variant mt-1">Realizado em {createdAt}</span>
         </div>
-        <a href="{WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" className="p-2 text-on-surface-variant hover:text-on-surface transition-colors shrink-0">
+        <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="p-2 text-on-surface-variant hover:text-on-surface transition-colors shrink-0">
           <Icon name="help" className="text-xl" />
         </a>
       </header>
@@ -107,4 +107,8 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
             {paymentLabels[order.payment_method]}
             {order.change_for && ` · Troco pra R$ ${order.change_for.toFixed(2).replace(".", ",")}`}
           </p>
-        </d
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -7,6 +7,13 @@ import { createClient } from "@/lib/supabase/client";
 import type { Profile } from "@/lib/types/queries";
 import type { PaymentMethod } from "@/lib/types/database";
 import { MapPin, CreditCard, Landmark, Banknote, Smartphone } from "lucide-react";
+import Image from "next/image";
+
+interface PixData {
+  orderId: string;
+  qr_code: string;
+  qr_code_base64: string | null;
+}
 
 function formatPrice(value: number) {
   return value.toFixed(2).replace(".", ",");
@@ -24,6 +31,8 @@ export function CheckoutForm({ profile }: { profile: Profile | null }) {
   const { items, total, clear } = useCartStore();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [pixData, setPixData] = useState<PixData | null>(null);
+  const [copied, setCopied] = useState(false);
 
   const [address, setAddress] = useState(profile?.address_default ?? "");
   const [payment, setPayment] = useState<PaymentMethod>("pix");
@@ -82,8 +91,90 @@ export function CheckoutForm({ profile }: { profile: Profile | null }) {
       return;
     }
 
+    // PIX — gera cobrança e exibe QR Code; não redireciona imediatamente
+    if (payment === "pix") {
+      const pixRes = await fetch("/api/payments/pix", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orderId: order.id,
+          amount: finalTotal,
+          customerEmail: user.email ?? "cliente@22maluco.com",
+          customerName: profile?.name ?? "Cliente",
+        }),
+      });
+      if (pixRes.ok) {
+        const pixJson = await pixRes.json() as { qr_code: string; qr_code_base64: string | null };
+        clear();
+        setPixData({ orderId: order.id, qr_code: pixJson.qr_code, qr_code_base64: pixJson.qr_code_base64 });
+        setLoading(false);
+        return;
+      }
+      // Se MP falhar, continua fluxo normal (pedido já criado)
+      console.warn("[checkout] PIX API falhou — redirecionando sem QR");
+    }
+
     clear();
     router.push(`/pedidos/${order.id}`);
+  }
+
+  async function handleCopy(text: string) {
+    await navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
+  }
+
+  // ── Tela PIX ─────────────────────────────────────────────────────────────
+  if (pixData) {
+    return (
+      <div className="flex flex-col items-center gap-6 content-container pt-8 pb-16 max-w-md mx-auto text-center">
+        <div className="w-14 h-14 rounded-full bg-green-500/20 flex items-center justify-center">
+          <Smartphone className="w-7 h-7 text-green-400" />
+        </div>
+        <div>
+          <h2 className="text-white font-bold text-xl mb-1">Pague com PIX</h2>
+          <p className="text-neutral-400 text-sm">
+            Escaneie o QR Code ou copie o código. O pedido é confirmado automaticamente.
+          </p>
+        </div>
+
+        {pixData.qr_code_base64 ? (
+          <div className="glass-panel rounded-2xl p-4">
+            <Image
+              src={`data:image/png;base64,${pixData.qr_code_base64}`}
+              alt="QR Code PIX"
+              width={220}
+              height={220}
+              className="rounded-xl"
+            />
+          </div>
+        ) : (
+          <div className="glass-panel rounded-2xl p-6 text-neutral-400 text-sm">
+            QR Code indisponível — use o código abaixo.
+          </div>
+        )}
+
+        <div className="w-full glass-panel rounded-2xl p-4">
+          <p className="text-neutral-400 text-xs mb-2 uppercase tracking-wider font-semibold">Copia e cola</p>
+          <p className="text-white text-xs break-all font-mono leading-relaxed mb-3">{pixData.qr_code}</p>
+          <button
+            type="button"
+            onClick={() => handleCopy(pixData.qr_code)}
+            className="w-full btn-gradient text-white font-semibold text-sm py-3 rounded-xl transition-all active:scale-95"
+          >
+            {copied ? "✓ Copiado!" : "Copiar código PIX"}
+          </button>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => router.push(`/pedidos/${pixData.orderId}`)}
+          className="w-full py-3.5 rounded-xl border border-white/10 text-neutral-400 hover:text-white hover:border-white/20 text-sm font-medium transition-colors"
+        >
+          Já paguei — acompanhar pedido
+        </button>
+      </div>
+    );
   }
 
   return (

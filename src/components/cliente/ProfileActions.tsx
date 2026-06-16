@@ -167,4 +167,8 @@ export function ProfileActions({ initialName, phone, userId }: ProfileActionsPro
             <Icon name="logout" className="text-xl shrink-0" />
             <span>Sair da conta</span>
           </button>
-        </secti
+        </section>
+    </main>
+  </>
+  );
+}

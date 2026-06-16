@@ -317,4 +317,8 @@ export function HomeContent({ products, categories }: { products: Product[]; cat
 
       {/* FAB WhatsApp */}
       <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="fixed bottom-24 md:bottom-8 right-4 md:right-8 w-14 h-14 text-white rounded-full shadow-2xl flex items-center justify-center z-40 active:scale-90 transition-transform" style={{ backgroundColor: "#25D366" }} aria-label="Falar no WhatsApp">
-        <Icon name="chat" filled className="text-3
+        <Icon name="chat" filled className="text-3xl" />
+      </a>
+    </>
+  );
+}
