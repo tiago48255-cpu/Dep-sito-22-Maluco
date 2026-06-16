@@ -3,23 +3,29 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  MapPin, ShoppingCart, Search, Beer, Wine, Zap, Snowflake,
-  Coffee, Droplets, Package, ChevronRight, Plus, MessageCircle, Sparkles, PartyPopper
-} from "lucide-react";
+import { WHATSAPP_URL } from "@/lib/constants";
+import { Icon } from "@/components/ui/Icon";
 import type { Product } from "@/lib/types/queries";
 import { useCartStore } from "@/hooks/useCart";
 
-const categoryIcons: Record<string, React.ReactNode> = {
-  cerveja: <Beer className="w-6 h-6 text-brand-primary" />,
-  destilado: <Coffee className="w-6 h-6 text-brand-primary" />,
-  energético: <Zap className="w-6 h-6 text-brand-primary" />,
-  gelo: <Snowflake className="w-6 h-6 text-brand-primary" />,
-  refrigerante: <Droplets className="w-6 h-6 text-brand-primary" />,
-  água: <Droplets className="w-6 h-6 text-brand-primary" />,
-  vinho: <Wine className="w-6 h-6 text-brand-primary" />,
-  combo: <Package className="w-6 h-6 text-brand-primary" />,
+// Categoria do banco -> rótulo + ícone Material Symbols (design Nocturnal Pulse)
+const categoryMeta: Record<string, { label: string; icon: string }> = {
+  cerveja: { label: "Cervejas", icon: "sports_bar" },
+  whisky: { label: "Whisky", icon: "liquor" },
+  destilado: { label: "Destilados", icon: "local_bar" },
+  vinho: { label: "Vinhos", icon: "wine_bar" },
+  refrigerante: { label: "Refrigerantes", icon: "local_drink" },
+  energetico: { label: "Energéticos", icon: "bolt" },
+  gelo: { label: "Gelo & Carvão", icon: "ac_unit" },
+  cigarro: { label: "Cigarros", icon: "smoking_rooms" },
+  tabacaria: { label: "Tabacaria", icon: "grass" },
+  diversos: { label: "Diversos", icon: "shopping_basket" },
+  promocao: { label: "Promoções", icon: "sell" },
 };
+
+function metaFor(cat: string) {
+  return categoryMeta[cat.toLowerCase()] ?? { label: cat, icon: "local_bar" };
+}
 
 function formatPrice(price: number) {
   return price.toFixed(2).replace(".", ",");
@@ -27,24 +33,16 @@ function formatPrice(price: number) {
 
 function ProductImage({ src, alt }: { src: string | null; alt: string }) {
   if (src) {
-    return (
-      <Image src={src} alt={alt} fill className="object-contain p-2" sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw" />
-    );
+    return <Image src={src} alt={alt} fill className="object-cover" sizes="(max-width: 640px) 50vw, 320px" />;
   }
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full gap-2">
-      <Beer className="w-10 h-10 text-neutral-700" />
+    <div className="flex items-center justify-center w-full h-full">
+      <Icon name="sports_bar" className="text-4xl text-outline-variant" />
     </div>
   );
 }
 
-export function HomeContent({
-  products,
-  categories,
-}: {
-  products: Product[];
-  categories: string[];
-}) {
+export function HomeContent({ products, categories }: { products: Product[]; categories: string[] }) {
   const [searchQuery, setSearchQuery] = useState("");
   const add = useCartStore((s) => s.add);
   const items = useCartStore((s) => s.items);
@@ -58,237 +56,265 @@ export function HomeContent({
       )
     : products;
 
-  const featured = filtered.slice(0, 8);
-  const bestSellers = filtered.slice(8);
+  const addProduct = (p: Product) =>
+    add({ id: p.id, name: p.name, price: p.price, image_url: p.image_url ?? null });
+
+  // ============================ MOBILE ============================
+  const mFeatured = filtered.slice(0, 8);
+  const mBest = filtered.slice(8, 20);
+
+  // ============================ DESKTOP ===========================
+  const dFeatured = filtered.slice(0, 6);
+  const dBest = filtered.slice(6, 11);
 
   return (
-    <div className="text-white min-h-screen pb-24 md:pb-8">
-      {/* Top App Bar */}
-      <header className="page-header">
-        <div className="flex items-center gap-2 max-w-[70%] md:max-w-none">
-          <MapPin className="w-5 h-5 text-brand-primary shrink-0" />
-          <div className="flex flex-col min-w-0">
-            <span className="text-[10px] text-neutral-400 font-bold uppercase tracking-wider leading-none">Entregar em:</span>
-            <span className="text-xs text-white truncate font-semibold mt-0.5">Rua Exemplo, 123</span>
+    <>
+      {/* ============================ MOBILE ============================ */}
+      <div className="md:hidden text-on-surface min-h-screen pb-24">
+        <header className="page-header">
+          <div className="flex items-center gap-2 max-w-[70%]">
+            <Icon name="location_on" className="text-xl text-primary shrink-0" />
+            <div className="flex flex-col min-w-0">
+              <span className="text-label-sm text-on-surface-variant leading-none">Entregar em:</span>
+              <span className="text-label-md text-on-surface truncate mt-0.5">Rua Exemplo, 123</span>
+            </div>
           </div>
-        </div>
+          <Link href="/carrinho" className="relative active:scale-95">
+            <Icon name="shopping_cart" className="text-2xl text-on-surface" />
+            {cartCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-secondary-container text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">{cartCount}</span>
+            )}
+          </Link>
+        </header>
 
-        <Link
-          href="/carrinho"
-          className="relative w-10 h-10 flex items-center justify-center rounded-full bg-neutral-900 border border-white/10 hover:border-brand-primary/45 transition-colors md:hidden"
-        >
-          <ShoppingCart className="w-4.5 h-4.5 text-white" />
-          {cartCount > 0 && (
-            <span className="absolute -top-1 -right-1 bg-brand-secondary-container text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-black animate-pulse border border-black">
-              {cartCount}
-            </span>
+        <main className="content-container pt-5 space-y-xl max-w-[600px] mx-auto">
+          {/* Busca */}
+          <div className="relative group">
+            <Icon name="search" className="absolute left-4 top-1/2 -translate-y-1/2 text-xl text-on-surface-variant group-focus-within:text-primary transition-colors" />
+            <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Buscar bebidas, marcas..." className="w-full bg-surface-container border-none rounded-xl py-4 pl-12 pr-4 text-body-md text-on-surface placeholder:text-on-surface-variant/60 focus:ring-2 focus:ring-primary outline-none" />
+          </div>
+
+          {/* Banner */}
+          {!searchQuery && (
+            <Link href="/categorias?categoria=promocao" className="relative h-44 w-full rounded-2xl overflow-hidden block neon-blue-glow group">
+              <Image src="/stitch/banner-mobile.jpg" alt="" fill className="object-cover transition-transform duration-700 group-hover:scale-110" sizes="600px" />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+              <div className="absolute inset-0 flex flex-col justify-center px-6">
+                <h2 className="text-headline-lg-mobile text-white leading-tight">GELADA, RÁPIDA<br />E NA SUA CASA!</h2>
+                <div className="flex items-center gap-2 mt-2">
+                  <span className="bg-secondary-container text-white px-2 py-1 rounded-md text-[10px] font-bold">24 HORAS</span>
+                  <span className="text-on-surface text-label-md">Entrega em minutos</span>
+                </div>
+              </div>
+            </Link>
           )}
-        </Link>
-      </header>
 
-      <main className="content-container pt-5 space-y-6">
-        {/* Search */}
-        <section>
-          <div className="relative max-w-2xl">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Buscar bebidas, marcas..."
-              className="w-full bg-[#111] border-none text-white rounded-xl py-3.5 pl-11 pr-4 text-sm focus:ring-2 focus:ring-brand-primary transition-all duration-300 placeholder:text-neutral-600 font-medium outline-none"
-            />
-          </div>
-        </section>
+          {/* Categorias */}
+          {!searchQuery && categories.length > 0 && (
+            <section className="overflow-hidden">
+              <div className="flex justify-between items-end mb-md">
+                <h3 className="text-headline-sm">Categorias</h3>
+                <Link href="/categorias" className="text-primary text-label-md hover:underline flex items-center gap-0.5">Ver todas<Icon name="chevron_right" className="text-base" /></Link>
+              </div>
+              <div className="flex gap-md overflow-x-auto hide-scrollbar -mx-margin-mobile px-margin-mobile">
+                {categories.map((cat) => (
+                  <Link key={cat} href={`/categorias?categoria=${encodeURIComponent(cat)}`} className="flex flex-col items-center gap-2 shrink-0 group">
+                    <div className="w-20 h-20 rounded-2xl bg-surface-container-high flex items-center justify-center border border-white/5 group-hover:bg-primary-container transition-colors active:scale-95">
+                      <Icon name={metaFor(cat).icon} className="text-3xl text-primary group-hover:text-on-primary-container transition-colors" />
+                    </div>
+                    <span className="text-label-md text-on-surface-variant group-hover:text-primary transition-colors">{metaFor(cat).label}</span>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
 
-        {/* Promo Banner */}
-        {!searchQuery && (
-          <Link
-            href="/categorias"
-            className="relative h-44 md:h-56 w-full rounded-2xl overflow-hidden flex items-center block border border-white/5"
-            style={{ background: "radial-gradient(125% 125% at 88% 50%, rgba(229,57,53,0.30) 0%, rgba(120,18,14,0.18) 32%, #120a09 60%, #0a0a0a 100%)" }}
-          >
-            {/* warm atmospheric glow + left-to-right vignette for text legibility */}
-            <div className="absolute -right-10 top-1/2 -translate-y-1/2 w-56 h-56 rounded-full bg-brand-secondary/25 blur-3xl pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/20 to-transparent pointer-events-none" />
-            <div className="flex flex-col justify-center px-6 md:px-10 z-10 flex-1">
-              <h2 className="text-xl md:text-3xl font-extrabold text-white leading-tight uppercase tracking-tight drop-shadow-lg">
-                GELADA, RÁPIDA<br />E NA SUA CASA!
-              </h2>
-              <div className="flex items-center gap-2 mt-2.5">
-                <span className="bg-brand-secondary-container text-white px-2 py-0.5 rounded text-[10px] font-black tracking-wider uppercase">
-                  24 HORAS
-                </span>
-                <span className="text-neutral-200 text-[11px] font-semibold">
-                  Entrega em minutos
-                </span>
+          {/* Destaques grid */}
+          {mFeatured.length > 0 && (
+            <section>
+              <div className="flex justify-between items-end mb-md">
+                <h3 className="text-headline-sm">{searchQuery ? "Resultados" : "Destaques"}</h3>
+              </div>
+              <div className="grid grid-cols-2 gap-gutter">
+                {mFeatured.map((p) => (
+                  <div key={p.id} className="bg-surface-container-low rounded-2xl p-sm product-card-border group">
+                    <Link href={`/produto/${p.id}`}>
+                      <div className="h-40 w-full rounded-xl overflow-hidden mb-base bg-surface-container-lowest flex items-center justify-center relative">
+                        <ProductImage src={p.image_url ?? null} alt={p.name} />
+                      </div>
+                    </Link>
+                    <div className="flex flex-col gap-xs">
+                      <span className="text-label-md text-on-surface-variant truncate">{metaFor(p.category).label}</span>
+                      <Link href={`/produto/${p.id}`} className="text-body-sm font-bold text-on-surface truncate leading-tight hover:text-primary">{p.name}</Link>
+                      <div className="flex justify-between items-center mt-base">
+                        <span className="text-primary text-body-md font-bold">R$ {formatPrice(p.price)}</span>
+                        <button onClick={() => addProduct(p)} disabled={p.stock_qty <= 0} className="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center active:scale-95 disabled:opacity-40" aria-label={`Adicionar ${p.name}`}>
+                          <Icon name="add" className="text-xl" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Mais vendidos */}
+          {mBest.length > 0 && (
+            <section className="pb-base">
+              <h3 className="text-headline-sm mb-md">{searchQuery ? "Mais resultados" : "Mais vendidos"}</h3>
+              <div className="space-y-base">
+                {mBest.map((p) => (
+                  <div key={p.id} className="flex items-center gap-md bg-surface-container-lowest p-base rounded-xl border border-white/5">
+                    <Link href={`/produto/${p.id}`} className="w-20 h-20 rounded-lg overflow-hidden bg-surface-container-high flex items-center justify-center shrink-0 relative">
+                      <ProductImage src={p.image_url ?? null} alt={p.name} />
+                    </Link>
+                    <Link href={`/produto/${p.id}`} className="flex-1 min-w-0">
+                      <h4 className="text-body-md font-bold text-on-surface truncate leading-tight">{p.name}</h4>
+                      <p className="text-label-md text-on-surface-variant mt-0.5">{metaFor(p.category).label}</p>
+                      <span className="text-primary font-bold mt-1 block">R$ {formatPrice(p.price)}</span>
+                    </Link>
+                    <button onClick={() => addProduct(p)} disabled={p.stock_qty <= 0} className="w-10 h-10 rounded-full border border-primary text-primary flex items-center justify-center active:scale-95 disabled:opacity-40 shrink-0" aria-label={`Adicionar ${p.name}`}>
+                      <Icon name="shopping_basket" className="text-xl" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {filtered.length === 0 && (
+            <div className="flex flex-col items-center justify-center py-16 gap-4">
+              <Icon name="sports_bar" className="text-5xl text-outline-variant" />
+              <p className="text-on-surface-variant text-body-sm text-center">Nenhum produto encontrado.</p>
+            </div>
+          )}
+        </main>
+      </div>
+
+      {/* ============================ DESKTOP ============================ */}
+      <div className="hidden md:block text-on-surface">
+        <main className="max-w-[1440px] mx-auto px-8 pb-12">
+          {/* Hero */}
+          <section className="relative h-[480px] rounded-3xl overflow-hidden mb-12 shadow-2xl mt-6">
+            <Image src="/stitch/hero-home.jpg" alt="" fill className="object-cover" sizes="1440px" priority />
+            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent" />
+            <div className="relative h-full flex flex-col justify-center px-16 max-w-2xl">
+              <span className="inline-block px-4 py-1 rounded-full bg-secondary-container text-on-secondary-container text-label-lg mb-4 w-fit">ENTREGA EM 20 MIN</span>
+              <h1 className="text-[64px] font-extrabold leading-[1.1] text-on-surface mb-6 drop-shadow-lg tracking-tight">GELADA, RÁPIDA E NA SUA CASA!</h1>
+              <p className="text-body-lg text-on-surface-variant mb-8">As melhores bebidas do mundo, entregues na temperatura perfeita enquanto você aproveita o momento.</p>
+              <div className="flex gap-4">
+                <Link href="/categorias" className="bg-primary text-on-primary px-8 py-4 rounded-xl text-lg font-semibold flex items-center gap-2 hover:brightness-110 transition-all shadow-xl shadow-primary/20">
+                  Pedir Agora <Icon name="bolt" className="text-xl" />
+                </Link>
+                <Link href="/categorias?categoria=promocao" className="bg-surface/40 backdrop-blur-md border border-white/10 text-on-surface px-8 py-4 rounded-xl text-lg font-semibold hover:bg-surface/60 transition-all">
+                  Ver Promoções
+                </Link>
               </div>
             </div>
-            <div className="relative w-32 h-36 md:w-44 md:h-44 shrink-0 mr-4 md:mr-8 z-10 drop-shadow-2xl">
-              <Image
-                src="/logo.png"
-                alt="22 Maluco"
-                fill
-                className="object-contain"
-                sizes="(max-width: 768px) 128px, 176px"
-              />
-            </div>
-          </Link>
-        )}
+          </section>
 
-        {/* Categories */}
-        {!searchQuery && categories.length > 0 && (
-          <section className="overflow-hidden">
-            <div className="flex justify-between items-center mb-3">
-              <h3 className="text-sm font-bold tracking-wider uppercase text-neutral-400">Categorias</h3>
-              <Link
-                href="/categorias"
-                className="text-brand-primary text-xs font-semibold hover:underline flex items-center gap-0.5"
-              >
-                <span>Ver todas</span>
-                <ChevronRight className="w-3.5 h-3.5" />
-              </Link>
+          {/* Categorias chips */}
+          <section className="mb-12">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-headline-lg">Explorar Categorias</h2>
+              <Link href="/categorias" className="text-primary text-label-lg hover:underline underline-offset-4">Ver todas</Link>
             </div>
-            <div className="flex gap-4 overflow-x-auto md:flex-wrap md:overflow-visible hide-scrollbar pb-1 -mx-5 px-5 md:mx-0 md:px-0">
-              {categories.map((cat) => (
+            <div className="flex gap-4 overflow-x-auto pb-4 hide-scrollbar">
+              {categories.map((cat, i) => (
                 <Link
                   key={cat}
                   href={`/categorias?categoria=${encodeURIComponent(cat)}`}
-                  className="flex flex-col items-center gap-2 shrink-0 group"
+                  className={`min-w-[160px] flex flex-col items-center gap-3 p-6 rounded-2xl transition-all shadow-lg ${
+                    i === 0 ? "category-chip-active" : "bg-surface-container hover:bg-surface-container-high border border-outline-variant/10 text-on-surface"
+                  }`}
                 >
-                  <div className="w-20 h-20 rounded-2xl bg-neutral-900 flex items-center justify-center border border-white/5 group-hover:bg-brand-primary-container transition-all duration-300 active:scale-95 shadow-md">
-                    {categoryIcons[cat.toLowerCase()] ?? <Sparkles className="w-6 h-6 text-brand-primary" />}
-                  </div>
-                  <span className="text-xs text-neutral-400 font-bold tracking-tight group-hover:text-brand-primary transition-colors capitalize">
-                    {cat}
-                  </span>
+                  <Icon name={metaFor(cat).icon} filled={i === 0} className="text-3xl" />
+                  <span className="text-label-lg">{metaFor(cat).label}</span>
                 </Link>
               ))}
             </div>
           </section>
-        )}
 
-        {/* Featured Grid */}
-        {featured.length > 0 && (
-          <section>
-            <div className="flex justify-between items-center mb-3">
-              <h3 className="text-sm font-bold tracking-wider uppercase text-neutral-400">
-                {searchQuery ? "Resultados" : "Destaques"}
-              </h3>
-              {!searchQuery && (
-                <Link href="/categorias" className="text-brand-primary text-xs font-semibold hover:underline">
-                  Ver mais
-                </Link>
-              )}
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-              {featured.map((product) => (
-                <div
-                  key={product.id}
-                  className="bg-[#111] rounded-2xl p-3 border border-white/5 group transition-all hover:-translate-y-0.5"
-                >
-                  <Link href={`/produto/${product.id}`}>
-                    <div className="h-36 w-full rounded-xl overflow-hidden mb-3 bg-[#0a0a0a] flex items-center justify-center relative">
-                      <ProductImage src={product.image_url ?? null} alt={product.name} />
-                    </div>
-                  </Link>
-                  <div className="flex flex-col gap-1 text-left">
-                    <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest block truncate">
-                      {product.category}
-                    </span>
-                    <Link
-                      href={`/produto/${product.id}`}
-                      className="text-xs font-bold text-white text-left truncate leading-tight hover:text-brand-primary block"
-                    >
-                      {product.name}
-                    </Link>
-                    <div className="flex justify-between items-center mt-2">
-                      <span className="text-brand-primary text-sm font-black">
-                        R$ {formatPrice(product.price)}
-                      </span>
-                      <button
-                        onClick={() => add({ id: product.id, name: product.name, price: product.price, image_url: product.image_url ?? null })}
-                        className="w-8 h-8 rounded-full bg-brand-primary-container hover:bg-brand-inverse-primary text-white flex items-center justify-center hover:scale-110 transition-all border-none cursor-pointer"
-                        disabled={product.stock_qty !== undefined && product.stock_qty <= 0}
-                      >
-                        <Plus className="w-4 h-4" />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            {/* Destaques */}
+            <div className="lg:col-span-2">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-headline-lg">Destaques da Noite</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {dFeatured.map((p, i) => (
+                  <div key={p.id} className="group bg-surface-container-low rounded-3xl overflow-hidden border border-outline-variant/5 product-card-hover transition-all duration-300">
+                    <div className="relative h-64 overflow-hidden bg-surface-container-lowest">
+                      <Link href={`/produto/${p.id}`} className="block w-full h-full relative">
+                        <ProductImage src={p.image_url ?? null} alt={p.name} />
+                      </Link>
+                      {i === 0 && <div className="absolute top-4 left-4 bg-tertiary text-on-tertiary text-label-md px-3 py-1 rounded-full">DESTAQUE</div>}
+                      <button onClick={() => addProduct(p)} disabled={p.stock_qty <= 0} className="absolute bottom-4 right-4 bg-primary text-on-primary p-3 rounded-2xl shadow-xl active:scale-90 transition-transform disabled:opacity-40" aria-label={`Adicionar ${p.name}`}>
+                        <Icon name="add_shopping_cart" className="text-xl" />
                       </button>
                     </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Best Sellers List */}
-        {bestSellers.length > 0 && (
-          <section className="pb-8">
-            <h3 className="text-sm font-bold tracking-wider uppercase text-neutral-400 mb-3">
-              {searchQuery ? "Mais resultados" : "Mais vendidos"}
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {bestSellers.map((product) => (
-                <div
-                  key={product.id}
-                  className="flex items-center gap-3 bg-[#111] p-3 rounded-2xl border border-white/5 hover:bg-neutral-900 transition-colors cursor-pointer group"
-                >
-                  <Link href={`/produto/${product.id}`} className="w-20 h-20 rounded-xl overflow-hidden bg-[#0A0A0A] flex items-center justify-center shrink-0 border border-white/5 relative">
-                    <ProductImage src={product.image_url ?? null} alt={product.name} />
-                  </Link>
-                  <Link href={`/produto/${product.id}`} className="flex-1 min-w-0 text-left">
-                    <h4 className="text-xs font-bold text-white truncate group-hover:text-brand-primary transition-colors leading-tight">
-                      {product.name}
-                    </h4>
-                    <p className="text-[10px] text-neutral-400 mt-0.5 capitalize">{product.category}</p>
-                    <div className="flex items-center gap-2 mt-1.5">
-                      <span className="text-brand-primary text-xs font-black">
-                        R$ {formatPrice(product.price)}
-                      </span>
+                    <div className="p-6">
+                      <div className="flex justify-between items-start mb-2 gap-2">
+                        <Link href={`/produto/${p.id}`} className="text-headline-sm text-on-surface hover:text-primary leading-tight">{p.name}</Link>
+                        <div className="flex items-center text-tertiary shrink-0"><Icon name="star" filled className="text-sm mr-1" /><span className="text-label-md">4.8</span></div>
+                      </div>
+                      <p className="text-on-surface-variant text-body-sm mb-4 line-clamp-1">{p.description ?? metaFor(p.category).label}</p>
+                      <div className="flex items-center gap-3">
+                        <span className="text-primary text-headline-md">R$ {formatPrice(p.price)}</span>
+                      </div>
                     </div>
-                  </Link>
-                  <button
-                    onClick={() => add({ id: product.id, name: product.name, price: product.price, image_url: product.image_url ?? null })}
-                    className="w-10 h-10 rounded-full border border-brand-primary text-brand-primary bg-transparent flex items-center justify-center hover:bg-brand-primary-container hover:text-white hover:border-brand-primary-container transition-all cursor-pointer shadow shrink-0"
-                    disabled={product.stock_qty !== undefined && product.stock_qty <= 0}
-                  >
-                    <ShoppingCart className="w-4 h-4" />
-                  </button>
-                </div>
-              ))}
+                  </div>
+                ))}
+              </div>
             </div>
-          </section>
-        )}
 
-        {filtered.length === 0 && (
-          <div className="flex flex-col items-center justify-center py-16 gap-4">
-            <Beer className="w-12 h-12 text-neutral-700" />
-            <p className="text-neutral-500 text-sm text-center">
-              Nenhum produto encontrado para &quot;{searchQuery}&quot;
-            </p>
-          </div>
-        )}
+            {/* Sidebar */}
+            <aside className="space-y-8">
+              <div className="bg-surface-container p-8 rounded-3xl border border-outline-variant/10">
+                <h2 className="text-headline-md text-on-surface mb-6 flex items-center gap-2">Mais vendidos<Icon name="local_fire_department" className="text-tertiary" /></h2>
+                <div className="space-y-6">
+                  {dBest.map((p, i) => (
+                    <div key={p.id}>
+                      <div className="flex items-center gap-4 group">
+                        <Link href={`/produto/${p.id}`} className="relative w-20 h-20 rounded-2xl overflow-hidden shrink-0 bg-surface-container-high flex items-center justify-center">
+                          <ProductImage src={p.image_url ?? null} alt={p.name} />
+                        </Link>
+                        <div className="flex-grow min-w-0">
+                          <Link href={`/produto/${p.id}`} className="text-label-lg text-on-surface group-hover:text-primary transition-colors block truncate">{p.name}</Link>
+                          <p className="text-body-sm text-on-surface-variant truncate">{metaFor(p.category).label}</p>
+                          <div className="flex items-center justify-between mt-1">
+                            <span className="text-primary text-label-lg">R$ {formatPrice(p.price)}</span>
+                            <button onClick={() => addProduct(p)} disabled={p.stock_qty <= 0} className="text-on-surface-variant hover:text-primary transition-colors disabled:opacity-40" aria-label={`Adicionar ${p.name}`}>
+                              <Icon name="add_circle" className="text-xl" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      {i < dBest.length - 1 && <div className="h-px bg-outline-variant/10 mt-6" />}
+                    </div>
+                  ))}
+                </div>
+                <Link href="/categorias" className="block text-center w-full mt-8 py-4 border border-outline-variant/30 rounded-xl text-label-lg text-on-surface-variant hover:text-primary hover:border-primary transition-all active:scale-95">Ver catálogo completo</Link>
+              </div>
 
-        {!searchQuery && (
-          <div className="flex flex-col items-center justify-center py-6 opacity-30 select-none">
-            <PartyPopper className="w-10 h-10 text-neutral-500 -rotate-12" />
-            <p className="text-[11px] font-bold text-neutral-500 mt-2 text-center uppercase tracking-widest leading-relaxed">
-              Bebendo com moderação?<br />Não esqueça o gelo!
-            </p>
+              {/* Tracker promo */}
+              <div className="relative rounded-3xl overflow-hidden p-8 hero-gradient shadow-2xl">
+                <div className="absolute inset-0 opacity-20 pointer-events-none">
+                  <div className="absolute inset-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/20 via-transparent to-transparent animate-pulse-slow" />
+                </div>
+                <div className="relative z-10 text-on-primary">
+                  <Icon name="near_me" className="text-4xl mb-4" />
+                  <h3 className="text-headline-md mb-2">Onde está seu pedido?</h3>
+                  <p className="text-body-sm mb-6 text-on-primary-container">Acompanhe cada segundo da entrega em tempo real até a sua porta.</p>
+                  <Link href="/pedidos" className="block text-center w-full bg-white text-primary px-6 py-3 rounded-xl text-label-lg font-semibold hover:bg-opacity-90 transition-all">Rastrear Pedido</Link>
+                </div>
+              </div>
+            </aside>
           </div>
-        )}
-      </main>
+        </main>
+      </div>
 
       {/* FAB WhatsApp */}
-      <a
-        href="https://wa.me/5521968979426"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-24 md:bottom-8 right-4 md:right-8 w-14 h-14 text-white rounded-full shadow-2xl flex items-center justify-center z-40 active:scale-90 transition-transform duration-200"
-        style={{ backgroundColor: "#25D366" }}
-      >
-        <MessageCircle className="w-7 h-7 fill-current" />
-      </a>
-    </div>
-  );
-}
+      <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="fixed bottom-24 md:bottom-8 right-4 md:right-8 w-14 h-14 text-white rounded-full shadow-2xl flex items-center justify-center z-40 active:scale-90 transition-transform" style={{ backgroundColor: "#25D366" }} aria-label="Falar no WhatsApp">
+        <Icon name="chat" filled className="text-3

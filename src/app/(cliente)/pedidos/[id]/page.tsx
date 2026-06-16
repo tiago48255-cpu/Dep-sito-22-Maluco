@@ -3,8 +3,9 @@ import { notFound, redirect } from "next/navigation";
 import { StatusBadge } from "@/components/ui/Badge";
 import { OrderTracker } from "@/components/cliente/OrderTracker";
 import Link from "next/link";
-import { ArrowLeft, MapPin, HelpCircle } from "lucide-react";
+import { Icon } from "@/components/ui/Icon";
 import type { OrderStatus, PaymentMethod } from "@/lib/types/database";
+import { WHATSAPP_URL } from "@/lib/constants";
 
 interface OrderWithItems {
   id: string;
@@ -50,55 +51,60 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
   });
 
   return (
-    <div className="text-white min-h-screen bg-black pb-24">
-      {/* Header */}
-      <header className="page-header">
-        <Link href="/pedidos" className="p-2 hover:bg-neutral-900 rounded-full transition-colors text-neutral-400 hover:text-white shrink-0">
-          <ArrowLeft className="w-5 h-5" />
+    <div className="text-on-surface min-h-screen pb-24 md:pb-8">
+      {/* Header — mobile */}
+      <header className="page-header md:hidden">
+        <Link href="/pedidos" className="p-2 hover:bg-surface-container rounded-full transition-colors text-on-surface-variant hover:text-on-surface shrink-0">
+          <Icon name="arrow_back" className="text-xl" />
         </Link>
         <div className="flex flex-col items-center flex-1 text-center">
-          <span className="text-sm font-bold text-white leading-none">Pedido #{shortId}</span>
-          <span className="text-[10px] text-neutral-400 font-semibold mt-1">Realizado em {createdAt}</span>
+          <span className="text-body-sm font-bold text-on-surface leading-none">Pedido #{shortId}</span>
+          <span className="text-label-sm text-on-surface-variant mt-1">Realizado em {createdAt}</span>
         </div>
-        <a href="https://wa.me/5521968979426" target="_blank" rel="noopener noreferrer" className="p-2 text-neutral-400 hover:text-white transition-colors shrink-0">
-          <HelpCircle className="w-5 h-5" />
+        <a href="{WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" className="p-2 text-on-surface-variant hover:text-on-surface transition-colors shrink-0">
+          <Icon name="help" className="text-xl" />
         </a>
       </header>
+
+      {/* Título desktop */}
+      <div className="hidden md:flex content-container pt-8 items-center gap-3">
+        <Link href="/pedidos" className="text-primary hover:bg-surface-container rounded-full w-10 h-10 flex items-center justify-center transition-colors">
+          <Icon name="arrow_back" className="text-2xl" />
+        </Link>
+        <div>
+          <h1 className="text-headline-md text-on-surface">Pedido #{shortId}</h1>
+          <p className="text-label-md text-on-surface-variant">Realizado em {createdAt}</p>
+        </div>
+      </div>
 
       {/* Realtime Tracker */}
       <OrderTracker status={order.status} orderId={id} />
 
-      {/* Order Items */}
+      {/* Itens do pedido */}
       <div className="glass-panel content-container mt-3 rounded-2xl p-4">
-        <h3 className="text-xs font-black uppercase tracking-wider text-neutral-400 mb-3">Itens do pedido</h3>
+        <h3 className="text-label-lg uppercase tracking-wider text-on-surface-variant mb-3">Itens do pedido</h3>
         <div className="space-y-2">
           {order.order_items.map((item) => (
-            <div key={item.id} className="flex justify-between text-sm">
-              <span className="text-neutral-400">{item.qty}× {item.products?.name}</span>
-              <span className="text-white font-medium">
-                R$ {(item.price_at_time * item.qty).toFixed(2).replace(".", ",")}
-              </span>
+            <div key={item.id} className="flex justify-between text-body-sm">
+              <span className="text-on-surface-variant">{item.qty}× {item.products?.name}</span>
+              <span className="text-on-surface font-medium">R$ {(item.price_at_time * item.qty).toFixed(2).replace(".", ",")}</span>
             </div>
           ))}
         </div>
-        <div className="flex justify-between text-white font-black mt-3 pt-3 border-t border-white/5">
+        <div className="flex justify-between text-on-surface font-bold mt-3 pt-3 border-t border-white/5">
           <span>Total</span>
-          <span className="text-brand-primary">R$ {order.total.toFixed(2).replace(".", ",")}</span>
+          <span className="text-primary">R$ {order.total.toFixed(2).replace(".", ",")}</span>
         </div>
       </div>
 
-      {/* Delivery Info */}
+      {/* Endereço de entrega */}
       <div className="glass-panel content-container mt-3 rounded-2xl p-4 flex items-start gap-3">
-        <MapPin className="w-4 h-4 text-brand-primary shrink-0 mt-0.5" />
+        <Icon name="location_on" className="text-lg text-primary shrink-0 mt-0.5" />
         <div className="min-w-0">
-          <p className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1">Endereço de entrega</p>
-          <p className="text-white text-sm">{order.delivery_address}</p>
-          <p className="text-neutral-400 text-xs mt-1.5">
+          <p className="text-label-md uppercase tracking-wider text-on-surface-variant mb-1">Endereço de entrega</p>
+          <p className="text-on-surface text-body-sm">{order.delivery_address}</p>
+          <p className="text-on-surface-variant text-label-md mt-1.5">
             {paymentLabels[order.payment_method]}
             {order.change_for && ` · Troco pra R$ ${order.change_for.toFixed(2).replace(".", ",")}`}
           </p>
-        </div>
-      </div>
-    </div>
-  );
-}
+        </d

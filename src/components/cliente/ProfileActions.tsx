@@ -3,27 +3,35 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { WHATSAPP_URL } from "@/lib/constants";
 import { createClient } from "@/lib/supabase/client";
 import { useCartStore } from "@/hooks/useCart";
-import {
-  Edit3,
-  User,
-  MapPin,
-  CreditCard,
-  Receipt,
-  Tag,
-  Headphones,
-  Info,
-  LogOut,
-  ChevronRight,
-  ArrowLeft,
-  ShoppingCart,
-} from "lucide-react";
+import { Icon } from "@/components/ui/Icon";
 
 interface ProfileActionsProps {
   initialName: string;
   phone: string | null;
   userId: string;
+}
+
+function MenuRow({
+  icon,
+  label,
+  disabled,
+}: {
+  icon: string;
+  label: string;
+  disabled?: boolean;
+}) {
+  return (
+    <div className={`flex items-center justify-between p-4 ${disabled ? "opacity-40" : "hover:bg-surface-container transition-colors group"}`}>
+      <div className="flex items-center gap-3">
+        <Icon name={icon} className="text-xl text-primary shrink-0" />
+        <span className="text-body-sm font-medium text-on-surface">{label}</span>
+      </div>
+      <Icon name="chevron_right" className="text-lg text-on-surface-variant group-hover:translate-x-0.5 transition-transform" />
+    </div>
+  );
 }
 
 export function ProfileActions({ initialName, phone, userId }: ProfileActionsProps) {
@@ -34,13 +42,7 @@ export function ProfileActions({ initialName, phone, userId }: ProfileActionsPro
   const [typedName, setTypedName] = useState(initialName);
   const [saving, setSaving] = useState(false);
 
-  const initials = name
-    .trim()
-    .split(" ")
-    .slice(0, 2)
-    .map((w) => w[0])
-    .join("")
-    .toUpperCase();
+  const initials = name.trim().split(" ").slice(0, 2).map((w) => w[0]).join("").toUpperCase();
 
   async function handleSaveName() {
     const trimmed = typedName.trim();
@@ -70,186 +72,99 @@ export function ProfileActions({ initialName, phone, userId }: ProfileActionsPro
 
   return (
     <>
-      <header className="page-header">
-        <Link
-          href="/"
-          className="text-neutral-400 hover:text-white hover:bg-neutral-900 rounded-full w-9 h-9 flex items-center justify-center transition-colors shrink-0"
-        >
-          <ArrowLeft className="w-5 h-5" />
+      {/* Header — mobile */}
+      <header className="page-header md:hidden">
+        <Link href="/" className="text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-full w-9 h-9 flex items-center justify-center transition-colors shrink-0">
+          <Icon name="arrow_back" className="text-xl" />
         </Link>
-        <h1 className="text-sm font-bold text-white flex-1 text-center -ml-9 pr-9">Meu perfil</h1>
-        <Link
-          href="/carrinho"
-          className="relative w-9 h-9 flex items-center justify-center rounded-full hover:bg-neutral-900 transition-colors shrink-0 text-neutral-400 hover:text-white"
-        >
-          <ShoppingCart className="w-5 h-5" />
+        <h1 className="text-body-md font-bold text-on-surface flex-1 text-center -ml-9 pr-9">Meu perfil</h1>
+        <Link href="/carrinho" className="relative w-9 h-9 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors shrink-0 text-on-surface-variant hover:text-on-surface">
+          <Icon name="shopping_cart" className="text-xl" />
           {cartCount > 0 && (
-            <span className="absolute -top-1 -right-1 bg-brand-secondary text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold border border-black">
+            <span className="absolute -top-1 -right-1 bg-secondary-container text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold border border-black">
               {cartCount}
             </span>
           )}
         </Link>
       </header>
 
-      <main className="content-container pt-5 space-y-6 pb-8 max-w-3xl">
-      {/* Profile Card */}
-      <section className="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden flex items-center gap-4 select-none">
-        <div className="absolute -right-8 -top-8 w-28 h-28 bg-brand-primary-container/10 rounded-full blur-3xl pointer-events-none" />
+      <main className="content-container pt-5 md:pt-8 space-y-6 pb-8 max-w-3xl">
+        <h1 className="hidden md:block text-headline-lg text-on-surface">Meu perfil</h1>
 
-        <div className="relative shrink-0">
-          <div className="w-[72px] h-[72px] rounded-full border-2 border-brand-primary bg-brand-primary-container/30 flex items-center justify-center">
-            <span className="text-brand-primary font-black text-lg">{initials || "U"}</span>
-          </div>
-          <button
-            onClick={() => { setIsEditing(true); setTypedName(name); }}
-            className="absolute bottom-0 right-0 bg-brand-primary hover:bg-white text-black p-1 rounded-full border-2 border-neutral-950 transition-colors cursor-pointer"
-          >
-            <Edit3 className="w-3.5 h-3.5" />
-          </button>
-        </div>
+        {/* Card do perfil */}
+        <section className="glass-panel p-5 rounded-2xl border border-white/5 relative overflow-hidden flex items-center gap-4 select-none">
+          <div className="absolute -right-8 -top-8 w-28 h-28 bg-primary-container/10 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="flex-1 min-w-0">
-          {isEditing ? (
-            <div className="flex gap-2">
-              <input
-                type="text"
-                value={typedName}
-                onChange={(e) => setTypedName(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleSaveName()}
-                className="bg-black border border-white/10 rounded px-2 py-1 text-xs text-white focus:outline-none focus:border-brand-primary w-2/3"
-                autoFocus
-                disabled={saving}
-              />
-              <button
-                onClick={handleSaveName}
-                disabled={saving}
-                className="px-2 py-1 bg-brand-primary text-black font-extrabold text-[10px] uppercase rounded cursor-pointer disabled:opacity-50"
-              >
-                OK
-              </button>
+          <div className="relative shrink-0">
+            <div className="w-[72px] h-[72px] rounded-full border-2 border-primary bg-primary-container/30 flex items-center justify-center">
+              <span className="text-primary font-bold text-headline-sm">{initials || "U"}</span>
             </div>
-          ) : (
-            <h2 className="text-base font-extrabold text-white truncate leading-tight uppercase tracking-tight">
-              {name}
-            </h2>
-          )}
-          <p className="text-xs text-neutral-400 font-semibold mt-0.5">
-            {phone ?? "Sem telefone cadastrado"}
-          </p>
-        </div>
-      </section>
-
-      {/* Menu Groups */}
-      <section className="space-y-5">
-        {/* Conta */}
-        <div className="space-y-2">
-          <h3 className="text-[10px] font-black uppercase tracking-widest text-neutral-500 pl-1">
-            Conta
-          </h3>
-          <div className="glass-panel rounded-2xl overflow-hidden divide-y divide-white/5 border border-white/5">
             <button
               onClick={() => { setIsEditing(true); setTypedName(name); }}
-              className="w-full flex items-center justify-between p-4 hover:bg-neutral-900 transition-colors group bg-transparent border-none cursor-pointer"
+              className="absolute bottom-0 right-0 bg-primary hover:bg-white text-on-primary p-1 rounded-full border-2 border-background transition-colors cursor-pointer"
+              aria-label="Editar nome"
             >
-              <div className="flex items-center gap-3">
-                <User className="w-[18px] h-[18px] text-brand-primary shrink-0" />
-                <span className="text-xs font-semibold text-white">Meus dados</span>
-              </div>
-              <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:translate-x-0.5 transition-transform" />
-            </button>
-            <button
-              disabled
-              className="w-full flex items-center justify-between p-4 hover:bg-neutral-900 transition-colors group bg-transparent border-none cursor-pointer opacity-40"
-            >
-              <div className="flex items-center gap-3">
-                <MapPin className="w-[18px] h-[18px] text-brand-primary shrink-0" />
-                <span className="text-xs font-semibold text-white">Endereços salvos</span>
-              </div>
-              <ChevronRight className="w-4 h-4 text-neutral-500" />
-            </button>
-            <button
-              disabled
-              className="w-full flex items-center justify-between p-4 hover:bg-neutral-900 transition-colors group bg-transparent border-none cursor-pointer opacity-40"
-            >
-              <div className="flex items-center gap-3">
-                <CreditCard className="w-[18px] h-[18px] text-brand-primary shrink-0" />
-                <span className="text-xs font-semibold text-white">Formas de pagamento</span>
-              </div>
-              <ChevronRight className="w-4 h-4 text-neutral-500" />
+              <Icon name="edit" className="text-sm" />
             </button>
           </div>
-        </div>
 
-        {/* Atividade */}
-        <div className="space-y-2">
-          <h3 className="text-[10px] font-black uppercase tracking-widest text-neutral-500 pl-1">
-            Atividade
-          </h3>
-          <div className="glass-panel rounded-2xl overflow-hidden divide-y divide-white/5 border border-white/5">
-            <Link
-              href="/pedidos"
-              className="flex items-center justify-between p-4 hover:bg-neutral-900 transition-colors group"
-            >
-              <div className="flex items-center gap-3">
-                <Receipt className="w-[18px] h-[18px] text-brand-primary shrink-0" />
-                <span className="text-xs font-semibold text-white">Meus pedidos</span>
+          <div className="flex-1 min-w-0">
+            {isEditing ? (
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={typedName}
+                  onChange={(e) => setTypedName(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleSaveName()}
+                  className="bg-black border border-white/10 rounded px-2 py-1 text-body-sm text-on-surface focus:outline-none focus:border-primary w-2/3"
+                  autoFocus
+                  disabled={saving}
+                />
+                <button onClick={handleSaveName} disabled={saving} className="px-3 py-1 bg-primary text-on-primary font-bold text-label-md uppercase rounded cursor-pointer disabled:opacity-50">
+                  OK
+                </button>
               </div>
-              <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:translate-x-0.5 transition-transform" />
-            </Link>
-            <button
-              disabled
-              className="w-full flex items-center justify-between p-4 bg-transparent border-none cursor-pointer opacity-40"
-            >
-              <div className="flex items-center gap-3">
-                <Tag className="w-[18px] h-[18px] text-brand-primary shrink-0" />
-                <span className="text-xs font-semibold text-white">Meus cupons salvos</span>
-              </div>
-              <ChevronRight className="w-4 h-4 text-neutral-500" />
-            </button>
+            ) : (
+              <h2 className="text-body-md font-bold text-on-surface truncate leading-tight">{name}</h2>
+            )}
+            <p className="text-label-md text-on-surface-variant mt-0.5">{phone ?? "Sem telefone cadastrado"}</p>
           </div>
-        </div>
+        </section>
 
-        {/* Suporte */}
-        <div className="space-y-2">
-          <h3 className="text-[10px] font-black uppercase tracking-widest text-neutral-500 pl-1">
-            Suporte
-          </h3>
-          <div className="glass-panel rounded-2xl overflow-hidden divide-y divide-white/5 border border-white/5">
-            <a
-              href="https://wa.me/5521968979426"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center justify-between p-4 hover:bg-neutral-900 transition-colors group no-underline"
-            >
-              <div className="flex items-center gap-3">
-                <Headphones className="w-[18px] h-[18px] text-brand-primary shrink-0" />
-                <span className="text-xs font-semibold text-white">Suporte ao cliente 24h</span>
-              </div>
-              <ChevronRight className="w-4 h-4 text-neutral-500 group-hover:translate-x-0.5 transition-transform" />
-            </a>
-            <button
-              disabled
-              className="w-full flex items-center justify-between p-4 bg-transparent border-none cursor-pointer opacity-40"
-            >
-              <div className="flex items-center gap-3">
-                <Info className="w-[18px] h-[18px] text-brand-primary shrink-0" />
-                <span className="text-xs font-semibold text-white">Sobre o aplicativo</span>
-              </div>
-              <ChevronRight className="w-4 h-4 text-neutral-500" />
-            </button>
+        {/* Grupos de menu */}
+        <section className="space-y-5">
+          <div className="space-y-2">
+            <h3 className="text-label-md uppercase tracking-widest text-on-surface-variant pl-1">Conta</h3>
+            <div className="glass-panel rounded-2xl overflow-hidden divide-y divide-white/5 border border-white/5">
+              <button onClick={() => { setIsEditing(true); setTypedName(name); }} className="w-full bg-transparent border-none cursor-pointer text-left">
+                <MenuRow icon="person" label="Meus dados" />
+              </button>
+              <div className="cursor-not-allowed"><MenuRow icon="location_on" label="Endereços salvos" disabled /></div>
+              <div className="cursor-not-allowed"><MenuRow icon="credit_card" label="Formas de pagamento" disabled /></div>
+            </div>
           </div>
-        </div>
 
-        {/* Logout */}
-        <button
-          onClick={handleLogout}
-          className="w-full flex items-center justify-center gap-2.5 p-4 mt-2 text-brand-secondary border border-brand-secondary/20 rounded-xl hover:bg-brand-secondary/5 transition-all duration-150 cursor-pointer select-none active:scale-[0.98] font-bold text-xs uppercase tracking-wider"
-        >
-          <LogOut className="w-[18px] h-[18px] shrink-0" />
-          <span>Sair da conta</span>
-        </button>
-      </section>
-    </main>
-  </>
-  );
-}
+          <div className="space-y-2">
+            <h3 className="text-label-md uppercase tracking-widest text-on-surface-variant pl-1">Atividade</h3>
+            <div className="glass-panel rounded-2xl overflow-hidden divide-y divide-white/5 border border-white/5">
+              <Link href="/pedidos"><MenuRow icon="receipt_long" label="Meus pedidos" /></Link>
+              <div className="cursor-not-allowed"><MenuRow icon="sell" label="Meus cupons salvos" disabled /></div>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-label-md uppercase tracking-widest text-on-surface-variant pl-1">Suporte</h3>
+            <div className="glass-panel rounded-2xl overflow-hidden divide-y divide-white/5 border border-white/5">
+              <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="block no-underline"><MenuRow icon="headset_mic" label="Suporte ao cliente 24h" /></a>
+              <div className="cursor-not-allowed"><MenuRow icon="info" label="Sobre o aplicativo" disabled /></div>
+            </div>
+          </div>
+
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center justify-center gap-2.5 p-4 mt-2 text-secondary border border-secondary/20 rounded-xl hover:bg-secondary/5 transition-all duration-150 cursor-pointer select-none active:scale-[0.98] font-bold text-label-lg uppercase tracking-wider"
+          >
+            <Icon name="logout" className="text-xl shrink-0" />
+            <span>Sair da conta</span>
+          </button>
+        </secti

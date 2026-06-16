@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { CheckCircle2, Circle, Bike, Phone, MessageCircle, User } from "lucide-react";
+import { Icon } from "@/components/ui/Icon";
+import { WHATSAPP_URL } from "@/lib/constants";
 import type { OrderStatus } from "@/lib/types/database";
 
 const steps: { status: OrderStatus; label: string; description: string }[] = [
@@ -45,13 +46,10 @@ export function OrderTracker({ status: initialStatus, orderId }: { status: Order
   if (status === "cancelado") {
     return (
       <div className="glass-panel rounded-2xl p-6 text-center content-container mt-4">
-        <p className="text-brand-secondary font-bold text-base">Pedido cancelado</p>
-        <p className="text-neutral-400 text-sm mt-1">Entre em contato pelo WhatsApp</p>
-        <a
-          href="https://wa.me/5521968979426"
-          className="inline-flex items-center gap-2 mt-4 text-sm font-bold text-brand-primary"
-        >
-          <MessageCircle className="w-4 h-4" />
+        <p className="text-secondary font-bold text-body-md">Pedido cancelado</p>
+        <p className="text-on-surface-variant text-body-sm mt-1">Entre em contato pelo WhatsApp</p>
+        <a href="{WHATSAPP_URL}" className="inline-flex items-center gap-2 mt-4 text-body-sm font-bold text-primary">
+          <Icon name="chat" className="text-lg" />
           Falar com a loja
         </a>
       </div>
@@ -80,12 +78,12 @@ export function OrderTracker({ status: initialStatus, orderId }: { status: Order
             </div>
             {/* Floating status card */}
             <div className="absolute bottom-4 left-4 right-4 glass-panel rounded-xl p-3 flex items-center gap-3">
-              <div className="w-10 h-10 bg-brand-primary-container rounded-full flex items-center justify-center shrink-0">
-                <Bike className="w-5 h-5 text-brand-primary animate-pulse" />
+              <div className="w-10 h-10 bg-primary-container rounded-full flex items-center justify-center shrink-0">
+                <Icon name="sports_motorsports" className="text-xl text-primary animate-pulse" />
               </div>
               <div className="min-w-0">
-                <p className="text-white font-bold text-sm truncate">{activeStep.label}</p>
-                <p className="text-neutral-400 text-xs truncate">{activeStep.description}</p>
+                <p className="text-on-surface font-bold text-body-sm truncate">{activeStep.label}</p>
+                <p className="text-on-surface-variant text-label-md truncate">{activeStep.description}</p>
               </div>
             </div>
           </div>
@@ -95,7 +93,7 @@ export function OrderTracker({ status: initialStatus, orderId }: { status: Order
         <div className="md:w-[380px] md:shrink-0">
           {/* Timeline */}
           <div className="glass-panel mt-4 md:mt-0 rounded-2xl p-5">
-            <h3 className="text-xs font-black uppercase tracking-wider text-neutral-400 mb-4">Acompanhamento</h3>
+            <h3 className="text-label-lg uppercase tracking-wider text-on-surface-variant mb-4">Acompanhamento</h3>
             <div className="space-y-0">
               {steps.map((step, idx) => {
                 const done = idx < currentIdx;
@@ -113,23 +111,23 @@ export function OrderTracker({ status: initialStatus, orderId }: { status: Order
                     {/* Circle */}
                     <div className="shrink-0 w-6 h-6 flex items-center justify-center z-10 relative">
                       {done ? (
-                        <CheckCircle2 className="w-6 h-6 text-brand-primary" />
+                        <Icon name="check_circle" filled className="text-2xl text-primary" />
                       ) : active ? (
-                        <div className="w-6 h-6 rounded-full bg-brand-primary flex items-center justify-center">
+                        <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
                           <div className="w-2.5 h-2.5 bg-white rounded-full animate-pulse" />
                         </div>
                       ) : (
-                        <Circle className="w-6 h-6 text-neutral-700" />
+                        <Icon name="radio_button_unchecked" className="text-2xl text-outline-variant" />
                       )}
                     </div>
 
                     {/* Content */}
                     <div className={`flex-1 pt-0.5 ${inactive ? "opacity-30" : ""}`}>
-                      <p className={`text-sm font-bold ${active ? "text-white" : done ? "text-neutral-300" : "text-neutral-600"}`}>
+                      <p className={`text-body-sm font-bold ${active ? "text-on-surface" : done ? "text-on-surface-variant" : "text-on-surface-variant/60"}`}>
                         {step.label}
                       </p>
                       {(done || active) && (
-                        <p className="text-xs text-neutral-500 mt-0.5">{step.description}</p>
+                        <p className="text-label-md text-on-surface-variant mt-0.5">{step.description}</p>
                       )}
                     </div>
                   </div>
@@ -141,35 +139,25 @@ export function OrderTracker({ status: initialStatus, orderId }: { status: Order
           {/* Courier Card */}
           {(status === "saiu" || status === "entregue") && (
             <div className="glass-panel mt-3 rounded-2xl p-4 flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-neutral-800 border-2 border-brand-primary/30 flex items-center justify-center shrink-0">
-                <User className="w-6 h-6 text-neutral-400" />
+              <div className="w-12 h-12 rounded-full bg-surface-container-high border-2 border-primary/30 flex items-center justify-center shrink-0">
+                <Icon name="person" filled className="text-2xl text-on-surface-variant" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-black uppercase tracking-wider text-neutral-500">Entregador</p>
-                <p className="text-white font-bold text-sm">Entregador Parceiro</p>
-                <p className="text-xs text-neutral-500">⭐ 4.9 · 22 Maluco Express</p>
+                <p className="text-label-md uppercase tracking-wider text-on-surface-variant">Entregador</p>
+                <p className="text-on-surface font-bold text-body-sm">Entregador Parceiro</p>
+                <p className="text-label-md text-on-surface-variant flex items-center gap-1">
+                  <Icon name="star" filled className="text-sm text-tertiary" /> 4.9 · 22 Maluco Express
+                </p>
               </div>
               <div className="flex gap-2 shrink-0">
-                <a
-                  href="tel:21968979426"
-                  className="w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center hover:bg-neutral-700 transition-colors"
-                >
-                  <Phone className="w-4 h-4 text-white" />
+                <a href="tel:21968979426" className="w-9 h-9 bg-surface-container-high rounded-full flex items-center justify-center hover:bg-surface-container-highest transition-colors">
+                  <Icon name="call" className="text-lg text-on-surface" />
                 </a>
-                <a
-                  href="https://wa.me/5521968979426"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full flex items-center justify-center transition-colors"
-                  style={{ backgroundColor: "#25D366" }}
-                >
-                  <MessageCircle className="w-4 h-4 text-white fill-current" />
+                <a href="{WHATSAPP_URL}" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full flex items-center justify-center transition-colors" style={{ backgroundColor: "#25D366" }}>
+                  <Icon name="chat" filled className="text-lg text-white" />
                 </a>
               </div>
             </div>
           )}
         </div>
-      </div>
-    </>
-  );
-}
+      
