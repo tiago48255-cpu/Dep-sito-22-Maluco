@@ -22,11 +22,11 @@ export function CookieConsent() {
   if (!show) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[1500] p-3 md:p-4 md:bottom-4 md:left-4 md:right-auto md:max-w-md">
-      <div className="glass-panel rounded-2xl border border-white/10 p-4 shadow-2xl">
+    <div className="fixed inset-x-0 bottom-0 z-[1500] p-3 md:p-4 flex justify-center md:justify-start pointer-events-none">
+      <div className="glass-panel rounded-2xl border border-white/10 p-4 shadow-2xl w-full md:w-[26rem] pointer-events-auto">
         <div className="flex items-start gap-3">
           <Icon name="cookie" className="text-2xl text-tertiary shrink-0 mt-0.5" />
-          <div className="min-w-0">
+          <div className="flex-1 min-w-0">
             <p className="text-on-surface text-body-sm font-semibold">A gente usa cookies 🍪</p>
             <p className="text-on-surface-variant text-label-md mt-1">
               Usamos cookies pra melhorar sua experiência, lembrar seu endereço e o carrinho. Você pode aceitar ou recusar.
