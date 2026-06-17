@@ -43,6 +43,9 @@ export interface Order {
   delivery_address: string;
   motoboy_id: string | null;
   notes: string | null;
+  driver_lat: number | null;
+  driver_lng: number | null;
+  driver_updated_at: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -58,7 +61,7 @@ export interface OrderItem {
 export interface OrderWithItems extends Order {
   order_items: (OrderItem & { products: Pick<Product, "name" | "image_url"> | null })[];
   profiles?: Pick<Profile, "name" | "phone"> | null;
-  motoboys?: Pick<Motoboy, "name"> | null;
+  motoboys?: Pick<Motoboy, "name" | "phone"> | null;
 }
 
 export interface StockAlert {

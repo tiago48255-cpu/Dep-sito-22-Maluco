@@ -1,6 +1,11 @@
 import { BottomNav } from "@/components/layout/BottomNav";
 import { DesktopNav } from "@/components/layout/DesktopNav";
 import { Footer } from "@/components/layout/Footer";
+import { AgeGate } from "@/components/cliente/AgeGate";
+import { CookieConsent } from "@/components/cliente/CookieConsent";
+import { AddressModal } from "@/components/cliente/AddressModal";
+import { AddressGate } from "@/components/cliente/AddressGate";
+import { PwaRegister } from "@/components/cliente/PwaRegister";
 
 export default function ClienteLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -18,6 +23,13 @@ export default function ClienteLayout({ children }: { children: React.ReactNode 
 
       {/* Mobile: bottom nav */}
       <BottomNav />
+
+      {/* Camadas globais da loja */}
+      <AgeGate />
+      <AddressGate />
+      <AddressModal />
+      <CookieConsent />
+      <PwaRegister />
     </div>
   );
 }

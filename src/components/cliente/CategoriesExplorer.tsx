@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Icon } from "@/components/ui/Icon";
 import { useCartStore } from "@/hooks/useCart";
+import { AddressChip } from "@/components/cliente/AddressChip";
 
 interface CatMeta {
   label: string;
@@ -46,13 +47,7 @@ export function CategoriesExplorer({ categories }: { categories: string[] }) {
       {/* ===== MOBILE ===== */}
       <div className="md:hidden text-on-surface min-h-screen pb-24">
         <header className="page-header">
-          <div className="flex items-center gap-2 max-w-[70%]">
-            <Icon name="location_on" className="text-xl text-primary shrink-0" />
-            <div className="flex flex-col min-w-0">
-              <span className="text-label-sm text-on-surface-variant leading-none">Entregar em:</span>
-              <span className="text-label-md text-on-surface truncate mt-0.5">Rua Exemplo, 123</span>
-            </div>
-          </div>
+          <AddressChip variant="bar" />
           <Link href="/carrinho" className="relative active:scale-95">
             <Icon name="shopping_cart" className="text-2xl text-on-surface" />
             {cartCount > 0 && <span className="absolute -top-1 -right-1 bg-secondary-container text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">{cartCount}</span>}
@@ -77,7 +72,7 @@ export function CategoriesExplorer({ categories }: { categories: string[] }) {
 
       {/* ===== DESKTOP ===== */}
       <div className="hidden md:block text-on-surface">
-        <main className="max-w-[1440px] mx-auto px-8 pt-8 pb-16">
+        <main className="max-w-[1600px] mx-auto px-8 pt-8 pb-16">
           <header className="mb-10">
             <h1 className="text-headline-lg mb-2">Explorar Categorias</h1>
             <p className="text-body-md text-on-surface-variant">Encontre a sua bebida favorita para qualquer ocasião.</p>

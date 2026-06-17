@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
@@ -11,7 +11,17 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: "22 Maluco — Depósito de Bebidas 24h",
-  description: "Delivery de bebidas geladas 24 horas. Cervejas, destilados, energéticos e mais. Caioaba, Nova Iguaçu.",
+  description: "Delivery de bebidas geladas 24 horas. Cervejas, destilados, energéticos e mais. Nova Iguaçu, RJ.",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: { capable: true, title: "22 Maluco", statusBarStyle: "black-translucent" },
+  icons: {
+    icon: [{ url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" }],
+    apple: [{ url: "/icons/icon-192.png" }],
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#1e2fbf",
 };
 
 export default function RootLayout({

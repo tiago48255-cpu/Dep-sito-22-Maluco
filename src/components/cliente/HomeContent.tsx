@@ -5,6 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { WHATSAPP_URL } from "@/lib/constants";
 import { Icon } from "@/components/ui/Icon";
+import { StoreLocation } from "@/components/cliente/StoreLocation";
+import { AppPromo } from "@/components/cliente/AppPromo";
+import { AddressChip } from "@/components/cliente/AddressChip";
 import type { Product } from "@/lib/types/queries";
 import { useCartStore } from "@/hooks/useCart";
 
@@ -72,13 +75,7 @@ export function HomeContent({ products, categories }: { products: Product[]; cat
       {/* ============================ MOBILE ============================ */}
       <div className="md:hidden text-on-surface min-h-screen pb-24">
         <header className="page-header">
-          <div className="flex items-center gap-2 max-w-[70%]">
-            <Icon name="location_on" className="text-xl text-primary shrink-0" />
-            <div className="flex flex-col min-w-0">
-              <span className="text-label-sm text-on-surface-variant leading-none">Entregar em:</span>
-              <span className="text-label-md text-on-surface truncate mt-0.5">Rua Exemplo, 123</span>
-            </div>
-          </div>
+          <AddressChip variant="bar" />
           <Link href="/carrinho" className="relative active:scale-95">
             <Icon name="shopping_cart" className="text-2xl text-on-surface" />
             {cartCount > 0 && (
@@ -94,18 +91,10 @@ export function HomeContent({ products, categories }: { products: Product[]; cat
             <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Buscar bebidas, marcas..." className="w-full bg-surface-container border-none rounded-xl py-4 pl-12 pr-4 text-body-md text-on-surface placeholder:text-on-surface-variant/60 focus:ring-2 focus:ring-primary outline-none" />
           </div>
 
-          {/* Banner */}
+          {/* Banner — imagem completa (proporção 1308x342) */}
           {!searchQuery && (
-            <Link href="/categorias?categoria=promocao" className="relative h-44 w-full rounded-2xl overflow-hidden block neon-blue-glow group">
-              <Image src="/stitch/banner-mobile.jpg" alt="" fill className="object-cover transition-transform duration-700 group-hover:scale-110" sizes="600px" />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
-              <div className="absolute inset-0 flex flex-col justify-center px-6">
-                <h2 className="text-headline-lg-mobile text-white leading-tight">GELADA, RÁPIDA<br />E NA SUA CASA!</h2>
-                <div className="flex items-center gap-2 mt-2">
-                  <span className="bg-secondary-container text-white px-2 py-1 rounded-md text-[10px] font-bold">24 HORAS</span>
-                  <span className="text-on-surface text-label-md">Entrega em minutos</span>
-                </div>
-              </div>
+            <Link href="/categorias?categoria=promocao" className="block relative w-full aspect-[1024/265] rounded-2xl overflow-hidden neon-blue-glow group">
+              <Image src="/stitch/banner.png" alt="22 Maluco — Depósito de Bebidas 24h. Rápido, fácil e gelado na sua casa." fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="600px" priority />
             </Link>
           )}
 
@@ -116,15 +105,19 @@ export function HomeContent({ products, categories }: { products: Product[]; cat
                 <h3 className="text-headline-sm">Categorias</h3>
                 <Link href="/categorias" className="text-primary text-label-md hover:underline flex items-center gap-0.5">Ver todas<Icon name="chevron_right" className="text-base" /></Link>
               </div>
-              <div className="flex gap-md overflow-x-auto hide-scrollbar -mx-margin-mobile px-margin-mobile">
-                {categories.map((cat) => (
-                  <Link key={cat} href={`/categorias?categoria=${encodeURIComponent(cat)}`} className="flex flex-col items-center gap-2 shrink-0 group">
-                    <div className="w-20 h-20 rounded-2xl bg-surface-container-high flex items-center justify-center border border-white/5 group-hover:bg-primary-container transition-colors active:scale-95">
-                      <Icon name={metaFor(cat).icon} className="text-3xl text-primary group-hover:text-on-primary-container transition-colors" />
-                    </div>
-                    <span className="text-label-md text-on-surface-variant group-hover:text-primary transition-colors">{metaFor(cat).label}</span>
-                  </Link>
-                ))}
+              <div className="relative -mx-margin-mobile">
+                <div className="flex gap-md overflow-x-auto hide-scrollbar px-margin-mobile snap-x snap-mandatory scroll-px-margin-mobile">
+                  {categories.map((cat) => (
+                    <Link key={cat} href={`/categorias?categoria=${encodeURIComponent(cat)}`} className="flex flex-col items-center gap-2 shrink-0 snap-start group">
+                      <div className="w-20 h-20 rounded-2xl bg-surface-container-high flex items-center justify-center border border-white/5 group-hover:bg-primary-container transition-colors active:scale-95">
+                        <Icon name={metaFor(cat).icon} className="text-3xl text-primary group-hover:text-on-primary-container transition-colors" />
+                      </div>
+                      <span className="text-label-md text-on-surface-variant group-hover:text-primary transition-colors">{metaFor(cat).label}</span>
+                    </Link>
+                  ))}
+                </div>
+                {/* Fade indicando que rola pro lado */}
+                <div className="pointer-events-none absolute top-0 right-0 bottom-0 w-12 bg-gradient-to-l from-background to-transparent" />
               </div>
             </section>
           )}
@@ -194,23 +187,19 @@ export function HomeContent({ products, categories }: { products: Product[]; cat
 
       {/* ============================ DESKTOP ============================ */}
       <div className="hidden md:block text-on-surface">
-        <main className="max-w-[1440px] mx-auto px-8 pb-12">
-          {/* Hero */}
-          <section className="relative h-[480px] rounded-3xl overflow-hidden mb-12 shadow-2xl mt-6">
-            <Image src="/stitch/hero-home.jpg" alt="" fill className="object-cover" sizes="1440px" priority />
-            <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent" />
-            <div className="relative h-full flex flex-col justify-center px-16 max-w-2xl">
-              <span className="inline-block px-4 py-1 rounded-full bg-secondary-container text-on-secondary-container text-label-lg mb-4 w-fit">ENTREGA EM 20 MIN</span>
-              <h1 className="text-[64px] font-extrabold leading-[1.1] text-on-surface mb-6 drop-shadow-lg tracking-tight">GELADA, RÁPIDA E NA SUA CASA!</h1>
-              <p className="text-body-lg text-on-surface-variant mb-8">As melhores bebidas do mundo, entregues na temperatura perfeita enquanto você aproveita o momento.</p>
-              <div className="flex gap-4">
-                <Link href="/categorias" className="bg-primary text-on-primary px-8 py-4 rounded-xl text-lg font-semibold flex items-center gap-2 hover:brightness-110 transition-all shadow-xl shadow-primary/20">
-                  Pedir Agora <Icon name="bolt" className="text-xl" />
-                </Link>
-                <Link href="/categorias?categoria=promocao" className="bg-surface/40 backdrop-blur-md border border-white/10 text-on-surface px-8 py-4 rounded-xl text-lg font-semibold hover:bg-surface/60 transition-all">
-                  Ver Promoções
-                </Link>
-              </div>
+        <main className="max-w-[1600px] mx-auto px-8 pb-12">
+          {/* Hero — banner (imagem completa, proporção 1308x342) */}
+          <section className="mt-6 mb-12">
+            <Link href="/categorias" className="block relative w-full aspect-[1024/265] rounded-3xl overflow-hidden shadow-2xl neon-blue-glow group">
+              <Image src="/stitch/banner.png" alt="22 Maluco — Depósito de Bebidas 24h. Rápido, fácil e gelado na sua casa." fill className="object-cover transition-transform duration-700 group-hover:scale-[1.02]" sizes="1600px" priority />
+            </Link>
+            <div className="flex flex-wrap gap-4 mt-6">
+              <Link href="/categorias" className="bg-primary text-on-primary px-8 py-4 rounded-xl text-lg font-semibold flex items-center gap-2 hover:brightness-110 transition-all shadow-xl shadow-primary/20 active:scale-95">
+                Pedir Agora <Icon name="bolt" className="text-xl" />
+              </Link>
+              <Link href="/categorias?categoria=promocao" className="bg-surface-container border border-white/10 text-on-surface px-8 py-4 rounded-xl text-lg font-semibold hover:bg-surface-container-high transition-all active:scale-95">
+                Ver Promoções
+              </Link>
             </div>
           </section>
 
@@ -303,17 +292,21 @@ export function HomeContent({ products, categories }: { products: Product[]; cat
                 <div className="absolute inset-0 opacity-20 pointer-events-none">
                   <div className="absolute inset-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/20 via-transparent to-transparent animate-pulse-slow" />
                 </div>
-                <div className="relative z-10 text-on-primary">
-                  <Icon name="near_me" className="text-4xl mb-4" />
-                  <h3 className="text-headline-md mb-2">Onde está seu pedido?</h3>
-                  <p className="text-body-sm mb-6 text-on-primary-container">Acompanhe cada segundo da entrega em tempo real até a sua porta.</p>
-                  <Link href="/pedidos" className="block text-center w-full bg-white text-primary px-6 py-3 rounded-xl text-label-lg font-semibold hover:bg-opacity-90 transition-all">Rastrear Pedido</Link>
+                <div className="relative z-10 text-white">
+                  <Icon name="near_me" className="text-4xl mb-4 text-white" />
+                  <h3 className="text-headline-md mb-2 text-white">Onde está seu pedido?</h3>
+                  <p className="text-body-sm mb-6 text-white/80">Acompanhe cada segundo da entrega em tempo real até a sua porta.</p>
+                  <Link href="/pedidos" className="block text-center w-full bg-white text-[#00149f] px-6 py-3 rounded-xl text-label-lg font-bold hover:bg-white/90 transition-all active:scale-95">Rastrear Pedido</Link>
                 </div>
               </div>
             </aside>
           </div>
         </main>
       </div>
+
+      {/* Baixe o app (PWA) + Onde estamos — no final do site */}
+      <AppPromo />
+      <StoreLocation />
 
       {/* FAB WhatsApp */}
       <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="fixed bottom-24 md:bottom-8 right-4 md:right-8 w-14 h-14 text-white rounded-full shadow-2xl flex items-center justify-center z-40 active:scale-90 transition-transform" style={{ backgroundColor: "#25D366" }} aria-label="Falar no WhatsApp">

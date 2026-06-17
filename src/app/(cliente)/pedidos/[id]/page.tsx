@@ -16,6 +16,10 @@ interface OrderWithItems {
   change_for: number | null;
   delivery_address: string;
   created_at: string;
+  motoboy_id: string | null;
+  driver_lat: number | null;
+  driver_lng: number | null;
+  motoboys: { name: string; phone: string } | null;
   order_items: { id: string; qty: number; price_at_time: number; products: { name: string } | null }[];
 }
 
@@ -35,7 +39,7 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
 
   const { data: order } = await supabase
     .from("orders")
-    .select("*, order_items(id, qty, price_at_time, products(name))")
+    .select("*, motoboys(name, phone), order_items(id, qty, price_at_time, products(name))")
     .eq("id", id)
     .single() as { data: OrderWithItems | null };
 
@@ -78,7 +82,13 @@ export default async function OrderPage({ params }: { params: Promise<{ id: stri
       </div>
 
       {/* Realtime Tracker */}
-      <OrderTracker status={order.status} orderId={id} />
+      <OrderTracker
+        status={order.status}
+        orderId={id}
+        driver={order.motoboys}
+        initialDriverLat={order.driver_lat}
+        initialDriverLng={order.driver_lng}
+      />
 
       {/* Itens do pedido */}
       <div className="glass-panel content-container mt-3 rounded-2xl p-4">

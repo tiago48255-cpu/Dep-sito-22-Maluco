@@ -5,6 +5,7 @@ import { ArrowLeft, User, Package, Truck, Settings } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { StatusBadge } from "@/components/ui/Badge";
 import { OrderStatusEditor } from "@/components/admin/OrderStatusEditor";
+import { DriverAssigner } from "@/components/admin/DriverAssigner";
 
 const paymentLabels: Record<string, string> = {
   pix: "PIX",
@@ -30,6 +31,12 @@ export default async function PedidoDetailPage({
     .single();
 
   if (!order) notFound();
+
+  const { data: drivers } = await supabase
+    .from("motoboys")
+    .select("id, name")
+    .eq("active", true)
+    .order("name");
 
   const items = (order.order_items ?? []) as Array<{
     id: string;
@@ -133,14 +140,19 @@ export default async function PedidoDetailPage({
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <p className="text-[#9999BB] text-xs mb-0.5">Motoboy</p>
-              <p className="text-white text-sm">
-                {order.motoboys?.name ?? (
-                  <span className="text-[#9999BB]">Não atribuído</span>
-                )}
-              </p>
+              <p className="text-[#9999BB] text-xs mb-1">Entregador</p>
+              <DriverAssigner
+                orderId={order.id}
+                current={order.motoboy_id}
+                motoboys={drivers ?? []}
+              />
               {order.motoboys?.phone && (
-                <p className="text-[#9999BB] text-xs mt-0.5">{order.motoboys.phone}</p>
+                <p className="text-[#9999BB] text-xs mt-1">{order.motoboys.phone}</p>
+              )}
+              {order.status === "saiu" && !order.motoboy_id && (
+                <p className="text-amber-400/90 text-xs mt-1.5">
+                  ⚠ Pedido a caminho sem entregador atribuído — selecione um acima.
+                </p>
               )}
             </div>
             <div>

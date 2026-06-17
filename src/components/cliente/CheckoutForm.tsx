@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/hooks/useCart";
+import { useAddress } from "@/hooks/useAddress";
 import { createClient } from "@/lib/supabase/client";
 import type { Profile } from "@/lib/types/queries";
 import type { PaymentMethod } from "@/lib/types/database";
@@ -34,7 +35,10 @@ export function CheckoutForm({ profile }: { profile: Profile | null }) {
   const [pixData, setPixData] = useState<PixData | null>(null);
   const [copied, setCopied] = useState(false);
 
-  const [address, setAddress] = useState(profile?.address_default ?? "");
+  const { address: addr, openModal } = useAddress();
+  const deliveryAddress = addr?.formatted
+    ? addr.complement ? `${addr.formatted} — ${addr.complement}` : addr.formatted
+    : profile?.address_default ?? "";
   const [payment, setPayment] = useState<PaymentMethod>("pix");
   const [changeFor, setChangeFor] = useState("");
   const [notes, setNotes] = useState("");
@@ -46,6 +50,11 @@ export function CheckoutForm({ profile }: { profile: Profile | null }) {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (items.length === 0) return;
+    if (!deliveryAddress.trim()) {
+      setError("Informe seu endereço de entrega.");
+      openModal(true);
+      return;
+    }
     setError("");
     setLoading(true);
 
@@ -64,7 +73,7 @@ export function CheckoutForm({ profile }: { profile: Profile | null }) {
         total: subtotal,
         payment_method: payment,
         change_for: payment === "dinheiro" && changeFor ? parseFloat(changeFor) : null,
-        delivery_address: address,
+        delivery_address: deliveryAddress,
         notes: notes || null,
       })
       .select("id")
@@ -183,17 +192,22 @@ export function CheckoutForm({ profile }: { profile: Profile | null }) {
       <div className="flex-1 flex flex-col gap-3 mt-4">
         {/* Endereço */}
         <div className="glass-panel rounded-2xl p-4">
-          <div className="flex items-center gap-2 mb-3">
-            <MapPin className="w-4 h-4 text-brand-primary shrink-0" />
-            <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Endereço de entrega</span>
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-brand-primary shrink-0" />
+              <span className="text-xs font-bold uppercase tracking-wider text-neutral-400">Endereço de entrega</span>
+            </div>
+            <button type="button" onClick={() => openModal()} className="text-brand-primary text-xs font-bold hover:underline">
+              {deliveryAddress ? "Trocar" : "Adicionar"}
+            </button>
           </div>
-          <input
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            placeholder="Rua, número, bairro"
-            required
-            className="w-full bg-[#111] border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder:text-neutral-600 input-focus-ring transition-colors outline-none"
-          />
+          {deliveryAddress ? (
+            <p className="text-white text-sm">{deliveryAddress}</p>
+          ) : (
+            <button type="button" onClick={() => openModal(true)} className="text-neutral-500 text-sm">
+              Toque para informar seu endereço
+            </button>
+          )}
         </div>
 
         {/* Forma de Pagamento */}

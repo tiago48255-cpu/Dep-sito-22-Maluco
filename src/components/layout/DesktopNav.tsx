@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Icon } from "@/components/ui/Icon";
 import { useCartStore } from "@/hooks/useCart";
+import { AddressChip } from "@/components/cliente/AddressChip";
 
 const links = [
   { href: "/", label: "Início", match: (p: string) => p === "/" },
@@ -18,15 +19,11 @@ export function DesktopNav() {
 
   return (
     <nav className="hidden md:block fixed top-0 left-0 right-0 z-50 glass-nav border-b border-outline-variant/10 shadow-lg">
-      <div className="flex justify-between items-center h-20 px-8 max-w-[1440px] mx-auto">
+      <div className="flex justify-between items-center h-20 px-8 max-w-[1600px] mx-auto">
         {/* Marca + endereço */}
         <div className="flex items-center gap-8">
           <Link href="/" className="text-display-lg text-primary tracking-tighter">22 Maluco</Link>
-          <div className="hidden lg:flex items-center bg-surface-container-high rounded-full px-4 py-2 border border-outline-variant/20 focus-within:border-primary transition-all cursor-pointer">
-            <Icon name="location_on" className="text-on-surface-variant mr-2 text-xl" />
-            <span className="text-label-lg text-on-surface">Rua Exemplo, 123</span>
-            <Icon name="expand_more" className="text-on-surface-variant ml-2 text-xl" />
-          </div>
+          <AddressChip variant="pill" />
         </div>
 
         {/* Links + ações */}

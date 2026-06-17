@@ -70,6 +70,10 @@ create table orders (
   delivery_address text not null,
   motoboy_id uuid references motoboys(id),
   notes text,
+  -- Rastreio do entregador em tempo real (GPS)
+  driver_lat numeric(10,7),
+  driver_lng numeric(10,7),
+  driver_updated_at timestamptz,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );

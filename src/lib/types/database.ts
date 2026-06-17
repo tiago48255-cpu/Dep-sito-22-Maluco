@@ -89,6 +89,9 @@ export interface Database {
           delivery_address: string;
           motoboy_id: string | null;
           notes: string | null;
+          driver_lat: number | null;
+          driver_lng: number | null;
+          driver_updated_at: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -109,6 +112,9 @@ export interface Database {
           status?: OrderStatus;
           motoboy_id?: string | null;
           notes?: string | null;
+          driver_lat?: number | null;
+          driver_lng?: number | null;
+          driver_updated_at?: string | null;
           updated_at?: string;
         };
         Relationships: [
