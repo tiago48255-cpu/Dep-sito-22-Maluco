@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>22 Maluco - Rastreamento do Pedido</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "inverse-on-surface": "#313030",
+                "primary-fixed": "#dfe0ff",
+                "on-tertiary-fixed-variant": "#5b4300",
+                "surface-bright": "#3a3939",
+                "on-secondary-container": "#ffb3ab",
+                "on-error-container": "#ffdad6",
+                "surface-container-high": "#2a2a2a",
+                "inverse-primary": "#3d4dd8",
+                "surface-container-lowest": "#0e0e0e",
+                "on-primary": "#00149f",
+                "outline": "#8f8fa0",
+                "on-background": "#e5e2e1",
+                "surface": "#131313",
+                "on-primary-container": "#a5aeff",
+                "surface-container": "#201f1f",
+                "on-error": "#690005",
+                "on-primary-fixed": "#000965",
+                "background": "#131313",
+                "on-secondary-fixed-variant": "#93000d",
+                "secondary-fixed": "#ffdad6",
+                "primary-container": "#1e2fbf",
+                "on-tertiary-container": "#e3ab00",
+                "tertiary-fixed-dim": "#fabd00",
+                "surface-container-highest": "#353534",
+                "on-primary-fixed-variant": "#1f30c0",
+                "tertiary-fixed": "#ffdf9e",
+                "on-secondary": "#690006",
+                "error": "#ffb4ab",
+                "tertiary-container": "#5a4200",
+                "surface-container-low": "#1c1b1b",
+                "primary-fixed-dim": "#bdc2ff",
+                "on-surface": "#e5e2e1",
+                "tertiary": "#fabd00",
+                "on-tertiary": "#3f2e00",
+                "on-surface-variant": "#c5c5d7",
+                "on-tertiary-fixed": "#261a00",
+                "on-secondary-fixed": "#410002",
+                "primary": "#bdc2ff",
+                "surface-tint": "#bdc2ff",
+                "secondary-fixed-dim": "#ffb4ac",
+                "secondary-container": "#a90111",
+                "inverse-surface": "#e5e2e1",
+                "secondary": "#ffb4ac",
+                "outline-variant": "#454654",
+                "surface-variant": "#353534",
+                "surface-dim": "#131313",
+                "error-container": "#93000a"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "xl": "32px",
+                "margin-mobile": "20px",
+                "gutter": "16px",
+                "md": "16px",
+                "lg": "24px",
+                "sm": "12px",
+                "base": "8px",
+                "xs": "4px"
+            },
+            "fontFamily": {
+                "body-lg": ["Plus Jakarta Sans"],
+                "body-sm": ["Plus Jakarta Sans"],
+                "body-md": ["Plus Jakarta Sans"],
+                "display-lg": ["Plus Jakarta Sans"],
+                "headline-sm": ["Plus Jakarta Sans"],
+                "headline-md": ["Plus Jakarta Sans"],
+                "label-lg": ["Plus Jakarta Sans"],
+                "headline-lg-mobile": ["Plus Jakarta Sans"],
+                "label-md": ["Plus Jakarta Sans"],
+                "headline-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(17, 17, 17, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .neon-underglow {
+            box-shadow: 0 4px 20px rgba(61, 77, 216, 0.15);
+        }
+        .step-active::after {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 24px;
+            bottom: -24px;
+            width: 2px;
+            background: #bdc2ff;
+        }
+        .step-inactive::after {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 24px;
+            bottom: -24px;
+            width: 2px;
+            background: #353534;
+        }
+        .step-last::after {
+            display: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary selection:text-on-primary min-h-screen">
+<!-- Top App Bar (From Shared Components) -->
+<header class="bg-surface/80 dark:bg-surface/80 backdrop-blur-xl docked full-width top-0 sticky z-50 border-b border-white/10 shadow-md flex justify-between items-center w-full px-margin-mobile py-base">
+<div class="flex items-center gap-base">
+<button class="text-primary dark:text-primary active:scale-95 duration-150">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="flex flex-col">
+<span class="text-label-md font-label-md text-on-surface">Pedido #2256</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Realizado em 26/05/2024 às 21:30</span>
+</div>
+</div>
+<button class="text-primary dark:text-primary hover:opacity-80 active:scale-95 duration-150">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</header>
+<main class="max-w-[600px] mx-auto pb-32">
+<!-- Status Banner with Map-Inspired Background -->
+<section class="relative h-64 overflow-hidden mb-lg">
+<div class="absolute inset-0 z-0">
+<img alt="Dark themed map view of Rio de Janeiro featuring a highlighted route and a blue pin indicator." class="w-full h-full object-cover opacity-60" data-location="Rio de Janeiro" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5KWz0naxgib_Ff0k7vX0mpEhmpHXMXahhYQJKZjvvzw1rTxy5OjiHyiN5IKqCXDKQrpKIQ136RBUz-7Jc2qJdZnyDeeLZf6id0jKSzllzsX_EYuRnWXMzwL5ytdbtkfnlrn6jIv_prvFEgivCsdyG1l7TZ8yl2WOkbKeGULi0E-NdACYDoSbQ-8LX-EjDcp9OQWbYL9ss3VTB9sx_GYDaNBRYbJcqiSSgUciuXtj8OY3enrmc5U3cVTOOgfStcLXMr8H7VGoXZrs"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/20"></div>
+</div>
+<div class="relative z-10 px-margin-mobile pt-lg flex flex-col justify-end h-full pb-md">
+<div class="glass-card neon-underglow p-md rounded-xl inline-flex items-center gap-md self-start border-l-4 border-primary">
+<div class="bg-primary/20 p-base rounded-full animate-pulse">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">delivery_dining</span>
+</div>
+<div>
+<h2 class="text-headline-sm font-headline-sm text-primary">Saiu para entrega</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Seu pedido está a caminho!</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Vertical Progress Timeline -->
+<section class="px-margin-mobile mb-xl">
+<div class="glass-card p-lg rounded-xl">
+<div class="space-y-lg">
+<!-- Order Received -->
+<div class="relative flex gap-md step-active">
+<div class="relative z-10 w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-[14px]">check</span>
+</div>
+<div class="flex justify-between w-full">
+<div>
+<h3 class="text-label-lg font-label-lg text-on-surface">Pedido recebido</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Seu pedido foi confirmado</p>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">21:30</span>
+</div>
+</div>
+<!-- Preparing -->
+<div class="relative flex gap-md step-active">
+<div class="relative z-10 w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-[14px]">check</span>
+</div>
+<div class="flex justify-between w-full">
+<div>
+<h3 class="text-label-lg font-label-lg text-on-surface">Preparando pedido</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Suas bebidas estão sendo geladas</p>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">21:32</span>
+</div>
+</div>
+<!-- Waiting Courier -->
+<div class="relative flex gap-md step-active">
+<div class="relative z-10 w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-[14px]">check</span>
+</div>
+<div class="flex justify-between w-full">
+<div>
+<h3 class="text-label-lg font-label-lg text-on-surface">Aguardando entregador</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Entregador está retirando o pedido</p>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">21:40</span>
+</div>
+</div>
+<!-- Out for Delivery -->
+<div class="relative flex gap-md step-active">
+<div class="relative z-10 w-6 h-6 rounded-full bg-primary border-4 border-background flex items-center justify-center ring-4 ring-primary/20">
+<div class="w-2 h-2 rounded-full bg-on-primary"></div>
+</div>
+<div class="flex justify-between w-full">
+<div>
+<h3 class="text-label-lg font-label-lg text-primary">Saiu para entrega</h3>
+<p class="text-body-sm font-body-sm text-on-surface">O entregador está próximo de você</p>
+</div>
+<span class="text-label-sm font-label-sm text-primary">21:45</span>
+</div>
+</div>
+<!-- Delivered -->
+<div class="relative flex gap-md step-last">
+<div class="relative z-10 w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center">
+<div class="w-2 h-2 rounded-full bg-outline"></div>
+</div>
+<div class="flex justify-between w-full">
+<div>
+<h3 class="text-label-lg font-label-lg text-on-surface-variant">Entregue</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Previsão: 21:55</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Courier Info Section -->
+<section class="px-margin-mobile">
+<div class="bg-surface-container-low p-lg rounded-xl flex items-center justify-between shadow-xl">
+<div class="flex items-center gap-md">
+<div class="relative">
+<img alt="Portrait of a friendly male delivery driver named João Santos wearing a professional uniform against a clean urban backdrop." class="w-14 h-14 rounded-full object-cover border-2 border-primary" data-alt="A portrait of João Santos, a professional delivery driver in his 30s with a warm smile. He is wearing a dark, professional-grade reflective delivery vest and a company-branded cap. The lighting is dramatic and nocturnal, with soft blue and orange ambient glows from the city lights in the blurred background. The image has a cinematic, high-quality aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7qb02VP8vrWRALW0UdONztxKOP53tZcRl2w0kV4RKE_Hc6U-uKqtoC7YwLsqXlGhhLXXqdg_VCl59gbnBbDNBGNuXSNGaZcEcqs7rB4eYkK3Co7M6JZwz6wvLvupgJai7hq-7B7iQLQY75-picH57Ysz2hV9mbQ0OBxLMgk9CYd8OI3Fs2VOdXGPZkUR16v2bX30fpJ_tL1dCv0L3PNv1woXE5HG7JOFoKu_tDcawxTVa92xsJahx2aO43rvH6gKeLHrBOL4XmLo"/>
+<div class="absolute -bottom-1 -right-1 bg-primary text-on-primary p-xs rounded-full">
+<span class="material-symbols-outlined text-[14px]">motorcycle</span>
+</div>
+</div>
+<div>
+<h4 class="text-label-lg font-label-lg text-on-surface">João Santos</h4>
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-tertiary text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-label-md font-label-md text-tertiary">4.9</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant ml-xs">Entregador</span>
+</div>
+</div>
+</div>
+<div class="flex gap-md">
+<button class="w-12 h-12 flex items-center justify-center rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">call</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Nav Bar (From Shared Components) -->
+<nav class="bg-surface-container-lowest/90 dark:bg-surface-container-lowest/90 backdrop-blur-2xl fixed bottom-0 w-full z-50 rounded-t-xl border-t border-white/5 shadow-[0_-4px_20px_rgba(61,77,216,0.15)] flex justify-around items-center w-full pt-base pb-safe px-sm h-16">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-md font-label-md">Início</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="text-label-md font-label-md">Categorias</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim bg-transparent scale-110 duration-200 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<span class="text-label-md font-label-md">Pedidos</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">person</span>
+<span class="text-label-md font-label-md">Perfil</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="text-label-md font-label-md">Carrinho</span>
+</button>
+</nav>
+</body></html>

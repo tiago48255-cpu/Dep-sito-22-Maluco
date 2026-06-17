@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Categorias | 22 Maluco</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#131313",
+                    "on-primary-container": "#a5aeff",
+                    "outline-variant": "#454654",
+                    "on-tertiary": "#3f2e00",
+                    "surface-tint": "#bdc2ff",
+                    "on-tertiary-fixed-variant": "#5b4300",
+                    "secondary-fixed-dim": "#ffb4ac",
+                    "primary-fixed-dim": "#bdc2ff",
+                    "surface-container-low": "#1c1b1b",
+                    "on-secondary": "#690006",
+                    "on-tertiary-fixed": "#261a00",
+                    "on-secondary-fixed": "#410002",
+                    "surface-variant": "#353534",
+                    "surface-bright": "#3a3939",
+                    "surface-container": "#201f1f",
+                    "error-container": "#93000a",
+                    "tertiary": "#fabd00",
+                    "secondary-container": "#a90111",
+                    "secondary-fixed": "#ffdad6",
+                    "background": "#131313",
+                    "on-error-container": "#ffdad6",
+                    "outline": "#8f8fa0",
+                    "primary-container": "#1e2fbf",
+                    "surface-container-lowest": "#0e0e0e",
+                    "primary-fixed": "#dfe0ff",
+                    "on-primary-fixed-variant": "#1f30c0",
+                    "on-surface-variant": "#c5c5d7",
+                    "on-primary-fixed": "#000965",
+                    "inverse-surface": "#e5e2e1",
+                    "tertiary-fixed-dim": "#fabd00",
+                    "on-error": "#690005",
+                    "on-primary": "#00149f",
+                    "secondary": "#ffb4ac",
+                    "inverse-primary": "#3d4dd8",
+                    "error": "#ffb4ab",
+                    "surface-container-high": "#2a2a2a",
+                    "on-tertiary-container": "#e3ab00",
+                    "on-background": "#e5e2e1",
+                    "surface-container-highest": "#353534",
+                    "on-secondary-container": "#ffb3ab",
+                    "surface-dim": "#131313",
+                    "primary": "#bdc2ff",
+                    "tertiary-container": "#5a4200",
+                    "on-surface": "#e5e2e1",
+                    "inverse-on-surface": "#313030",
+                    "tertiary-fixed": "#ffdf9e",
+                    "on-secondary-fixed-variant": "#93000d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "20px",
+                    "base": "8px",
+                    "xl": "32px",
+                    "gutter": "16px",
+                    "sm": "12px",
+                    "xs": "4px",
+                    "lg": "24px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "label-md": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "body-sm": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #000000;
+            color: #e5e2e1;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+        .glass-nav {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .category-card:hover .card-overlay {
+            background: rgba(0, 0, 0, 0.4);
+        }
+        .category-card:hover img {
+            transform: scale(1.05);
+        }
+        .neon-glow:hover {
+            box-shadow: 0 0 20px rgba(189, 194, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-outline-variant/10 shadow-lg">
+<div class="flex justify-between items-center h-20 px-8 max-w-[1440px] mx-auto">
+<div class="flex items-center gap-12">
+<span class="font-display-lg text-display-lg text-primary dark:text-primary tracking-tighter">22 Maluco</span>
+<div class="hidden md:flex gap-8 items-center">
+<button class="font-label-lg text-label-lg text-primary border-b-2 border-primary pb-1 flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">location_on</span>
+                        Address Selection
+                    </button>
+</div>
+</div>
+<div class="flex-1 max-w-xl px-12">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-high border-none rounded-full py-3 pl-12 pr-4 text-on-surface focus:ring-2 focus:ring-primary transition-all duration-300" placeholder="O que você quer beber agora?" type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative hover:bg-surface-container-high p-2 rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined text-primary">shopping_cart</span>
+<span class="absolute top-0 right-0 bg-secondary text-on-secondary text-[10px] font-bold px-1.5 py-0.5 rounded-full">3</span>
+</button>
+<button class="hover:bg-surface-container-high p-2 rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+<div class="h-8 w-px bg-outline-variant/30 mx-2"></div>
+<button class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors">Sign In</button>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 rounded-full font-label-lg text-label-lg hover:brightness-110 transition-all active:scale-95">Profile</button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="pt-32 pb-24 px-8 max-w-[1440px] mx-auto">
+<header class="mb-12">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Explore Categorias</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Encontre a sua bebida favorita para qualquer ocasião.</p>
+</header>
+<!-- Category Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<!-- Category: Cervejas -->
+<a class="category-card relative h-80 rounded-xl overflow-hidden group cursor-pointer border border-white/5 neon-glow" href="#">
+<img alt="Cervejas" class="w-full h-full object-cover transition-transform duration-700" data-alt="A close-up shot of a frosty amber beer bottle with golden condensation droplets against a dark, moody bar background. The lighting is low and cinematic, with subtle blue and purple neon highlights reflecting off the glass. The composition is dynamic and premium, emphasizing coldness and quality, aligned with a nocturnal delivery service aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM9hbjvqG5qZaMIjRT6DtvxUOSxGWFb01X_dNgXHgpvcwBSsqPU9zTDgj7SHkIjPnvHWPu8sac6ackTaGgTkU-0qrHWvqyxE8VsZs7FFNyg96yKXUtV_-uwWmhzig7W4O6dq1pZUFMjiDyY43Lm00j25sMI0N4maIIrIlLDsoAPuWAuDsMBWaa9HqPMNaORUKiPcWr_zS-DsLRS46tBYauOj_1w4l2E9Pt5P_Hpx5JM0a_bDtPUdQFL93k3KZIiBxkoa92TgT_q3w"/>
+<div class="card-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-colors duration-300"></div>
+<div class="absolute bottom-0 left-0 p-6">
+<h3 class="font-headline-md text-headline-md text-white mb-1">Cervejas</h3>
+<p class="font-body-sm text-body-sm text-primary/80">Pilsen, Artesanais, Importadas</p>
+</div>
+<div class="absolute top-4 right-4 bg-primary text-on-primary p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</a>
+<!-- Category: Whiskey -->
+<a class="category-card relative h-80 rounded-xl overflow-hidden group cursor-pointer border border-white/5 neon-glow" href="#">
+<img alt="Whiskey" class="w-full h-full object-cover transition-transform duration-700" data-alt="A sophisticated crystal glass filled with rich amber whiskey and a single large square ice cube. The scene is set in a luxurious dark library or lounge setting with soft, warm golden rim lighting highlighting the texture of the liquid and the facets of the glass. Deep shadows and elegant highlights create a high-end, premium atmosphere for nocturnal enjoyment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA8YIVOzmd-PT1gS0KZ6yoJrwIQWx0Hjf_C5lbgzMW36agDCSHJ-T12_yXjkEMtnDJgR9O-srajvqVHjZQn_8Zm4C18ZOIjS6x6DQavN4-Qa8kb8m5Csd3Kmpz5CYOrByqKHokVjelHtRCTB7psMAwbHL9lvz12nfOdGgn19FAw0Xn_kSCAErUE49yi5i7ysw6mLAPgT2o_5OSm0CKxy5N4_V3sh2hddCxBDm69fNjq8nS-f3NHsYnrQEszHABhTsuDlWeV8RxLIA"/>
+<div class="card-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-colors duration-300"></div>
+<div class="absolute bottom-0 left-0 p-6">
+<h3 class="font-headline-md text-headline-md text-white mb-1">Whiskey</h3>
+<p class="font-body-sm text-body-sm text-primary/80">Single Malt, Bourbon, Scotch</p>
+</div>
+<div class="absolute top-4 right-4 bg-primary text-on-primary p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</a>
+<!-- Category: Vodka -->
+<a class="category-card relative h-80 rounded-xl overflow-hidden group cursor-pointer border border-white/5 neon-glow" href="#">
+<img alt="Vodka" class="w-full h-full object-cover transition-transform duration-700" data-alt="A sleek, frosted vodka bottle illuminated by a cool blue light from beneath, surrounded by crushed ice that glimmers like diamonds. The background is a deep charcoal grey with subtle bokeh effects. The overall aesthetic is clean, modern, and icy, emphasizing the purity and chilled temperature of the premium beverage." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARBlO8J6BRcyDL69RYCsktsYjY5uFfLdMQQzMNJE0VDlq26msu5ZwqYFR_K_yjuoqMcG9938UG_PRz0MmTBYrQ92lqI2PvmTYPai6WW7KeYdjzdKHdPfyY95pBOz4uvqprAs_HPmNdx9_S042pNCns8-Z_229VW-0IKWWuLLR6-paL77Ln8vqbAxijPtKxB-7gPKmhmxQ7qr0oVdVQs3YfKb_kj5Wl1UDjnGdn3OJjaHP2XlYBu5KDIAhxII1smK41kWsCG-oikuo"/>
+<div class="card-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-colors duration-300"></div>
+<div class="absolute bottom-0 left-0 p-6">
+<h3 class="font-headline-md text-headline-md text-white mb-1">Vodka</h3>
+<p class="font-body-sm text-body-sm text-primary/80">Premium, Flavored, Cocktails</p>
+</div>
+<div class="absolute top-4 right-4 bg-primary text-on-primary p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</a>
+<!-- Category: Gin -->
+<a class="category-card relative h-80 rounded-xl overflow-hidden group cursor-pointer border border-white/5 neon-glow" href="#">
+<img alt="Gin" class="w-full h-full object-cover transition-transform duration-700" data-alt="A vibrant Gin and Tonic cocktail served in a large balloon glass, garnished with fresh botanical herbs and a slice of lime. The lighting is high-contrast with magenta and electric blue highlights typical of a modern Brazilian nightclub. The glass is covered in condensation, suggesting a refreshing and high-energy party atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXxqQylYQRItYDgqZvJMbwNSnlGpNpXDv4rkgajj4MB48vOOuZO3ZxlYPwA2xdpc2KewbqisdfxrlM7NKilrIBkWv2R9oCiLy74e-R4XouyBkFfFZmSFskrp7EdSdHnuKq4MY_wPABHThu6_PMp0aqQa-kmIk8Y-dQnHNgMml-AEWO1tFkw_cqOwQ2oczTOU8sjzpUFzfT-Cx2oo-DwvfAFPl4h8L0yWLLD-9uCHLGPXL4xnEtCCBYV0nN2VjBaw5DRzMapjad7s4"/>
+<div class="card-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-colors duration-300"></div>
+<div class="absolute bottom-0 left-0 p-6">
+<h3 class="font-headline-md text-headline-md text-white mb-1">Gin</h3>
+<p class="font-body-sm text-body-sm text-primary/80">London Dry, Botanicals</p>
+</div>
+<div class="absolute top-4 right-4 bg-primary text-on-primary p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</a>
+<!-- Category: Sucos -->
+<a class="category-card relative h-80 rounded-xl overflow-hidden group cursor-pointer border border-white/5 neon-glow" href="#">
+<img alt="Sucos" class="w-full h-full object-cover transition-transform duration-700" data-alt="A macro shot of a fresh orange juice splash with vibrant citrus slices floating in a sleek glass. The lighting is bright and energetic but maintains a dark background to keep the premium nocturnal theme. Saturated oranges and yellows contrast sharply with the deep blacks of the environment, conveying freshness and natural energy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTbwQUNlFWY6Cn4AXRMNd_z9uyMDsK5tDhfV0nWYUu9fWEo2e3PWvPJWZfQGHfstmnIbR_OU-O3OhnhipYGGEJuLvNPZy7NW-Jd-mY3GqtuH7zXblT7saVMXfplTsytLLnbI5W3-q_M2_JsWVpQzAhW5sxhkBlQGFpi_DD0HGKXg1B6-PVdQ7fjwBOgvyeygPHxotClHwRW3TXsgWG0XE7z_fZk2oNajlnCDpkxg7A87LspQu7uXWXb0nQH3mqLkIUU8kkL0ts2qA"/>
+<div class="card-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-colors duration-300"></div>
+<div class="absolute bottom-0 left-0 p-6">
+<h3 class="font-headline-md text-headline-md text-white mb-1">Sucos</h3>
+<p class="font-body-sm text-body-sm text-primary/80">Naturais, Integrais, Mixes</p>
+</div>
+<div class="absolute top-4 right-4 bg-primary text-on-primary p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</a>
+<!-- Category: Gelo -->
+<a class="category-card relative h-80 rounded-xl overflow-hidden group cursor-pointer border border-white/5 neon-glow" href="#">
+<img alt="Gelo" class="w-full h-full object-cover transition-transform duration-700" data-alt="Clear, crystalline ice cubes falling into a bucket with a dramatic splash of water droplets. The scene is shot with high-speed photography, capturing every intricate detail and bubble. The lighting is cold and clinical, with sharp white highlights and deep blue shadows, emphasizing the utility and essential coldness of ice for beverage delivery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJU35F0uJuEwJ7DsEe0EkaBzc_RCZG78Yiwz_W-MowljuOCaMRICAQizZIwtXNk8tCV9ofKReBdt_FB-JvDVaglx_iq95U7ReEZxggLAyCjq_S0uCX3KZ5tQlnL5m6HvEdXMU4zM9JvA2Ki6dp89EG6Avila_MZsOdC1qr-O0ZvRuWTL3ZfyRTSceiYLAwmP17_jsxYAf5KVyf4_g4a_BUb-yJwxGP_QjwduSBpfxVL3DvUsXU-B5dbNBhsYqpqcFcZgaM8X_bUlw"/>
+<div class="card-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-colors duration-300"></div>
+<div class="absolute bottom-0 left-0 p-6">
+<h3 class="font-headline-md text-headline-md text-white mb-1">Gelo</h3>
+<p class="font-body-sm text-body-sm text-primary/80">Cubo, Escamado, Especial</p>
+</div>
+<div class="absolute top-4 right-4 bg-primary text-on-primary p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</a>
+<!-- Category: Snacks -->
+<a class="category-card relative h-80 rounded-xl overflow-hidden group cursor-pointer border border-white/5 neon-glow" href="#">
+<img alt="Snacks" class="w-full h-full object-cover transition-transform duration-700" data-alt="A gourmet selection of snacks including toasted nuts, premium chips, and small appetizers arranged on a dark slate board. The lighting is focused and warm, highlighting textures and colors of the food. The background is a blurred late-night apartment scene, suggesting the perfect accompaniment to a home-delivered drink experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuYIn-E2iMaBYWvK0c63ggqGdN5rLXKyjaEcFXjy7h3smKDr5LzKuyQ9vVhXh-JSWtjt4Gb54A-63oY8ytDKnTvG14FsEpZ56eHJH67CNtbx5A_hYCs3W5q9inNm3_G-_2vSBxaHAo_mVbjqVNJhsdPFPLSQfAiNoz1WfbbPc3QyFWRsfr1z0hbfxMnSqUwUgcxhee6t292BTRbtW3tr79BtYvQcS_qGjmSg49AcmAYGSUCfBwxfYqp8wPRE-jtKHNbmQjOJ4XyoM"/>
+<div class="card-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-colors duration-300"></div>
+<div class="absolute bottom-0 left-0 p-6">
+<h3 class="font-headline-md text-headline-md text-white mb-1">Snacks</h3>
+<p class="font-body-sm text-body-sm text-primary/80">Amendoins, Chips, Petiscos</p>
+</div>
+<div class="absolute top-4 right-4 bg-primary text-on-primary p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</a>
+<!-- Category: Vinhos -->
+<a class="category-card relative h-80 rounded-xl overflow-hidden group cursor-pointer border border-white/5 neon-glow" href="#">
+<img alt="Vinhos" class="w-full h-full object-cover transition-transform duration-700" data-alt="A deep red wine being poured into an elegant long-stemmed glass. The liquid creates a swirling motion captured in sharp detail. The lighting is moody and romantic, with dark shadows and deep burgundy highlights. The aesthetic is sophisticated and mature, catering to the upscale late-night wine enthusiast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByHmjCLBjgtL8NPEXD4UDCnQj50vF10rdMobHmu4LUGuCtzMlnmu7ta-rWn-4x_jqwrm5n0F26IkNifY1Grv3rnES-SLeM9XkaAs08AMG6255xU0EGyb1euPYwQgT5G0JxVwH688un7uVSrDe_UOHaj6U_QMsr9Dx4ZwScFtOo3RDMF1_IwL-aJqJZA2-lsz91hdI8RH9_VVBhu3f-gHEaqoj5y25ygX-mdtn1BhVbviByqVkPU1YHba0bThxAg3XoIbjsb_5MpCw"/>
+<div class="card-overlay absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-colors duration-300"></div>
+<div class="absolute bottom-0 left-0 p-6">
+<h3 class="font-headline-md text-headline-md text-white mb-1">Vinhos</h3>
+<p class="font-body-sm text-body-sm text-primary/80">Tintos, Brancos, Rosés</p>
+</div>
+<div class="absolute top-4 right-4 bg-primary text-on-primary p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</a>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-auto bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline-variant/20">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 px-margin-mobile py-xl max-w-[1440px] mx-auto">
+<div class="flex flex-col gap-4">
+<span class="font-headline-md text-headline-md text-primary">22 Maluco</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs">A melhor entrega de bebidas geladas de São Paulo. Rapidez e qualidade na porta da sua casa.</p>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-lg text-label-lg text-on-surface">Institucional</h4>
+<nav class="flex flex-col gap-2">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Business Info</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Terms of Service</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Privacy Policy</a>
+</nav>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-lg text-label-lg text-on-surface">Ajuda</h4>
+<nav class="flex flex-col gap-2">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Contact Support</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Payment Methods</a>
+</nav>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-label-lg text-label-lg text-on-surface">Siga-nos</h4>
+<div class="flex gap-4">
+<button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-primary">share</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-primary">thumb_up</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-primary">alternate_email</span>
+</button>
+</div>
+</div>
+</div>
+<div class="border-t border-outline-variant/10 py-8 px-margin-mobile text-center max-w-[1440px] mx-auto">
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 22 Maluco Beverage Delivery. All rights reserved. Beba com moderação.</p>
+</div>
+</footer>
+<script>
+        // Micro-interactions for smooth scroll or UI effects
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        const searchContainer = searchInput.parentElement;
+        
+        searchInput.addEventListener('focus', () => {
+            searchContainer.classList.add('scale-105');
+            searchContainer.classList.add('shadow-2xl');
+            searchContainer.classList.add('shadow-primary/10');
+        });
+
+        searchInput.addEventListener('blur', () => {
+            searchContainer.classList.remove('scale-105');
+            searchContainer.classList.remove('shadow-2xl');
+            searchContainer.classList.remove('shadow-primary/10');
+        });
+    </script>
+</body></html>

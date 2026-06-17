@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>22 Maluco - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#313030",
+                    "primary-fixed": "#dfe0ff",
+                    "on-tertiary-fixed-variant": "#5b4300",
+                    "surface-bright": "#3a3939",
+                    "on-secondary-container": "#ffb3ab",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-high": "#2a2a2a",
+                    "inverse-primary": "#3d4dd8",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-primary": "#00149f",
+                    "outline": "#8f8fa0",
+                    "on-background": "#e5e2e1",
+                    "surface": "#131313",
+                    "on-primary-container": "#a5aeff",
+                    "surface-container": "#201f1f",
+                    "on-error": "#690005",
+                    "on-primary-fixed": "#000965",
+                    "background": "#131313",
+                    "on-secondary-fixed-variant": "#93000d",
+                    "secondary-fixed": "#ffdad6",
+                    "primary-container": "#1e2fbf",
+                    "on-tertiary-container": "#e3ab00",
+                    "tertiary-fixed-dim": "#fabd00",
+                    "surface-container-highest": "#353534",
+                    "on-primary-fixed-variant": "#1f30c0",
+                    "tertiary-fixed": "#ffdf9e",
+                    "on-secondary": "#690006",
+                    "error": "#ffb4ab",
+                    "tertiary-container": "#5a4200",
+                    "surface-container-low": "#1c1b1b",
+                    "primary-fixed-dim": "#bdc2ff",
+                    "on-surface": "#e5e2e1",
+                    "tertiary": "#fabd00",
+                    "on-tertiary": "#3f2e00",
+                    "on-surface-variant": "#c5c5d7",
+                    "on-tertiary-fixed": "#261a00",
+                    "on-secondary-fixed": "#410002",
+                    "primary": "#bdc2ff",
+                    "surface-tint": "#bdc2ff",
+                    "secondary-fixed-dim": "#ffb4ac",
+                    "secondary-container": "#a90111",
+                    "inverse-surface": "#e5e2e1",
+                    "secondary": "#ffb4ac",
+                    "outline-variant": "#454654",
+                    "surface-variant": "#353534",
+                    "surface-dim": "#131313",
+                    "error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "margin-mobile": "20px",
+                    "gutter": "16px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "sm": "12px",
+                    "base": "8px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "body-sm": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "label-md": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #000000;
+            color: #e5e2e1;
+            overflow-x: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(17, 17, 17, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .btn-gradient {
+            background: linear-gradient(90deg, #1e2fbf 0%, #3d4dd8 100%);
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+        .btn-gradient:active {
+            transform: scale(0.96);
+        }
+        .royal-glow {
+            box-shadow: 0 10px 30px -10px rgba(61, 77, 216, 0.4);
+        }
+        .input-focus-ring:focus {
+            outline: none;
+            border-color: #bdc2ff;
+            box-shadow: 0 0 0 1px #bdc2ff;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-start min-h-screen">
+<!-- Hero Background Animation -->
+<div class="fixed inset-0 z-0 opacity-40">
+
+</div>
+<!-- Content Canvas -->
+<main class="relative z-10 w-full max-w-[600px] flex flex-col min-h-screen px-margin-mobile pt-xl pb-lg">
+<!-- Header / Brand Section -->
+<header class="flex flex-col items-center mt-lg mb-xl">
+<div class="relative w-48 h-48 mb-md drop-shadow-[0_0_30px_rgba(61,77,216,0.3)]">
+<img alt="22 Maluco Mascot" class="w-full h-full object-contain" data-alt="A high-energy, modern 3D cartoon mascot logo for a beverage delivery service named 22 Maluco. The character is a wild, energetic cartoon Tasmanian Devil holding a beer mug and a bottle of liquor. The background features cinematic neon lighting in royal blue and fiery red, creating a premium nocturnal nightlife aesthetic with professional digital illustration finish." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5ZtxPR4y44-9HmQH-mA4x4h7c2Lws58HCDDapjILzC2HmhuQeLYRambdjY_weveLChuxs_-8BB7weBoxqRQY5D19UWYc41uMVWbPEg5gyDqFXTsU1crsOkTFbtAeY64hXSFgxDb3PUHoUwlcjwcvWa7ZpPNr-W4hFofpfET0JCMs2EpcgRUFu867yw0DUqXdmRGpY5Gak6QE1awXeDphbouxc5aXs5AMpwTDD1XnWUF7YDfb3p7BA6z0lGfSBRmpE188s1CesK30"/>
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight mb-xs">
+                22 MALUCO
+            </h1>
+<p class="font-body-md text-body-md text-on-surface-variant opacity-80">
+                Depósito de Bebidas 24h
+            </p>
+</header>
+<!-- Login Card -->
+<section class="glass-panel p-lg rounded-[32px] flex flex-col gap-lg royal-glow">
+<div class="text-center">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-xs">Bem-vindo!</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Entre para continuar seu pedido</p>
+</div>
+<!-- Form Section -->
+<form class="flex flex-col gap-md">
+<div class="flex flex-col gap-base">
+<label class="font-label-md text-label-md text-on-surface-variant px-xs" for="phone">Telefone</label>
+<input class="w-full bg-[#0A0A0A] border border-white/10 rounded-xl py-md px-md text-on-surface font-body-md input-focus-ring placeholder:text-on-surface-variant/40" id="phone" placeholder="(21) 99999-9999" type="tel"/>
+</div>
+<button class="btn-gradient w-full py-md rounded-xl text-white font-label-lg royal-glow flex items-center justify-center gap-base" type="submit">
+<span class="material-symbols-outlined text-[20px]" data-icon="chat">chat</span>
+                    Entrar com WhatsApp
+                </button>
+</form>
+<!-- Divider -->
+<div class="flex items-center gap-md">
+<div class="flex-1 h-[1px] bg-white/10"></div>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest opacity-50">ou</span>
+<div class="flex-1 h-[1px] bg-white/10"></div>
+</div>
+<!-- Social Login -->
+<button class="w-full bg-white text-black py-md rounded-xl font-label-lg flex items-center justify-center gap-base active:scale-95 duration-150">
+<img alt="Google Logo" class="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRQoM71C7vjih4tCBljnPESRUvjSdMPBoPWCB_H_XUJhCgAW3GTCPrXGRabGaj4VHJ8ogPT8f2RvEVVRU9vIZmmi82HZTt52bSOAPQ0Ud2KOCmeDmXO5OhcaaC3h3BsYkcwKS3-kwv2vGTHHDdWS_16pCrJA1Df0i4M55zveG7zrCI_vkOWAbXbHt3MJ9T8QWuh4q4UBdHuYZ9cmIogGmlEedRGT4GTkVrsiD0zklnDG8n1bas03CMXDMWV5Gw68vC7DPI3PU7dJA"/>
+                Entrar com Google
+            </button>
+<!-- Bottom Actions -->
+<div class="flex flex-col items-center gap-sm mt-base">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Ainda não tem conta? 
+                    <a class="text-primary font-bold hover:underline" href="#">Criar conta</a>
+</p>
+</div>
+</section>
+<!-- Value Props -->
+<section class="mt-auto pt-xl grid grid-cols-2 gap-md">
+<div class="flex items-center gap-sm bg-surface-container-low/50 p-md rounded-2xl border border-white/5">
+<div class="w-10 h-10 rounded-full bg-primary-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="schedule">schedule</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">24 HORAS</p>
+<p class="text-[10px] text-on-surface-variant leading-tight">Sempre disponível</p>
+</div>
+</div>
+<div class="flex items-center gap-sm bg-surface-container-low/50 p-md rounded-2xl border border-white/5">
+<div class="w-10 h-10 rounded-full bg-secondary-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-[20px]" data-icon="moped">moped</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">RÁPIDA</p>
+<p class="text-[10px] text-on-surface-variant leading-tight">Chega em minutos</p>
+</div>
+</div>
+</section>
+<!-- Footer Legal (Subtle) -->
+<footer class="mt-xl text-center pb-md">
+<p class="text-[10px] text-on-surface-variant opacity-40 uppercase tracking-widest">
+                Se beber, não dirija. Venda proibida para menores de 18 anos.
+            </p>
+</footer>
+</main>
+<!-- Success Feedback Overlay (Hidden by default) -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm pointer-events-none opacity-0 transition-opacity duration-300" id="feedback-overlay">
+<div class="glass-panel p-xl rounded-[40px] flex flex-col items-center text-center max-w-[280px]">
+<div class="w-20 h-20 rounded-full bg-primary flex items-center justify-center mb-lg royal-glow">
+<span class="material-symbols-outlined text-white text-[40px]" data-icon="check_circle">check_circle</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-base">Sucesso!</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Preparando sua experiência gelada...</p>
+</div>
+</div>
+<script>
+        // Micro-interaction for form submission simulation
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const overlay = document.getElementById('feedback-overlay');
+            overlay.classList.remove('pointer-events-none', 'opacity-0');
+            
+            // Shake effect on phone input if empty (simple validation)
+            const phone = document.getElementById('phone');
+            if(!phone.value) {
+                phone.classList.add('animate-pulse', 'border-error');
+                overlay.classList.add('pointer-events-none', 'opacity-0');
+                setTimeout(() => {
+                    phone.classList.remove('animate-pulse', 'border-error');
+                }, 1000);
+                return;
+            }
+
+            setTimeout(() => {
+                window.location.reload(); // Simulate redirect
+            }, 2000);
+        });
+
+        // Background parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            document.querySelector('header img').style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+    </script>
+</body></html>

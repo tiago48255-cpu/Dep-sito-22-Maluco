@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Receipt } from "lucide-react";
+import { Icon } from "@/components/ui/Icon";
 import { OrderCard } from "@/components/cliente/OrderCard";
 import type { OrderStatus } from "@/lib/types/database";
 
@@ -43,22 +43,27 @@ export default async function PedidosPage({
   const { data: orders } = await query as { data: OrderRow[] | null };
 
   return (
-    <div className="text-white min-h-screen bg-black pb-24">
-      {/* Header */}
-      <header className="page-header">
-        <h1 className="text-base font-bold text-white">Meus pedidos</h1>
+    <div className="text-on-surface min-h-screen pb-24 md:pb-8">
+      {/* Header — mobile */}
+      <header className="page-header md:hidden">
+        <h1 className="text-body-md font-bold text-on-surface">Meus pedidos</h1>
       </header>
 
-      {/* Filter Tabs */}
+      {/* Título desktop */}
+      <div className="hidden md:block content-container pt-8">
+        <h1 className="text-headline-lg text-on-surface">Meus pedidos</h1>
+      </div>
+
+      {/* Filtros */}
       <div className="flex gap-2 content-container pt-4 overflow-x-auto hide-scrollbar">
         {tabs.map((tab) => (
           <Link
             key={tab.value}
             href={tab.value ? `/pedidos?status=${tab.value}` : "/pedidos"}
-            className={`shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold transition-all border ${
+            className={`shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-full text-label-lg transition-all border ${
               status === tab.value || (!status && tab.value === "")
-                ? "bg-brand-primary-container border-brand-primary/30 text-white"
-                : "bg-transparent border-white/10 text-neutral-400 hover:border-white/20"
+                ? "bg-primary-container border-primary/30 text-on-primary-container"
+                : "bg-transparent border-white/10 text-on-surface-variant hover:border-white/20"
             }`}
           >
             {tab.label}
@@ -90,14 +95,14 @@ export default async function PedidosPage({
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-20 gap-4">
-            <Receipt className="w-16 h-16 text-neutral-700" />
-            <h2 className="text-white font-bold text-lg">Nenhum pedido encontrado</h2>
-            <p className="text-neutral-500 text-sm text-center">
+            <Icon name="receipt_long" className="text-6xl text-outline-variant" />
+            <h2 className="text-on-surface font-bold text-headline-sm">Nenhum pedido encontrado</h2>
+            <p className="text-on-surface-variant text-body-sm text-center">
               {status ? "Tente remover o filtro." : "Faça seu primeiro pedido!"}
             </p>
             <Link
               href="/"
-              className="btn-gradient shadow-royal-glow text-white font-bold text-sm rounded-xl px-8 py-3 active:scale-[0.96] transition-all"
+              className="btn-gradient royal-glow text-white font-bold text-body-sm rounded-xl px-8 py-3 active:scale-[0.96] transition-all"
             >
               Fazer novo pedido
             </Link>

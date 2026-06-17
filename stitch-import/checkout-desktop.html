@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checkout | 22 Maluco</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #131313;
+            color: #e5e2e1;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .checkout-container {
+            min-height: calc(100vh - 80px - 300px);
+        }
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#131313",
+                        "on-primary-container": "#a5aeff",
+                        "outline-variant": "#454654",
+                        "on-tertiary": "#3f2e00",
+                        "surface-tint": "#bdc2ff",
+                        "on-tertiary-fixed-variant": "#5b4300",
+                        "secondary-fixed-dim": "#ffb4ac",
+                        "primary-fixed-dim": "#bdc2ff",
+                        "surface-container-low": "#1c1b1b",
+                        "on-secondary": "#690006",
+                        "on-tertiary-fixed": "#261a00",
+                        "on-secondary-fixed": "#410002",
+                        "surface-variant": "#353534",
+                        "surface-bright": "#3a3939",
+                        "surface-container": "#201f1f",
+                        "error-container": "#93000a",
+                        "tertiary": "#fabd00",
+                        "secondary-container": "#a90111",
+                        "secondary-fixed": "#ffdad6",
+                        "background": "#131313",
+                        "on-error-container": "#ffdad6",
+                        "outline": "#8f8fa0",
+                        "primary-container": "#1e2fbf",
+                        "surface-container-lowest": "#0e0e0e",
+                        "primary-fixed": "#dfe0ff",
+                        "on-primary-fixed-variant": "#1f30c0",
+                        "on-surface-variant": "#c5c5d7",
+                        "on-primary-fixed": "#000965",
+                        "inverse-surface": "#e5e2e1",
+                        "tertiary-fixed-dim": "#fabd00",
+                        "on-error": "#690005",
+                        "on-primary": "#00149f",
+                        "secondary": "#ffb4ac",
+                        "inverse-primary": "#3d4dd8",
+                        "error": "#ffb4ab",
+                        "surface-container-high": "#2a2a2a",
+                        "on-tertiary-container": "#e3ab00",
+                        "on-background": "#e5e2e1",
+                        "surface-container-highest": "#353534",
+                        "on-secondary-container": "#ffb3ab",
+                        "surface-dim": "#131313",
+                        "primary": "#bdc2ff",
+                        "tertiary-container": "#5a4200",
+                        "on-surface": "#e5e2e1",
+                        "inverse-on-surface": "#313030",
+                        "tertiary-fixed": "#ffdf9e",
+                        "on-secondary-fixed-variant": "#93000d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "20px",
+                        "base": "8px",
+                        "xl": "32px",
+                        "gutter": "16px",
+                        "sm": "12px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "md": "16px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface flex flex-col min-h-screen">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/10 shadow-lg">
+<div class="flex justify-between items-center h-20 px-8 max-w-[1440px] mx-auto">
+<div class="flex items-center gap-8">
+<span class="font-display-lg text-display-lg text-primary tracking-tighter cursor-pointer">22 Maluco</span>
+<div class="hidden md:flex gap-6 items-center">
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-on-surface transition-colors duration-200 font-label-lg text-label-lg">
+<span class="material-symbols-outlined">location_on</span>
+                        Address Selection
+                    </button>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center gap-2 text-primary border-b-2 border-primary pb-1 font-label-lg text-label-lg">
+<span class="material-symbols-outlined">shopping_cart</span>
+                        Cart
+                    </button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant/30"></div>
+<div class="flex items-center gap-3 cursor-pointer group">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-primary/20">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a stylish young man with a friendly expression, set against a dark, moody background with subtle blue rim lighting. The style is modern and high-end, reflecting a premium digital service aesthetic. The lighting is cinematic, with soft shadows and sharp focus on the facial features, conveying trust and personality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXhu0SSKsZmDlpL5K5kppS8-VGctNqDQ9vC141YjHGw2B7Dckn-v25UwKTS7A-h9mfXVA2wyEaqQoWXFmgqw9hnAjxeh47RnS_sZZH-LvaehAIhwxFla1Ve1yrb3BaLD1B8vyYoZ6RuN5Wjb1FoKdZ5YROQ0djCJCrw0r20IKsQ72fgQ0dLzB5NGqRYwcuYEm7Jc_w4Bun8l0FgGkoacFihWzJZVArdhR09VrvuV6VKRhfv4jAQpF-yhWCA0jAL6E78m1cp4uISrw"/>
+</div>
+<span class="font-label-lg text-label-lg group-hover:text-primary transition-colors">Profile</span>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Checkout Content -->
+<main class="flex-grow pt-32 pb-20 px-8 max-w-[1440px] mx-auto w-full">
+<header class="mb-10">
+<h1 class="font-headline-lg text-headline-lg mb-2">Finalizar Pedido</h1>
+<p class="text-on-surface-variant font-body-md text-body-md">Confira seus dados e complete a compra para receber suas bebidas geladas.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+<!-- Left Side: Selection -->
+<div class="lg:col-span-7 space-y-8">
+<!-- Delivery Section -->
+<section class="space-y-4">
+<div class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined">local_shipping</span>
+<h2 class="font-headline-sm text-headline-sm">Endereço de Entrega</h2>
+</div>
+<div class="grid grid-cols-1 gap-4">
+<div class="glass-panel p-6 rounded-xl border-primary/40 bg-primary-container/10 flex justify-between items-start cursor-pointer">
+<div class="flex gap-4">
+<div class="mt-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Principal</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Rua das Palmeiras, 1024 - Apto 42</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant/70">Pinheiros, São Paulo - SP</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary">check_circle</span>
+</div>
+<button class="p-4 rounded-xl border border-dashed border-outline-variant hover:border-primary hover:bg-surface-container-high transition-all duration-300 flex items-center justify-center gap-2 text-on-surface-variant group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">add_location_alt</span>
+<span class="font-label-lg text-label-lg">Adicionar novo endereço</span>
+</button>
+</div>
+</section>
+<!-- Payment Section -->
+<section class="space-y-4">
+<div class="flex items-center gap-3 text-primary">
+<span class="material-symbols-outlined">payments</span>
+<h2 class="font-headline-sm text-headline-sm">Método de Pagamento</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- PIX -->
+<div class="glass-panel p-5 rounded-xl flex items-center justify-between border-primary group cursor-pointer hover:border-primary transition-all">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-tertiary/10 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">qr_code_2</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg">PIX</p>
+<span class="inline-block px-2 py-0.5 rounded bg-tertiary/20 text-tertiary text-[10px] font-bold tracking-wider">5% OFF</span>
+</div>
+</div>
+<div class="w-5 h-5 rounded-full border-2 border-primary flex items-center justify-center">
+<div class="w-2.5 h-2.5 rounded-full bg-primary"></div>
+</div>
+</div>
+<!-- Credit Card -->
+<div class="glass-panel p-5 rounded-xl flex items-center justify-between border-transparent hover:border-outline-variant cursor-pointer transition-all">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">credit_card</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg">Cartão de Crédito</p>
+<p class="text-[10px] text-on-surface-variant">Visa •••• 4492</p>
+</div>
+</div>
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant"></div>
+</div>
+<!-- Debit Card -->
+<div class="glass-panel p-5 rounded-xl flex items-center justify-between border-transparent hover:border-outline-variant cursor-pointer transition-all">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg">Cartão de Débito</p>
+</div>
+</div>
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant"></div>
+</div>
+<!-- Cash -->
+<div class="glass-panel p-5 rounded-xl flex items-center justify-between border-transparent hover:border-outline-variant cursor-pointer transition-all">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg">Dinheiro</p>
+</div>
+</div>
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant"></div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Side: Order Summary -->
+<div class="lg:col-span-5">
+<aside class="glass-panel rounded-2xl p-8 sticky top-28 shadow-2xl overflow-hidden">
+<!-- Subtle underglow -->
+<div class="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 rounded-full blur-[80px]"></div>
+<h2 class="font-headline-sm text-headline-sm mb-6 flex items-center justify-between">
+                        Resumo do Pedido
+                        <span class="text-on-surface-variant font-body-sm text-body-sm font-normal">3 Itens</span>
+</h2>
+<!-- Product List -->
+<div class="space-y-6 mb-8 max-h-[300px] overflow-y-auto no-scrollbar">
+<!-- Item 1 -->
+<div class="flex gap-4 group">
+<div class="w-20 h-20 rounded-xl overflow-hidden bg-surface-container-highest shrink-0 border border-white/5">
+<img alt="Heineken Bottle" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A cold, condensation-covered glass bottle of premium Heineken beer with the iconic green label and red star. The bottle sits on a dark slate surface, illuminated by a single crisp overhead light creating dramatic highlights and reflections. The background is a deep charcoal black, emphasizing the vibrant green and the fresh, ice-cold texture of the glass. Premium beverage photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD85a1rGXtcbsHozOL5axyXU9mXVY0GfCK86gLlNtP-_LofNOwBfE767-bn8HMar3B3FNfPAb819dKyL3CfwKnj_olVZqNW7kCA1BlLXXH-4DBbyRkLuzRi5rfr7GrdWAu5LJ48og6JfDiU9XpLX5M_5XGflRwcSBnGezMCeaBcrTM4xtwBYAvMVr75PH3WYR-o9pK-zgfgPTsEz0DArGNgg5K83YkSIQt1wPu_QW9L_gLBja8bSbktnF33zN3Tuu221aDx4YA1JPA"/>
+</div>
+<div class="flex flex-col justify-between py-1 flex-grow">
+<div>
+<h4 class="font-label-lg text-label-lg">Cerveja Heineken 330ml</h4>
+<p class="text-body-sm text-on-surface-variant">Pack c/ 6 unidades</p>
+</div>
+<div class="flex justify-between items-end">
+<span class="text-body-sm text-on-surface-variant">1x</span>
+<span class="font-label-lg text-label-lg text-primary">R$ 44,90</span>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex gap-4 group">
+<div class="w-20 h-20 rounded-xl overflow-hidden bg-surface-container-highest shrink-0 border border-white/5">
+<img alt="Red Bull Can" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A sleek blue and silver can of Red Bull energy drink positioned at an angle against a pitch-black background. Sharp, cool-toned lighting highlights the metallic texture of the aluminum and the vibrant red branding. The scene is minimal and high-contrast, suggesting a premium, energetic night-life atmosphere. High-end product rendering style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQiwY5m3k2OT8_CJMHmy8__7oO9S_n-UyJ8a6Lyjob_FmNGcrwGU5iHFJKOaSi_rs6M3c7QOzzypKmXpw1c4Jc_3huqYeULRj0isjxbGpOnp1VP4WH4cfomIiF7D7Xm1NUXUsY9-AsRh3Ltxnw-iHcus_XmeT_z8Su2rvXaMfL6YBghHsag6Rm5HjWotB67pvhHJIH1cmGRfnjxpCO8lKpjvdTXDGdzCz5qwLx-NGWh7DB_NXQ7FUZvBhIX9CYOv9I0M25JujZTvg"/>
+</div>
+<div class="flex flex-col justify-between py-1 flex-grow">
+<div>
+<h4 class="font-label-lg text-label-lg">Red Bull Energy Drink</h4>
+<p class="text-body-sm text-on-surface-variant">250ml</p>
+</div>
+<div class="flex justify-between items-end">
+<span class="text-body-sm text-on-surface-variant">2x</span>
+<span class="font-label-lg text-label-lg text-primary">R$ 19,80</span>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex gap-4 group">
+<div class="w-20 h-20 rounded-xl overflow-hidden bg-surface-container-highest shrink-0 border border-white/5">
+<img alt="Doritos Pack" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A bold red bag of Doritos Nacho Cheese snacks placed centrally on a dark, textured surface. The lighting is focused and warm, making the red of the packaging pop against the dark environment. Subtle shadows ground the product, creating a premium snack experience look. Clean, commercial aesthetic with high-quality textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmUvnYhNs5WhO4GQ6hS5rosce8ZpxIaWIxHIwtKA8ay9DSGC7PEKWp5UN-uY5TKg3aKw0KZf_xBdUF0OUp2lgTGNGRtTfNngLp4DEJya69JKxmGZGhqWJS1lH9IrwvapnvuVVu4NFaUivpMKXmMjcu0_d58eiaWixJ8xJtrjRkoOb9yUkc87iqXe9AvmvBTQ2ah1xdMiEcS8hx_Gds77S_tJh6ED6BAxB58F4n5p1SW3lLj2qO8LAMdTC2q9aW7y056Q-psj6LstI"/>
+</div>
+<div class="flex flex-col justify-between py-1 flex-grow">
+<div>
+<h4 class="font-label-lg text-label-lg">Doritos Queijo Nacho</h4>
+<p class="text-body-sm text-on-surface-variant">140g</p>
+</div>
+<div class="flex justify-between items-end">
+<span class="text-body-sm text-on-surface-variant">1x</span>
+<span class="font-label-lg text-label-lg text-primary">R$ 12,90</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Divider -->
+<div class="h-[1px] w-full bg-outline-variant/20 mb-6"></div>
+<!-- Totals -->
+<div class="space-y-3 mb-8">
+<div class="flex justify-between text-on-surface-variant font-body-md">
+<span>Subtotal</span>
+<span>R$ 77,60</span>
+</div>
+<div class="flex justify-between text-on-surface-variant font-body-md">
+<span>Taxa de entrega</span>
+<span class="text-tertiary">R$ 4,99</span>
+</div>
+<div class="flex justify-between text-tertiary font-body-md">
+<span>Desconto PIX (5%)</span>
+<span>- R$ 3,88</span>
+</div>
+<div class="flex justify-between text-on-surface font-headline-sm mt-4">
+<span>Total</span>
+<span class="text-primary">R$ 78,71</span>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full py-5 rounded-xl bg-gradient-to-r from-primary-container to-primary text-on-primary font-bold text-headline-sm shadow-[0_0_20px_rgba(30,47,191,0.4)] active:scale-[0.98] transition-all duration-200">
+                        Confirmar pedido
+                    </button>
+<p class="text-center mt-4 text-[10px] text-on-surface-variant/50 uppercase tracking-widest">Entrega estimada: 20-35 min</p>
+</aside>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-auto bg-surface-container-lowest border-t border-outline-variant/20">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 px-margin-mobile py-xl max-w-[1440px] mx-auto">
+<div class="md:col-span-1">
+<span class="font-headline-md text-headline-md text-primary mb-4 block">22 Maluco</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                    Sua bebida gelada entregue na porta de casa em minutos. O melhor do delivery noturno no Brasil.
+                </p>
+</div>
+<div>
+<h4 class="font-label-lg text-label-lg mb-4">Serviços</h4>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Terms of Service</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Privacy Policy</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Business Info</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-lg text-label-lg mb-4">Ajuda</h4>
+<ul class="space-y-2">
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Contact Support</a></li>
+<li><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Payment Methods</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-lg text-label-lg mb-4">Social</h4>
+<div class="flex gap-4">
+<button class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</button>
+<button class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">chat</span>
+</button>
+</div>
+</div>
+</div>
+<div class="max-w-[1440px] mx-auto px-8 py-6 border-t border-outline-variant/10 text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant/60">
+                © 2024 22 Maluco Beverage Delivery. All rights reserved. Beba com moderação.
+            </p>
+</div>
+</footer>
+<script>
+        // Micro-interactions for payment method selection
+        const paymentCards = document.querySelectorAll('.grid.grid-cols-1.md\\:grid-cols-2 > div');
+        paymentCards.forEach(card => {
+            card.addEventListener('click', () => {
+                paymentCards.forEach(c => {
+                    c.classList.remove('border-primary');
+                    c.classList.add('border-transparent');
+                    const radio = c.querySelector('.w-5.h-5');
+                    radio.innerHTML = '';
+                    radio.classList.add('border-outline-variant');
+                    radio.classList.remove('border-primary');
+                });
+                card.classList.add('border-primary');
+                card.classList.remove('border-transparent');
+                const radio = card.querySelector('.w-5.h-5');
+                radio.innerHTML = '<div class="w-2.5 h-2.5 rounded-full bg-primary"></div>';
+                radio.classList.remove('border-outline-variant');
+                radio.classList.add('border-primary');
+            });
+        });
+    </script>
+</body></html>

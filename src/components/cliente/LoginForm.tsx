@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { ShieldAlert } from "lucide-react";
+import { Icon } from "@/components/ui/Icon";
 
 interface LoginFormProps {
   redirectTo?: string;
@@ -69,8 +69,8 @@ export function LoginForm({ redirectTo = "/" }: LoginFormProps) {
       </div>
 
       {error && (
-        <span className="text-[11px] text-rose-400 font-semibold px-1 flex items-center gap-1">
-          <ShieldAlert className="w-3.5 h-3.5 shrink-0" />
+        <span className="text-label-md text-error font-semibold px-1 flex items-center gap-1">
+          <Icon name="gpp_maybe" className="text-base shrink-0" />
           {error}
         </span>
       )}

@@ -88,7 +88,7 @@ export default async function MotoboyPage() {
       </header>
 
       <div className="px-4 pt-5 pb-24">
-        <MotoboyOrders orders={orders as Parameters<typeof MotoboyOrders>[0]["orders"]} />
+        <MotoboyOrders orders={orders as unknown as Parameters<typeof MotoboyOrders>[0]["orders"]} />
       </div>
     </div>
   );

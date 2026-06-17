@@ -1,13 +1,13 @@
 import { RegisterForm } from "@/components/cliente/RegisterForm";
 import Image from "next/image";
 import Link from "next/link";
-import { Clock, Truck, Sparkles, Beer } from "lucide-react";
+import { Icon } from "@/components/ui/Icon";
 
 export default function CadastroPage() {
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-black">
+    <div className="min-h-screen bg-black md:grid md:grid-cols-2">
       {/* Left panel — Branding (desktop only) */}
-      <div className="hidden md:flex md:w-1/2 lg:w-[55%] flex-col items-center justify-center relative overflow-hidden p-12">
+      <div className="hidden md:flex flex-col items-center justify-center relative overflow-hidden p-12">
         <div className="absolute inset-0 pointer-events-none"
           style={{ background: "radial-gradient(ellipse at center, rgba(30,47,191,0.12) 0%, transparent 70%)" }}
         />
@@ -32,7 +32,7 @@ export default function CadastroPage() {
           <div className="grid grid-cols-2 gap-4 mt-10 w-full">
             <div className="flex items-center gap-3 bg-neutral-900/60 p-4 rounded-2xl border border-white/5">
               <div className="w-10 h-10 rounded-full bg-brand-primary-container/30 flex items-center justify-center text-brand-primary shrink-0">
-                <Clock className="w-5 h-5" />
+                <Icon name="schedule" className="text-xl" />
               </div>
               <div className="text-left">
                 <p className="text-xs font-bold text-white uppercase tracking-wider">24 HORAS</p>
@@ -41,7 +41,7 @@ export default function CadastroPage() {
             </div>
             <div className="flex items-center gap-3 bg-neutral-900/60 p-4 rounded-2xl border border-white/5">
               <div className="w-10 h-10 rounded-full bg-brand-secondary-container/30 flex items-center justify-center text-brand-secondary shrink-0">
-                <Truck className="w-5 h-5" />
+                <Icon name="moped" className="text-xl" />
               </div>
               <div className="text-left">
                 <p className="text-xs font-bold text-white uppercase tracking-wider">RÁPIDA</p>
@@ -50,7 +50,7 @@ export default function CadastroPage() {
             </div>
             <div className="flex items-center gap-3 bg-neutral-900/60 p-4 rounded-2xl border border-white/5">
               <div className="w-10 h-10 rounded-full bg-brand-tertiary-container/30 flex items-center justify-center text-brand-tertiary shrink-0">
-                <Beer className="w-5 h-5" />
+                <Icon name="sports_bar" className="text-xl" />
               </div>
               <div className="text-left">
                 <p className="text-xs font-bold text-white uppercase tracking-wider">GELADA</p>
@@ -59,7 +59,7 @@ export default function CadastroPage() {
             </div>
             <div className="flex items-center gap-3 bg-neutral-900/60 p-4 rounded-2xl border border-white/5">
               <div className="w-10 h-10 rounded-full bg-brand-primary-container/30 flex items-center justify-center text-brand-primary shrink-0">
-                <Sparkles className="w-5 h-5" />
+                <Icon name="auto_awesome" className="text-xl" />
               </div>
               <div className="text-left">
                 <p className="text-xs font-bold text-white uppercase tracking-wider">FÁCIL</p>
@@ -75,7 +75,7 @@ export default function CadastroPage() {
       </div>
 
       {/* Right panel — Register form */}
-      <div className="flex-1 flex flex-col min-h-screen px-6 md:px-12 lg:px-16 pt-10 pb-8 bg-black relative justify-between overflow-y-auto md:justify-center">
+      <div className="flex flex-col min-h-screen px-6 md:px-12 pt-10 pb-8 bg-black relative justify-between md:justify-center">
         {/* Mobile brand header */}
         <div className="flex flex-col items-center mb-8 md:hidden">
           <Link href="/" className="flex flex-col items-center gap-2">
@@ -84,7 +84,7 @@ export default function CadastroPage() {
           </Link>
         </div>
 
-        <div className="max-w-md w-full md:mx-auto">
+        <div className="w-full md:w-[26rem] mx-auto">
           <section className="glass-panel p-6 rounded-[32px] flex flex-col gap-5 shadow-royal-glow border border-white/5">
             <div>
               <h1 className="text-white font-bold text-xl mb-1">Criar conta</h1>

@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { Card } from "@/components/ui/Card";
+import { Icon } from "@/components/ui/Icon";
 import { MotoboysManager } from "@/components/admin/MotoboysManager";
 
 export default async function AdminMotoboysPage() {
@@ -11,7 +11,10 @@ export default async function AdminMotoboysPage() {
 
   return (
     <div>
-      <h1 className="text-white font-bold text-2xl mb-6">Motoboys</h1>
+      <div className="flex items-center gap-3 mb-6">
+        <Icon name="sports_motorsports" className="text-3xl text-primary" />
+        <h1 className="text-headline-lg text-on-surface">Motoboys</h1>
+      </div>
       <MotoboysManager initialMotoboys={motoboys ?? []} />
     </div>
   );

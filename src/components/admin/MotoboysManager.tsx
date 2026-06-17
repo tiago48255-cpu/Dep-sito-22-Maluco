@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import { Card } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
-import { Plus, Bike } from "lucide-react";
+import { Icon } from "@/components/ui/Icon";
 import type { Motoboy } from "@/lib/types/queries";
 
 export function MotoboysManager({ initialMotoboys }: { initialMotoboys: Motoboy[] }) {
@@ -43,7 +43,7 @@ export function MotoboysManager({ initialMotoboys }: { initialMotoboys: Motoboy[
   return (
     <div className="flex flex-col gap-6">
       <Card className="p-4">
-        <h2 className="text-white font-semibold mb-4">Adicionar motoboy</h2>
+        <h2 className="text-on-surface font-bold text-body-md mb-4">Adicionar motoboy</h2>
         <form onSubmit={addMotoboy} className="flex flex-col gap-3">
           <Input
             label="Nome"
@@ -61,27 +61,27 @@ export function MotoboysManager({ initialMotoboys }: { initialMotoboys: Motoboy[
             required
           />
           <Button type="submit" loading={loading} className="gap-2 w-fit">
-            <Plus size={16} /> Adicionar
+            <Icon name="add" className="text-lg" /> Adicionar
           </Button>
         </form>
       </Card>
 
-      <Card className="divide-y divide-[#2A2A4A]">
+      <Card className="divide-y divide-white/5 overflow-hidden">
         {motoboys.map((motoboy) => (
           <div key={motoboy.id} className="p-4 flex items-center gap-4">
-            <div className={`p-2 rounded-lg ${motoboy.active ? "bg-[#2233CC]/20" : "bg-[#2A2A4A]"}`}>
-              <Bike size={18} className={motoboy.active ? "text-[#2233CC]" : "text-[#9999BB]"} />
+            <div className={`p-2 rounded-lg ${motoboy.active ? "bg-primary-container/20" : "bg-surface-container-high"}`}>
+              <Icon name="sports_motorsports" className={motoboy.active ? "text-xl text-primary" : "text-xl text-on-surface-variant"} />
             </div>
-            <div className="flex-1">
-              <p className="text-white font-medium text-sm">{motoboy.name}</p>
-              <p className="text-[#9999BB] text-xs">{motoboy.phone}</p>
+            <div className="flex-1 min-w-0">
+              <p className="text-on-surface font-bold text-body-sm">{motoboy.name}</p>
+              <p className="text-on-surface-variant text-label-md">{motoboy.phone}</p>
             </div>
             <button
               onClick={() => toggleActive(motoboy.id, motoboy.active)}
-              className={`text-xs font-semibold px-3 py-1 rounded-full transition-colors ${
+              className={`text-label-md px-3 py-1 rounded-full transition-colors ${
                 motoboy.active
-                  ? "bg-green-500/20 text-green-400 hover:bg-red-500/20 hover:text-red-400"
-                  : "bg-[#2A2A4A] text-[#9999BB] hover:bg-[#2233CC]/20 hover:text-[#2233CC]"
+                  ? "bg-green-500/20 text-green-400 hover:bg-secondary/20 hover:text-secondary"
+                  : "bg-surface-container-high text-on-surface-variant hover:bg-primary-container/20 hover:text-primary"
               }`}
             >
               {motoboy.active ? "Ativo" : "Inativo"}
@@ -89,7 +89,7 @@ export function MotoboysManager({ initialMotoboys }: { initialMotoboys: Motoboy[
           </div>
         ))}
         {motoboys.length === 0 && (
-          <p className="text-[#9999BB] text-sm p-4 text-center">Nenhum motoboy cadastrado.</p>
+          <p className="text-on-surface-variant text-body-sm p-4 text-center">Nenhum motoboy cadastrado.</p>
         )}
       </Card>
     </div>

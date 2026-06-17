@@ -2,25 +2,16 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import {
-  LayoutDashboard,
-  ShoppingBag,
-  Package,
-  AlertTriangle,
-  Bike,
-  BarChart2,
-  LogOut,
-} from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { Icon } from "@/components/ui/Icon";
 import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
 
 const navItems = [
-  { href: "/admin", icon: LayoutDashboard, label: "Dashboard" },
-  { href: "/admin/pedidos", icon: ShoppingBag, label: "Pedidos" },
-  { href: "/admin/produtos", icon: Package, label: "Produtos" },
-  { href: "/admin/estoque", icon: AlertTriangle, label: "Estoque" },
-  { href: "/admin/motoboys", icon: Bike, label: "Motoboys" },
+  { href: "/admin", icon: "dashboard", label: "Dashboard" },
+  { href: "/admin/pedidos", icon: "receipt_long", label: "Pedidos" },
+  { href: "/admin/produtos", icon: "inventory_2", label: "Produtos" },
+  { href: "/admin/estoque", icon: "warehouse", label: "Estoque" },
+  { href: "/admin/motoboys", icon: "sports_motorsports", label: "Motoboys" },
 ];
 
 export function AdminSidebar() {
@@ -34,43 +25,43 @@ export function AdminSidebar() {
   }
 
   return (
-    <aside className="w-60 bg-[#12122A] border-r border-[#2A2A4A] flex flex-col min-h-screen sticky top-0">
-      <div className="p-4 border-b border-[#2A2A4A]">
+    <aside className="w-60 bg-surface border-r border-outline-variant/20 flex flex-col min-h-screen sticky top-0">
+      <div className="p-4 border-b border-outline-variant/20">
         <Link href="/admin" className="flex items-center gap-2">
           <Image src="/logo.png" alt="22 Maluco" width={36} height={36} className="rounded-full" />
           <div>
-            <p className="text-white font-bold text-sm leading-tight">22 MALUCO</p>
-            <p className="text-[#9999BB] text-xs">Admin</p>
+            <p className="text-on-surface font-bold text-label-lg leading-tight">22 MALUCO</p>
+            <p className="text-on-surface-variant text-label-md">Painel Admin</p>
           </div>
         </Link>
       </div>
 
       <nav className="flex-1 p-3 flex flex-col gap-1">
-        {navItems.map(({ href, icon: Icon, label }) => {
+        {navItems.map(({ href, icon, label }) => {
           const active = pathname === href || (href !== "/admin" && pathname.startsWith(href));
           return (
             <Link
               key={href}
               href={href}
-              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-label-lg transition-colors ${
                 active
-                  ? "bg-[#2233CC] text-white"
-                  : "text-[#9999BB] hover:bg-[#1A1A38] hover:text-white"
+                  ? "bg-primary-container text-on-primary-container"
+                  : "text-on-surface-variant hover:bg-surface-container hover:text-on-surface"
               }`}
             >
-              <Icon size={18} />
+              <Icon name={icon} filled={active} className="text-xl" />
               {label}
             </Link>
           );
         })}
       </nav>
 
-      <div className="p-3 border-t border-[#2A2A4A]">
+      <div className="p-3 border-t border-outline-variant/20">
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-[#9999BB] hover:text-red-400 hover:bg-red-500/10 w-full transition-colors"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-label-lg text-on-surface-variant hover:text-secondary hover:bg-secondary/10 w-full transition-colors"
         >
-          <LogOut size={18} /> Sair
+          <Icon name="logout" className="text-xl" /> Sair
         </button>
       </div>
     </aside>

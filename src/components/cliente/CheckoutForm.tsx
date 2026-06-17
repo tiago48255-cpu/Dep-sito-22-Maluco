@@ -301,7 +301,7 @@ export function CheckoutForm({ profile }: { profile: Profile | null }) {
       {error && <p className="text-brand-secondary text-sm mt-3">{error}</p>}
 
       {/* Mobile CTA — fixed bottom */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-neutral-950/95 backdrop-blur-xl border-t border-white/5 z-50 flex justify-center md:hidden">
+      <div className="fixed bottom-0 left-0 right-0 p-4 glass-nav border-t border-white/5 z-50 flex justify-center md:hidden">
         <div className="w-full">
           <button
             type="submit"

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Heineken Long Neck 330ml | 22 Maluco</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Shared Component Logic & Style Guidance Integration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#131313",
+                    "on-primary-container": "#a5aeff",
+                    "outline-variant": "#454654",
+                    "on-tertiary": "#3f2e00",
+                    "surface-tint": "#bdc2ff",
+                    "on-tertiary-fixed-variant": "#5b4300",
+                    "secondary-fixed-dim": "#ffb4ac",
+                    "primary-fixed-dim": "#bdc2ff",
+                    "surface-container-low": "#1c1b1b",
+                    "on-secondary": "#690006",
+                    "on-tertiary-fixed": "#261a00",
+                    "on-secondary-fixed": "#410002",
+                    "surface-variant": "#353534",
+                    "surface-bright": "#3a3939",
+                    "surface-container": "#201f1f",
+                    "error-container": "#93000a",
+                    "tertiary": "#fabd00",
+                    "secondary-container": "#a90111",
+                    "secondary-fixed": "#ffdad6",
+                    "background": "#131313",
+                    "on-error-container": "#ffdad6",
+                    "outline": "#8f8fa0",
+                    "primary-container": "#1e2fbf",
+                    "surface-container-lowest": "#0e0e0e",
+                    "primary-fixed": "#dfe0ff",
+                    "on-primary-fixed-variant": "#1f30c0",
+                    "on-surface-variant": "#c5c5d7",
+                    "on-primary-fixed": "#000965",
+                    "inverse-surface": "#e5e2e1",
+                    "tertiary-fixed-dim": "#fabd00",
+                    "on-error": "#690005",
+                    "on-primary": "#00149f",
+                    "secondary": "#ffb4ac",
+                    "inverse-primary": "#3d4dd8",
+                    "error": "#ffb4ab",
+                    "surface-container-high": "#2a2a2a",
+                    "on-tertiary-container": "#e3ab00",
+                    "on-background": "#e5e2e1",
+                    "surface-container-highest": "#353534",
+                    "on-secondary-container": "#ffb3ab",
+                    "surface-dim": "#131313",
+                    "primary": "#bdc2ff",
+                    "tertiary-container": "#5a4200",
+                    "on-surface": "#e5e2e1",
+                    "inverse-on-surface": "#313030",
+                    "tertiary-fixed": "#ffdf9e",
+                    "on-secondary-fixed-variant": "#93000d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "20px",
+                    "base": "8px",
+                    "xl": "32px",
+                    "gutter": "16px",
+                    "sm": "12px",
+                    "xs": "4px",
+                    "lg": "24px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "label-md": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "headline-lg-mobile": ["Plus Jakarta Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "body-sm": ["Plus Jakarta Sans"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "label-lg": ["Plus Jakarta Sans"],
+                    "body-md": ["Plus Jakarta Sans"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+      body {
+        background-color: #000000;
+        color: #e5e2e1;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+      }
+      .glass-nav {
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .neon-shadow {
+        box-shadow: 0 0 40px -10px rgba(30, 47, 191, 0.3);
+      }
+      .product-gradient {
+        background: radial-gradient(circle at center, #1e2fbf15 0%, transparent 70%);
+      }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar (Shared Component) -->
+<nav class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/10 shadow-lg">
+<div class="flex justify-between items-center h-20 px-8 max-w-[1440px] mx-auto">
+<div class="flex items-center gap-8">
+<span class="font-display-lg text-display-lg text-primary tracking-tighter cursor-pointer">22 Maluco</span>
+<div class="hidden md:flex items-center gap-6">
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-on-surface transition-colors font-label-lg text-label-lg">
+<span class="material-symbols-outlined">location_on</span>
+                        Address Selection
+                    </button>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-8">
+<button class="text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg transition-colors">Cart</button>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors active:scale-95">
+<span class="material-symbols-outlined text-primary">shopping_cart</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/20 mx-2"></div>
+<button class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors">Sign In</button>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 rounded-full font-label-lg text-label-lg hover:brightness-110 active:scale-95 transition-all">Profile</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-32 pb-24 px-8 max-w-[1440px] mx-auto w-full">
+<!-- Breadcrumb -->
+<nav class="flex items-center gap-2 mb-8 text-on-surface-variant font-label-md text-label-md">
+<span>Home</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span>Cervejas</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary">Heineken</span>
+</nav>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Left: High Fidelity Product Image -->
+<div class="lg:col-span-7 flex flex-col gap-6">
+<div class="relative aspect-square rounded-xl bg-surface-container-lowest border border-white/5 overflow-hidden flex items-center justify-center product-gradient">
+<img class="w-full h-full object-contain p-12 transition-transform duration-700 hover:scale-105" data-alt="A professional studio product shot of a cold Heineken Long Neck 330ml bottle with condensation droplets. The bottle is positioned centrally against a dark, moody background with subtle Royal Blue neon lighting accents from below. The lighting is crisp and cinematic, highlighting the iconic green glass and red star label. The atmosphere is premium and sophisticated, designed for a luxury nightlife delivery service aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4h_kX-5B7m7bbft3lt4D4zyO27FhGL6l8lufIR3wLwTmt-ecRvQecVtLA75iE2bo6nTNDp6ASPYyv0ZdM2ROEnAymWMPtbvQsMIXaDLax2U7bgiqrSufZBOpYF4SqRNP5GMsYSdRnjaX5n954pO5k8cDqs2knGpXuayHwk5c6Tw62Uupm0Yuh9vzhnJIk6ceTVY_gc5vaQxjU5BFuVY_NNbYxdGiLbnSYy9Ix398BsjNwWVyfTdPBJkHCC7Fo41QDONup9adTbY4"/>
+<div class="absolute top-6 left-6 flex flex-col gap-3">
+<span class="bg-tertiary text-on-tertiary px-4 py-1 rounded-full font-label-lg text-label-lg">Premium</span>
+<span class="bg-surface-container-high/80 backdrop-blur-md border border-white/10 px-4 py-1 rounded-full flex items-center gap-2 font-label-lg text-label-lg">
+<span class="material-symbols-outlined text-tertiary text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+                            4.8 (2.4k ratings)
+                        </span>
+</div>
+</div>
+<!-- Product Gallery Thumbs (Visual Flair) -->
+<div class="grid grid-cols-4 gap-4">
+<div class="aspect-square rounded-lg bg-surface-container-low border border-primary/20 p-2 cursor-pointer hover:border-primary transition-colors">
+<img class="w-full h-full object-contain" data-alt="A macro close-up shot of the Heineken bottle cap and neck, showing intricate condensation pearls on the green glass. The focus is sharp on the red star logo, set against a dark, out-of-focus background with blue ambient light. The image conveys coolness and freshness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdbW-67-Bwvl6T1-jGv8AdZWOrjoF7JGGxz8V4oPq0dODDynLi7B5ONuVMUtsJXUVw6lbaaX80yxBdMwIxEpJciJ9GC7UMNsOfQM2eyGa0KzbhNLcWm0Jd0TiK45r4phnj4y-20f7qyEDiF1rWW71wyX4koFO8UMh3EYykoM3U2hRqSBUjN4QsvMvU-CgDDBBi75MKWi_qgRKqZquMpB0JfxX3usI3PofKQXTMTNJqaI4cREaH0HC91RdUHL7pyGKCxHlevajq0g0"/>
+</div>
+<div class="aspect-square rounded-lg bg-surface-container-low border border-white/5 p-2 cursor-pointer hover:border-primary transition-colors">
+<div class="w-full h-full flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined">play_circle</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Product Details & Actions -->
+<div class="lg:col-span-5 flex flex-col gap-8">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Heineken Long Neck 330ml</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">A cerveja premium líder mundial. Elaborada com ingredientes 100% naturais, malte de cevada, água e lúpulo, além da exclusiva Levedura A.</p>
+</div>
+<div class="h-[1px] bg-outline-variant/10"></div>
+<div class="flex items-center justify-between">
+<div>
+<span class="font-label-md text-label-md text-on-surface-variant block uppercase tracking-wider mb-1">Preço unitário</span>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg text-primary">R$ 8,00</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant line-through">R$ 9,50</span>
+</div>
+</div>
+<div class="bg-secondary-container/20 px-3 py-1 rounded-lg border border-secondary-container/30">
+<span class="text-secondary font-label-lg text-label-lg">-15% OFF</span>
+</div>
+</div>
+<!-- Quantity Selector & CTA -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-4">
+<div class="flex items-center bg-surface-container-high rounded-full p-1 border border-white/5">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant transition-colors" onclick="decrement()">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="w-12 text-center font-headline-sm text-headline-sm" id="qty">1</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant transition-colors" onclick="increment()">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<button class="flex-grow bg-primary text-on-primary h-14 rounded-full font-headline-sm text-headline-sm shadow-lg hover:brightness-110 active:scale-95 transition-all neon-shadow">
+                            Adicionar ao carrinho
+                        </button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-2 px-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">bolt</span>
+                        Entrega em até 35 min na sua localização.
+                    </p>
+</div>
+<div class="h-[1px] bg-outline-variant/10"></div>
+<!-- Product Attributes (Bento Style) -->
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 rounded-xl bg-surface-container border border-white/5 flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">percent</span>
+</div>
+<div>
+<span class="block font-label-lg text-label-lg text-on-surface">5.0%</span>
+<span class="block font-body-sm text-body-sm text-on-surface-variant">Teor Alcoólico</span>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-surface-container border border-white/5 flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">thermostat</span>
+</div>
+<div>
+<span class="block font-label-lg text-label-lg text-on-surface">2°C a 5°C</span>
+<span class="block font-body-sm text-body-sm text-on-surface-variant">Ideal p/ consumo</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Acompanhamentos Section (Horizontal Slider Pattern) -->
+<section class="mt-24">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline-md text-headline-md text-on-surface">Acompanhamentos</h2>
+<button class="text-primary font-label-lg text-label-lg hover:underline transition-all">Ver tudo</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+<!-- Companion Card 1 -->
+<div class="group bg-surface-container-low border border-white/5 rounded-xl p-4 hover:bg-surface-container transition-all hover:border-primary/30 cursor-pointer">
+<div class="relative aspect-square rounded-lg overflow-hidden bg-surface-container-lowest mb-4">
+<img class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" data-alt="A cinematic photo of a bag of Doritos Nacho Cheese tortilla chips, emphasizing the vibrant orange packaging against a dark black background. The lighting is dramatic, highlighting the texture of the bag and creating a premium feel. The image perfectly complements the late-night social delivery theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBicB_2kdkzj3F8eVQ8CTQQnCTbfZ1FBAiDRdMczURKF9_ouJvN3otfkYDOwedKKo1zfiCmdlCvfoHF-vD7jR8hdobBI6CCH8_XS_fwr0-WidUWj0J_qG4NIuJ18cdGDIxNEMSojPVMqZP7M6qunSyDwhJZDc0jQBiLE1InBt-gjY15lWDu5eFsLN78mfWW9xpvoB-0DvIp54GwoOnPrHgvxCoY4c_s0o-C53PG0G0wyQ193siKLrmpTe2lkgdmCFDSqu8frxYzB2E"/>
+<button class="absolute bottom-2 right-2 w-10 h-10 bg-primary text-on-primary rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<h3 class="font-label-lg text-label-lg text-on-surface mb-1 truncate">Doritos Nacho 140g</h3>
+<p class="font-headline-sm text-headline-sm text-primary">R$ 14,90</p>
+</div>
+<!-- Companion Card 2 -->
+<div class="group bg-surface-container-low border border-white/5 rounded-xl p-4 hover:bg-surface-container transition-all hover:border-primary/30 cursor-pointer">
+<div class="relative aspect-square rounded-lg overflow-hidden bg-surface-container-lowest mb-4">
+<img class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" data-alt="A high-contrast photo of a Red Bull Energy Drink can with condensation, standing on a dark reflective surface. The background features deep blue and violet tones to match the nightlife delivery aesthetic. The metallic finish of the can shines under professional studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXyaouTVdQTPAcEUWBWL0hgw5oy0TVLvXU2HCGj1JjbXlAyL88hK0uB7MFSTpeGBzEozwDoc-L-N3OVpSdzwogynOxPbGVCXRyUbQ4-m1pdSeDqGuhsaMNSOBJf8kTop-1lKud12xblhRFZeGqsO9YX5BARcEcH3vEoOeJIAT6_NjW8SxLXOAer-5NdqMblGwc_gPCW9DTH7bOAalsm9aG90lTuJIkSGqGzr-CFIO820F26LhCoAPsNjVLKx8x6xaBnIR7yBk-B1E"/>
+<button class="absolute bottom-2 right-2 w-10 h-10 bg-primary text-on-primary rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<h3 class="font-label-lg text-label-lg text-on-surface mb-1 truncate">Red Bull Energy Drink</h3>
+<p class="font-headline-sm text-headline-sm text-primary">R$ 11,50</p>
+</div>
+<!-- Companion Card 3 -->
+<div class="group bg-surface-container-low border border-white/5 rounded-xl p-4 hover:bg-surface-container transition-all hover:border-primary/30 cursor-pointer">
+<div class="relative aspect-square rounded-lg overflow-hidden bg-surface-container-lowest mb-4">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A bowl of roasted salted peanuts and cashews shown in high detail on a dark stone background. The warm golden tones of the nuts contrast beautifully with the cool dark theme. Soft side-lighting highlights the salt crystals and textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR22gFtU_GomnsHZixnWeudm6rl0cQLdje-Xcfbm95IFN4RRGCTG7sA_bfCGEPxfcfHK1SKG9ofnd2vp1E-8vSkqTKTUr0mGrMVHk2XL2lkweEVZiS_tovysFD7y6tqK3Tt-C43PN-CzQoaeKFU--QZ131rcavU1ucZQt4kGOvnjb-sO94xWbG2KrshXvCRiyuIyyca1jlcYi-zOR__du8kWurVsNqi5pW7-X3l8eju_t6XWJNKjH01JuGInnMedyG78kTXqLGg6w"/>
+<button class="absolute bottom-2 right-2 w-10 h-10 bg-primary text-on-primary rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<h3 class="font-label-lg text-label-lg text-on-surface mb-1 truncate">Mix de Castanhas 100g</h3>
+<p class="font-headline-sm text-headline-sm text-primary">R$ 18,00</p>
+</div>
+<!-- Companion Card 4 -->
+<div class="group bg-surface-container-low border border-white/5 rounded-xl p-4 hover:bg-surface-container transition-all hover:border-primary/30 cursor-pointer">
+<div class="relative aspect-square rounded-lg overflow-hidden bg-surface-container-lowest mb-4">
+<img class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" data-alt="A single clear glass bottle of tonic water with bubbles and lime slices visible inside, set against a dark, moody bar environment. The lighting is elegant and minimalist, emphasizing the carbonation and refreshing quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJ57rbCTPnwwa41yxkmof41UaSRU6cWoib9Ua6YnPQKfxN6mU4QmvZ7_Yne7cmqY6lvTwXp7IU-WCTSk8GbgzKyl2PclL465lTkUZmjK09YNjEBDBNw9Kyh_m2bZCvpyt0ieY70JRVdMTwBluNFcx7QWk6oWhbxF0OktEGmTfRDeg0ZG1N9iFiW015-akj8QR84zB2YLKHHX8GMNK7aMNTy-BG5Fy3IZ6QuU62V4Gzdc8M2w2JJeBgIlvPLuBUdUd6jWvKc1C8a2o"/>
+<button class="absolute bottom-2 right-2 w-10 h-10 bg-primary text-on-primary rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<h3 class="font-label-lg text-label-lg text-on-surface mb-1 truncate">Schweppes Tônica</h3>
+<p class="font-headline-sm text-headline-sm text-primary">R$ 6,50</p>
+</div>
+<!-- Companion Card 5 -->
+<div class="group bg-surface-container-low border border-white/5 rounded-xl p-4 hover:bg-surface-container transition-all hover:border-primary/30 cursor-pointer">
+<div class="relative aspect-square rounded-lg overflow-hidden bg-surface-container-lowest mb-4">
+<img class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" data-alt="A close up of Pringles chips packaging in the classic red tube, presented in a sleek, high-end photography style. The background is a gradient of deep blacks and charcoal greys. Sharp highlights define the iconic tube shape." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWgfsU2GCHgkgSCw6O-z9qMVF235uPvT-Ss1PsrtX-hpLEHr2YyoVnOOAit2c_Su_hXoGUImXnkIcTrnx6FYCvODEgchODmPwMJwbmIygB_jIGF9VGrG9a6CfTJVIcFlR_w59w-w0o_5grm1Kg7a3zEmqoGOifhFLNqLR-iRnkpS-9AhWPeQvfgeCYysxyIq4h1OoMkMPpUMjjumUnolB0At2gyAI7EJULrCgyR10PsDETSOUI8zBjd7So95ItfzW-vheTvqZC6W8"/>
+<button class="absolute bottom-2 right-2 w-10 h-10 bg-primary text-on-primary rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<h3 class="font-label-lg text-label-lg text-on-surface mb-1 truncate">Pringles Original 114g</h3>
+<p class="font-headline-sm text-headline-sm text-primary">R$ 16,90</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="w-full mt-auto bg-surface-container-lowest border-t border-outline-variant/20">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 px-8 py-16 max-w-[1440px] mx-auto">
+<div class="col-span-1 md:col-span-1">
+<span class="font-headline-md text-headline-md text-primary mb-4 block">22 Maluco</span>
+<p class="text-on-surface-variant font-body-sm text-body-sm leading-relaxed">
+                    Sua conveniência premium aberta 24h. Bebidas geladas, petiscos e tudo para sua noite no conforto da sua casa.
+                </p>
+</div>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface mb-6 uppercase tracking-wider">Serviços</h4>
+<ul class="flex flex-col gap-4 text-on-surface-variant font-body-sm text-body-sm">
+<li><a class="hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Business Info</a></li>
+<li><a class="hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Contact Support</a></li>
+<li><a class="hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Payment Methods</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface mb-6 uppercase tracking-wider">Legal</h4>
+<ul class="flex flex-col gap-4 text-on-surface-variant font-body-sm text-body-sm">
+<li><a class="hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Terms of Service</a></li>
+<li><a class="hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">Privacy Policy</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface mb-6 uppercase tracking-wider">Social</h4>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-primary cursor-pointer transition-colors">
+<span class="material-symbols-outlined">public</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-primary cursor-pointer transition-colors">
+<span class="material-symbols-outlined">chat</span>
+</div>
+</div>
+</div>
+</div>
+<div class="border-t border-outline-variant/10 py-8 px-8 max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="text-on-surface-variant font-body-sm text-body-sm">© 2024 22 Maluco Beverage Delivery. All rights reserved. Beba com moderação.</span>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary cursor-pointer">payments</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary cursor-pointer">credit_card</span>
+</div>
+</div>
+</footer>
+<!-- Floating Action for Mobile (Suppressed on Details per rules, but included logic check) -->
+<!-- FAB Suppressed as per context rules for Details screen -->
+<script>
+        let count = 1;
+        const qtyDisplay = document.getElementById('qty');
+
+        function increment() {
+            count++;
+            qtyDisplay.innerText = count;
+        }
+
+        function decrement() {
+            if (count > 1) {
+                count--;
+                qtyDisplay.innerText = count;
+            }
+        }
+
+        // Micro-interaction for Add buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => {
+                btn.style.transform = 'scale(0.95)';
+            });
+            btn.addEventListener('mouseup', () => {
+                btn.style.transform = '';
+            });
+        });
+    </script>
+</body></html>

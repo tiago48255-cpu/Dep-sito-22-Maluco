@@ -47,7 +47,7 @@ export function OrderStatusUpdater({
     <button
       onClick={advance}
       disabled={loading}
-      className="bg-[#2233CC] hover:bg-[#1a28a8] text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors disabled:opacity-50"
+      className="btn-royal text-white text-label-md px-3 py-1.5 rounded-lg transition-all disabled:opacity-50 active:scale-95"
     >
       {loading ? "..." : labels[currentStatus]}
     </button>

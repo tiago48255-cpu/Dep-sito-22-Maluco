@@ -23,7 +23,7 @@ export function ProductToggle({ productId, active }: { productId: string; active
     <button
       onClick={toggle}
       disabled={loading}
-      className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${value ? "bg-[#2233CC]" : "bg-[#2A2A4A]"} disabled:opacity-50`}
+      className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${value ? "bg-primary-container" : "bg-surface-container-high"} disabled:opacity-50`}
       title={value ? "Ativo — clique para desativar" : "Inativo — clique para ativar"}
     >
       <span

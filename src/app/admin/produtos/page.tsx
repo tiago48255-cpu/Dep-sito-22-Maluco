@@ -1,7 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
-import { Card } from "@/components/ui/Card";
 import Link from "next/link";
-import { Plus } from "lucide-react";
+import { Icon } from "@/components/ui/Icon";
 import { ProductToggle } from "@/components/admin/ProductToggle";
 
 export default async function AdminProdutosPage() {
@@ -16,39 +15,39 @@ export default async function AdminProdutosPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-white font-bold text-2xl">Produtos</h1>
+        <div className="flex items-center gap-3">
+          <Icon name="inventory_2" className="text-3xl text-primary" />
+          <h1 className="text-headline-lg text-on-surface">Produtos</h1>
+        </div>
         <Link
           href="/admin/produtos/novo"
-          className="flex items-center gap-2 bg-[#2233CC] hover:bg-[#1a28a8] text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
+          className="btn-royal text-white text-label-lg px-4 py-2 rounded-xl flex items-center gap-2 active:scale-95 transition-all"
         >
-          <Plus size={16} /> Novo produto
+          <Icon name="add" className="text-lg" /> Novo produto
         </Link>
       </div>
 
-      <Card className="divide-y divide-[#2A2A4A]">
+      <div className="glass-panel rounded-2xl overflow-hidden divide-y divide-white/5 border border-white/5">
         {(products ?? []).map((product) => (
           <div key={product.id} className="p-4 flex items-center gap-4">
-            <div className="flex-1">
-              <p className="text-white font-medium text-sm">{product.name}</p>
-              <p className="text-[#9999BB] text-xs capitalize">
+            <div className="flex-1 min-w-0">
+              <p className="text-on-surface font-bold text-body-sm">{product.name}</p>
+              <p className="text-on-surface-variant text-label-md capitalize">
                 {product.category} · R$ {product.price.toFixed(2).replace(".", ",")} · Estoque: {product.stock_qty}
               </p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 shrink-0">
               <ProductToggle productId={product.id} active={product.active} />
-              <Link
-                href={`/admin/produtos/${product.id}`}
-                className="text-[#2233CC] text-sm hover:underline"
-              >
+              <Link href={`/admin/produtos/${product.id}`} className="text-primary text-label-lg hover:underline">
                 Editar
               </Link>
             </div>
           </div>
         ))}
         {(products ?? []).length === 0 && (
-          <p className="text-[#9999BB] text-sm p-4 text-center">Nenhum produto cadastrado.</p>
+          <p className="text-on-surface-variant text-body-sm p-4 text-center">Nenhum produto cadastrado.</p>
         )}
-      </Card>
+      </div>
     </div>
   );
 }

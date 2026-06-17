@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { AlertTriangle } from "lucide-react";
+import { Icon } from "@/components/ui/Icon";
 
 interface Product {
   id: string;
@@ -32,25 +32,25 @@ export function StockEditor({ product }: { product: Product }) {
 
   return (
     <div className="flex items-center gap-3">
-      {isLow && <AlertTriangle size={16} className="text-red-400 flex-shrink-0" />}
+      {isLow && <Icon name="warning" className="text-base text-secondary shrink-0" />}
       <div className="flex flex-col items-end gap-1">
         <div className="flex items-center gap-2">
-          <span className="text-[#9999BB] text-xs">Estoque:</span>
+          <span className="text-on-surface-variant text-label-md">Estoque:</span>
           <input
             type="number"
             value={qty}
             onChange={(e) => setQty(parseInt(e.target.value) || 0)}
-            className={`w-16 bg-[#0A0A1A] border ${isLow ? "border-red-500" : "border-[#2A2A4A]"} rounded px-2 py-1 text-white text-sm text-center focus:outline-none focus:border-[#2233CC]`}
+            className={`w-16 bg-surface-container-lowest border ${isLow ? "border-secondary" : "border-white/10"} rounded-lg px-2 py-1 text-on-surface text-body-sm text-center focus:outline-none focus:border-primary`}
             min={0}
           />
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-[#9999BB] text-xs">Mínimo:</span>
+          <span className="text-on-surface-variant text-label-md">Mínimo:</span>
           <input
             type="number"
             value={min}
             onChange={(e) => setMin(parseInt(e.target.value) || 0)}
-            className="w-16 bg-[#0A0A1A] border border-[#2A2A4A] rounded px-2 py-1 text-white text-sm text-center focus:outline-none focus:border-[#2233CC]"
+            className="w-16 bg-surface-container-lowest border border-white/10 rounded-lg px-2 py-1 text-on-surface text-body-sm text-center focus:outline-none focus:border-primary"
             min={0}
           />
         </div>
@@ -58,7 +58,7 @@ export function StockEditor({ product }: { product: Product }) {
       <button
         onClick={save}
         disabled={saving}
-        className="bg-[#2233CC] hover:bg-[#1a28a8] text-white text-xs px-3 py-1.5 rounded-lg transition-colors disabled:opacity-50"
+        className="btn-royal text-white text-label-md px-3 py-1.5 rounded-lg transition-all disabled:opacity-50 active:scale-95"
       >
         {saving ? "..." : "Salvar"}
       </button>
