@@ -26,8 +26,8 @@ export default function CarrinhoPage() {
           <Icon name="shopping_bag" className="text-6xl text-outline-variant" />
           <h2 className="text-on-surface font-bold text-headline-sm">Carrinho vazio</h2>
           <p className="text-on-surface-variant text-body-sm text-center">Adicione bebidas geladas pro seu pedido!</p>
-          <Link href="/" className="btn-gradient royal-glow text-white font-bold text-body-sm rounded-xl px-8 py-3 active:scale-[0.96] transition-all mt-2">
-            Ver cardápio
+          <Link href="/categorias" className="btn-gradient royal-glow text-white font-bold text-body-sm rounded-xl px-8 py-3 active:scale-[0.96] transition-all mt-2">
+            Ver bebidas
           </Link>
         </div>
       </div>
